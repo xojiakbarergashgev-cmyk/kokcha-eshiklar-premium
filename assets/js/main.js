@@ -193,7 +193,7 @@
 
   function card(p, i = 0) {
     const img = p.real
-      ? `<div class="ph" data-img="products/${p.id}-1.jpg"></div><div class="ph alt" data-img="products/${p.id}-2.jpg"></div>`
+      ? `<div class="ph" data-img="products/${p.id}-1.jpg"></div>${(p.imgs || 3) > 1 ? `<div class="ph alt" data-img="products/${p.id}-2.jpg"></div>` : ""}`
       : `<div class="ph" data-img="products/${p.id}.jpg"></div>`;
     return `<a class="pcard rv" style="--d:${(i % 3) * 0.1}s" href="mahsulot.html?id=${p.id}">
       <div class="media${p.real ? " photo" : ""}">${p.badge ? `<span class="pbadge ${p.badge}">${t("badge." + p.badge)}</span>` : ""}
@@ -209,7 +209,7 @@
     const n = PORTFOLIO.indexOf(it) + 1;
     return `<div class="it rv ${cls}" style="--d:${(i % 3) * 0.1}s" data-pf="${n - 1}">
       <div class="media"><div class="ph" data-img="portfolio/${n}.jpg"></div>${door(it.door, it.color)}</div>
-      <div class="cap"><small>${t("pf." + it.type)}</small><h3>${it.place[lang]}</h3><p>${it.model} · ${it.n} ${t("pf.doors")}</p></div>
+      <div class="cap"><small>Ko'kcha Eshiklar</small><h3>${t("pf." + it.type)}</h3></div>
     </div>`;
   }
 
@@ -378,7 +378,7 @@
     const orderTxt = `${p.name} — ${colorTxt}${ps.size === "custom" ? t("p.custom") : "2000×" + ps.size}, ${ps.set === "2" ? t("p.set2") : t("p.set1")}`;
     const stage = p.real
       ? `<div class="pp-gal"><div class="pp-stage media photo"><div class="ph" data-img="products/${p.id}-${ps.img}.jpg"></div>${door(p.door, ps.color)}</div>
-          <div class="pp-thumbs">${[1, 2, 3].map(n => `<button class="media photo ${n === ps.img ? "on" : ""}" data-pimg="${n}" aria-label="${n}"><div class="ph" data-img="products/${p.id}-${n}.jpg"></div></button>`).join("")}</div></div>`
+          <div class="pp-thumbs">${(p.imgs === 1 ? [] : [1, 2, 3]).map(n => `<button class="media photo ${n === ps.img ? "on" : ""}" data-pimg="${n}" aria-label="${n}"><div class="ph" data-img="products/${p.id}-${n}.jpg"></div></button>`).join("")}</div></div>`
       : `<div class="pp-stage media"><div class="ph" data-img="products/${p.id}-${ps.color}.jpg|products/${p.id}.jpg"></div>${door(p.door, ps.color)}</div>`;
     root.innerHTML = `<div class="pp">
       ${stage}
@@ -423,7 +423,7 @@
   function renderPortfolio() {
     const root = $("#pfPage");
     if (!root) return;
-    const types = ["all", "apt", "house", "office", "hotel"];
+    const types = ["all", "interior", "showroom"];
     $("#pfFilters").innerHTML = types.map(k => `<button class="chip ${pfType === k ? "on" : ""}" data-pff="${k}">${k === "all" ? t("cat.all") : t("pf.f." + k)}</button>`).join("");
     root.innerHTML = PORTFOLIO.filter(it => pfType === "all" || it.type === pfType).map((it, i) => pfItem(it, "", i)).join("");
     loadImages(root);
@@ -434,7 +434,7 @@
     const it = PORTFOLIO[i];
     const src = $(`[data-pf="${i}"] .media`);
     $("#lbMedia").innerHTML = src ? src.outerHTML : "";
-    $("#lbCap").innerHTML = `<h3>${it.place[lang]}</h3><span>${t("pf." + it.type)} · ${it.model} · ${it.n} ${t("pf.doors")}</span>`;
+    $("#lbCap").innerHTML = `<h3>${t("pf." + it.type)}</h3><span>Ko'kcha Eshiklar</span>`;
     $("#lb").classList.add("open");
   }
 

@@ -69,6 +69,11 @@ window.PRODUCTS = [
   { id: "k1003", name: "1003", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "veneer", price: null, real: true },
   { id: "k1002", name: "1002", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true },
 
+  { id: "kn01", name: "Navy Gold", cat: "modern", door: "classic", color: "navy", colors: [], mat: "mdf", price: null, real: true, imgs: 1, badge: "new" },
+  { id: "kn02", name: "Golden Classic", cat: "classic", door: "classic", color: "oak", colors: [], mat: "mdf", price: null, real: true, imgs: 1 },
+  { id: "kn03", name: "Bianco Neo", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true, imgs: 1 },
+  { id: "kn04", name: "Bordo", cat: "neoclassic", door: "classic", color: "walnut", colors: [], mat: "mdf", price: null, real: true, imgs: 1 },
+  { id: "kn05", name: "Bianco", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true, imgs: 1 },
   // Chizilgan (3D) namuna modellar
   { id: "vena", name: "Vena", cat: "classic", door: "classic", color: "white", colors: ["white", "ivory", "graphite"], mat: "emal", price: 2450000, badge: "hit" },
   { id: "aurora", name: "Aurora", cat: "glass", door: "glass", color: "ivory", colors: ["ivory", "white", "navy"], mat: "emal", price: 2350000, badge: "hit" },
@@ -134,18 +139,25 @@ window.PRODUCTS = [
   { id: "titan", name: "Titan", cat: "entrance", door: "entrance", color: "graphite", colors: ["graphite", "oak", "walnut"], mat: "steel", price: 6000000, badge: "new" }
 ];
 
-// Rasm: assets/img/portfolio/<raqam>.jpg
+// Rasm: assets/img/portfolio/<raqam>.jpg (tartib bo'yicha 1, 2, 3 ...)
+// type: interior — eshik interyerda, showroom — shourumdagi surat
 window.PORTFOLIO = [
-  { type: "apt", place: { uz: "Tashkent City", ru: "Tashkent City", en: "Tashkent City" }, model: "Vena", n: 9, door: "classic", color: "white" },
-  { type: "hotel", place: { uz: "Samarqand", ru: "Самарканд", en: "Samarkand" }, model: "Aurora", n: 46, door: "glass", color: "ivory" },
-  { type: "office", place: { uz: "Mirobod", ru: "Мирабад", en: "Mirabad" }, model: "Loft", n: 22, door: "vglass", color: "black" },
-  { type: "house", place: { uz: "Yunusobod", ru: "Юнусабад", en: "Yunusabad" }, model: "Royal", n: 14, door: "classic", color: "walnut" },
-  { type: "apt", place: { uz: "Chilonzor", ru: "Чиланзар", en: "Chilanzar" }, model: "Milano", n: 7, door: "lines", color: "graphite" },
-  { type: "house", place: { uz: "Qibray", ru: "Кибрай", en: "Qibray" }, model: "Invisible", n: 11, door: "flat", color: "white" },
-  { type: "apt", place: { uz: "Nest One", ru: "Nest One", en: "Nest One" }, model: "Shadow", n: 8, door: "flat", color: "graphite" },
-  { type: "office", place: { uz: "Shayxontohur", ru: "Шайхантахур", en: "Shaykhantakhur" }, model: "Berlin", n: 16, door: "vglass", color: "navy" },
-  { type: "house", place: { uz: "Zangiota", ru: "Зангиата", en: "Zangiata" }, model: "Verona", n: 12, door: "classic", color: "ivory" },
-  { type: "hotel", place: { uz: "Buxoro", ru: "Бухара", en: "Bukhara" }, model: "Crystal", n: 38, door: "fullglass", color: "walnut" },
-  { type: "apt", place: { uz: "Yakkasaroy", ru: "Яккасарай", en: "Yakkasaray" }, model: "Nordic", n: 6, door: "lines", color: "oak" },
-  { type: "house", place: { uz: "Durmon", ru: "Дурмень", en: "Durmen" }, model: "Fortress", n: 1, door: "entrance", color: "graphite" }
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "interior", door: "classic", color: "white" },
+  { type: "showroom", door: "classic", color: "white" },
+  { type: "showroom", door: "classic", color: "white" },
+  { type: "showroom", door: "classic", color: "white" },
+  { type: "showroom", door: "classic", color: "white" }
 ];

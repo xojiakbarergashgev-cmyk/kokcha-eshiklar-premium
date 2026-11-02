@@ -38,7 +38,7 @@ window.I18N = {
     "proc.3t": "Shartnoma", "proc.3d": "Model, rang va narx shartnomada qat'iy belgilanadi.",
     "proc.4t": "Ishlab chiqarish", "proc.4d": "Eshiklaringiz 7–14 kun ichida fabrikada tayyorlanadi.",
     "proc.5t": "O'rnatish", "proc.5d": "Yetkazib berish, o'rnatish va tozalash — bir kunda.",
-    "port.eye": "Portfolio", "port.title": "Bizning ishlarimiz", "port.sub": "Toshkent va viloyatlardagi loyihalarimizdan bir nechtasi.",
+    "port.eye": "Portfolio", "port.title": "Bizning ishlarimiz", "port.sub": "Eshiklarimiz interyerda va shourumlarimizda.",
     "rev.eye": "Mijozlar fikri", "rev.title": "Bizga ishonganlar",
     "rev.1": "Butun kvartiraga 9 ta eshik buyurtma qildik. O'lchovdan o'rnatishgacha hammasi o'z vaqtida va juda sifatli. Eshiklar jimjit yopiladi, rangi aynan katalogdagidek.",
     "rev.1n": "Dilnoza R.", "rev.1r": "Tashkent City, kvartira",
@@ -71,9 +71,9 @@ window.I18N = {
     "spec.cat": "Kolleksiya", "spec.mat": "Qoplama", "spec.base": "Asos", "spec.base_v": "MDF 40 mm, yog'och karkas", "spec.fit": "Furnitura", "spec.fit_v": "AGB (Italiya)",
     "spec.snd": "Ovoz izolyatsiyasi", "spec.snd_v": "32 dB gacha", "spec.time": "Tayyorlash muddati", "spec.time_v": "7–14 kun", "spec.war": "Kafolat", "spec.war_v": "10 yil",
 
-    "page.pf.sub": "Turli loyihalar — kvartiralar, xususiy uylar, ofislar va mehmonxonalar.",
+    "page.pf.sub": "Eshiklarimiz interyerda va shourumlarimizda qanday ko'rinadi.",
     "pf.apt": "Kvartira", "pf.house": "Xususiy uy", "pf.office": "Ofis", "pf.hotel": "Mehmonxona", "pf.doors": "ta eshik",
-    "pf.f.apt": "Kvartiralar", "pf.f.house": "Xususiy uylar", "pf.f.office": "Ofislar", "pf.f.hotel": "Mehmonxonalar",
+    "pf.f.apt": "Kvartiralar", "pf.f.house": "Xususiy uylar", "pf.f.office": "Ofislar", "pf.f.hotel": "Mehmonxonalar", "pf.interior": "Interyerda", "pf.showroom": "Shourumda", "pf.f.interior": "Interyerda", "pf.f.showroom": "Shourumlarimiz",
 
     "page.ab.sub": "2020-yildan beri O'zbekiston xonadonlariga sifat va chiroy olib kiramiz.",
     "ab.eye": "Bizning tariximiz", "ab.title": "Kichik ustaxonadan — premium brendgacha",
@@ -133,7 +133,7 @@ window.I18N = {
     "proc.3t": "Договор", "proc.3d": "Модель, цвет и цена фиксируются в договоре.",
     "proc.4t": "Производство", "proc.4d": "Ваши двери изготавливаются на фабрике за 7–14 дней.",
     "proc.5t": "Монтаж", "proc.5d": "Доставка, установка и уборка — за один день.",
-    "port.eye": "Портфолио", "port.title": "Наши работы", "port.sub": "Некоторые из наших проектов в Ташкенте и регионах.",
+    "port.eye": "Портфолио", "port.title": "Наши работы", "port.sub": "Наши двери в интерьере и в шоурумах.",
     "rev.eye": "Отзывы клиентов", "rev.title": "Нам доверяют",
     "rev.1": "Заказали 9 дверей на всю квартиру. От замера до установки всё вовремя и очень качественно. Двери закрываются бесшумно, цвет точно как в каталоге.",
     "rev.1n": "Дилноза Р.", "rev.1r": "Tashkent City, квартира",
@@ -166,9 +166,9 @@ window.I18N = {
     "spec.cat": "Коллекция", "spec.mat": "Покрытие", "spec.base": "Основа", "spec.base_v": "МДФ 40 мм, деревянный каркас", "spec.fit": "Фурнитура", "spec.fit_v": "AGB (Италия)",
     "spec.snd": "Шумоизоляция", "spec.snd_v": "до 32 дБ", "spec.time": "Срок изготовления", "spec.time_v": "7–14 дней", "spec.war": "Гарантия", "spec.war_v": "10 лет",
 
-    "page.pf.sub": "Разные проекты — квартиры, частные дома, офисы и гостиницы.",
+    "page.pf.sub": "Как наши двери выглядят в интерьере и в наших шоурумах.",
     "pf.apt": "Квартира", "pf.house": "Частный дом", "pf.office": "Офис", "pf.hotel": "Гостиница", "pf.doors": "дверей",
-    "pf.f.apt": "Квартиры", "pf.f.house": "Частные дома", "pf.f.office": "Офисы", "pf.f.hotel": "Гостиницы",
+    "pf.f.apt": "Квартиры", "pf.f.house": "Частные дома", "pf.f.office": "Офисы", "pf.f.hotel": "Гостиницы", "pf.interior": "В интерьере", "pf.showroom": "В шоуруме", "pf.f.interior": "В интерьере", "pf.f.showroom": "Наши шоурумы",
 
     "page.ab.sub": "С 2020 года приносим качество и красоту в дома Узбекистана.",
     "ab.eye": "Наша история", "ab.title": "От небольшой мастерской — до премиального бренда",
@@ -228,7 +228,7 @@ window.I18N = {
     "proc.3t": "Contract", "proc.3d": "Model, colour and price are fixed in the contract.",
     "proc.4t": "Production", "proc.4d": "Your doors are made at our factory in 7–14 days.",
     "proc.5t": "Installation", "proc.5d": "Delivery, installation and clean-up — in a single day.",
-    "port.eye": "Portfolio", "port.title": "Our work", "port.sub": "A few of our projects in Tashkent and the regions.",
+    "port.eye": "Portfolio", "port.title": "Our work", "port.sub": "Our doors in interiors and in our showrooms.",
     "rev.eye": "Testimonials", "rev.title": "Trusted by our clients",
     "rev.1": "We ordered 9 doors for the whole apartment. From measurement to installation everything was on time and of top quality. The doors close silently and the colour is exactly as in the catalogue.",
     "rev.1n": "Dilnoza R.", "rev.1r": "Tashkent City, apartment",
@@ -261,9 +261,9 @@ window.I18N = {
     "spec.cat": "Collection", "spec.mat": "Finish", "spec.base": "Core", "spec.base_v": "40 mm MDF, timber frame", "spec.fit": "Hardware", "spec.fit_v": "AGB (Italy)",
     "spec.snd": "Sound insulation", "spec.snd_v": "up to 32 dB", "spec.time": "Lead time", "spec.time_v": "7–14 days", "spec.war": "Warranty", "spec.war_v": "10 years",
 
-    "page.pf.sub": "Diverse projects — apartments, private houses, offices and hotels.",
+    "page.pf.sub": "How our doors look in interiors and in our showrooms.",
     "pf.apt": "Apartment", "pf.house": "Private house", "pf.office": "Office", "pf.hotel": "Hotel", "pf.doors": "doors",
-    "pf.f.apt": "Apartments", "pf.f.house": "Private houses", "pf.f.office": "Offices", "pf.f.hotel": "Hotels",
+    "pf.f.apt": "Apartments", "pf.f.house": "Private houses", "pf.f.office": "Offices", "pf.f.hotel": "Hotels", "pf.interior": "In the interior", "pf.showroom": "In the showroom", "pf.f.interior": "In interiors", "pf.f.showroom": "Our showrooms",
 
     "page.ab.sub": "Since 2020 we have been bringing quality and beauty to homes across Uzbekistan.",
     "ab.eye": "Our story", "ab.title": "From a small workshop to a premium brand",

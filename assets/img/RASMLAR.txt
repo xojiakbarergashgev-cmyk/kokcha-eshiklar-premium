@@ -13,7 +13,7 @@ BOSH SAHIFA
   collections/hidden.jpg   — Yashirin eshiklar
 
 MAHSULOTLAR
-  Haqiqiy eshiklar (31 ta, kokcha-eshiklari.framer.website saytidan olingan):
+  Haqiqiy eshiklar (36 ta; kn01–kn05 faqat 1 ta rasm, kokcha-eshiklari.framer.website saytidan olingan):
   products/k1035-1.jpg (old tomoni), k1035-2.jpg, k1035-3.jpg (yon tomonlari) ...
   Yangi eshik qo'shish: 3 ta rasmni shu nom bilan qo'ying va data.js ga qator qo'shing.
 
@@ -23,8 +23,9 @@ MAHSULOTLAR
   Har bir rang uchun alohida rasm (ixtiyoriy): products/vena-white.jpg, products/vena-ivory.jpg ...
   Ranglar: white, ivory, oak, walnut, graphite, black, navy
 
-ISHLARIMIZ (portfolio)
-  portfolio/1.jpg ... portfolio/12.jpg
+ISHLARIMIZ (portfolio) — 18 ta haqiqiy rasm (Framer saytidan)
+  portfolio/1.jpg ... portfolio/18.jpg (1–14 interyer, 15–18 shourum)
+  Yangi rasm qo'shish: portfolio/19.jpg qo'ying va data.js dagi PORTFOLIO ga qator qo'shing.
 
 BIZ HAQIMIZDA
   about.jpg, showroom.jpg
