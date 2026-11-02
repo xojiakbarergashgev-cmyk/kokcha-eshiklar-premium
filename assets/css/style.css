@@ -155,7 +155,7 @@ h1, h2, h3, .serif { font-family: var(--serif); font-weight: 500; line-height: 1
 .media > .door { margin-bottom: 56px; transform-origin: bottom center; }
 .media.has-img > .door { display: none; }
 .ph { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 1; transition: transform 1.2s var(--ease); }
-.ph.missing::after { content: "📷 " attr(data-name); position: absolute; right: 10px; top: 10px; font: 600 10px/1 var(--sans); letter-spacing: .03em; background: rgba(0, 0, 0, .5); color: #fff; padding: 5px 8px; white-space: nowrap; }
+.ph.missing::after { display: none; content: "📷 " attr(data-name); position: absolute; right: 10px; top: 10px; font: 600 10px/1 var(--sans); letter-spacing: .03em; background: rgba(0, 0, 0, .5); color: #fff; padding: 5px 8px; white-space: nowrap; }
 .img { position: relative; overflow: hidden; background: linear-gradient(135deg, #e8e0d3, #d6cab6); }
 .img.dk { background: linear-gradient(135deg, #1f2c3f, #0f1620); }
 .img::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 16px); }
@@ -483,7 +483,7 @@ h1, h2, h3, .serif { font-family: var(--serif); font-weight: 500; line-height: 1
 @media (max-width: 700px) { .lb .lb-media .media > .door { --s: 1.1; } }
 
 /* Extra */
-.hero-bg.missing::after { top: auto; bottom: 24px; right: 24px; }
+
 .phero.sm { padding: 180px 0 60px; }
 .ftr { border-top: 1px solid var(--line-d); }
 .pf-filters { margin-bottom: 36px; }
