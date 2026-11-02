@@ -552,3 +552,10 @@ body.loading .hero-art .leaf, body.loading .hero-art .glow { animation-play-stat
 .form-err { color: #d9534f; font-size: 13px; margin-top: 12px; min-height: 0; }
 .form-err:empty { display: none; }
 .js-form button[disabled] { opacity: .6; cursor: wait; }
+
+/* G'oyalar (Pinterest embed) */
+.ideas-note { font-size: 13px; color: var(--muted); margin-bottom: 30px; max-width: 640px; }
+.ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 30px; align-items: start; }
+.idea { display: flex; flex-direction: column; align-items: center; gap: 16px; background: #fff; padding: 22px 16px 26px; }
+.idea > span[class*="PIN_"], .idea iframe { max-width: 100% !important; }
+@media (max-width: 400px) { .ideas { grid-template-columns: 1fr; } }

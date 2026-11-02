@@ -1,7 +1,7 @@
 // Tarjimalar: uz — o'zbekcha, ru — ruscha, en — inglizcha
 window.I18N = {
   uz: {
-    "nav.home": "Bosh sahifa", "nav.catalog": "Katalog", "nav.portfolio": "Ishlarimiz", "nav.about": "Biz haqimizda", "nav.contact": "Aloqa",
+    "nav.home": "Bosh sahifa", "nav.catalog": "Katalog", "nav.portfolio": "Ishlarimiz", "nav.about": "Biz haqimizda", "nav.contact": "Aloqa", "nav.ideas": "G'oyalar", "ideas.title": "Dizayn g'oyalari", "page.ideas.sub": "Ilhomlantiruvchi eshik g'oyalari. Yoqqanini tanlang — shunga o'xshashini sizning o'lchamingiz va rangingizda tayyorlab beramiz.", "ideas.note": "Rasmlar Pinterest'dan ko'rsatilmoqda va ularning mualliflik huquqi o'z egalariga tegishli. Bular tayyor mahsulotlarimiz emas — buyurtma uchun g'oyalar.", "ideas.order": "Shunga o'xshashini buyurtma qilish",
     "cta.order": "Buyurtma berish", "cta.measure": "Bepul o'lchov", "cta.catalog": "Katalogni ko'rish", "cta.more": "Batafsil", "cta.all": "Barchasini ko'rish", "cta.send": "Ariza yuborish", "cta.call": "Qo'ng'iroq qilish",
     "top.addr": "Toshkent sh., Ko'kcha Darvoza ko'chasi, 5-uy", "top.hours": "Du–Sha: 9:00–18:00", "top.addr2": "Toshkent sh., Olmazor tumani, Sebzor massivi, 7-uy", "top.free": "Toshkent bo'ylab bepul o'lchov",
     "sum": "so'm", "from": "dan boshlab",
@@ -96,7 +96,7 @@ window.I18N = {
   },
 
   ru: {
-    "nav.home": "Главная", "nav.catalog": "Каталог", "nav.portfolio": "Наши работы", "nav.about": "О нас", "nav.contact": "Контакты",
+    "nav.home": "Главная", "nav.catalog": "Каталог", "nav.portfolio": "Наши работы", "nav.about": "О нас", "nav.contact": "Контакты", "nav.ideas": "Идеи", "ideas.title": "Идеи дизайна", "page.ideas.sub": "Вдохновляющие идеи дверей. Выберите понравившуюся — изготовим похожую в вашем размере и цвете.", "ideas.note": "Изображения показаны из Pinterest, авторские права принадлежат их владельцам. Это не наши готовые изделия, а идеи для заказа.", "ideas.order": "Заказать похожую",
     "cta.order": "Заказать", "cta.measure": "Бесплатный замер", "cta.catalog": "Смотреть каталог", "cta.more": "Подробнее", "cta.all": "Смотреть все", "cta.send": "Отправить заявку", "cta.call": "Позвонить",
     "top.addr": "г. Ташкент, ул. Кукча Дарвоза, 5", "top.hours": "Пн–Сб: 9:00–18:00", "top.addr2": "г. Ташкент, Алмазарский район, массив Себзар, 7", "top.free": "Бесплатный замер по Ташкенту",
     "sum": "сум", "from": "от",
@@ -191,7 +191,7 @@ window.I18N = {
   },
 
   en: {
-    "nav.home": "Home", "nav.catalog": "Catalog", "nav.portfolio": "Our work", "nav.about": "About us", "nav.contact": "Contact",
+    "nav.home": "Home", "nav.catalog": "Catalog", "nav.portfolio": "Our work", "nav.about": "About us", "nav.contact": "Contact", "nav.ideas": "Ideas", "ideas.title": "Design ideas", "page.ideas.sub": "Inspiring door ideas. Pick one you like — we will make a similar door in your size and colour.", "ideas.note": "Images are shown from Pinterest; copyright belongs to their owners. These are not our finished products but ideas for custom orders.", "ideas.order": "Order a similar door",
     "cta.order": "Order now", "cta.measure": "Free measurement", "cta.catalog": "View catalog", "cta.more": "Learn more", "cta.all": "View all", "cta.send": "Send request", "cta.call": "Call us",
     "top.addr": "5 Kokcha Darvoza St, Tashkent", "top.hours": "Mon–Sat: 9:00–18:00", "top.addr2": "7 Sebzor, Olmazor district, Tashkent", "top.free": "Free measurement across Tashkent",
     "sum": "UZS", "from": "from",

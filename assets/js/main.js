@@ -105,7 +105,7 @@
     <img class="logo-img" src="assets/img/logo.png" alt="Ko'kcha Eshiklar Premium" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
     <span class="logo-fb"><span class="logo-mark"></span><span class="logo-txt"><b>KO'KCHA</b><span>ESHIKLAR · PREMIUM</span></span></span></a>`;
 
-  const NAV = [["home", "index.html"], ["catalog", "katalog.html"], ["portfolio", "ishlarimiz.html"], ["about", "biz-haqimizda.html"], ["contact", "aloqa.html"]];
+  const NAV = [["home", "index.html"], ["catalog", "katalog.html"], ["portfolio", "ishlarimiz.html"], ["about", "biz-haqimizda.html"], ["ideas", "goyalar.html"], ["contact", "aloqa.html"]];
   const langBtns = () => LANGS.map(l => `<button data-lang="${l}" class="${l === lang ? "on" : ""}">${l.toUpperCase()}</button>`).join("");
 
   function header() {
