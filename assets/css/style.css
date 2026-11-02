@@ -555,7 +555,31 @@ body.loading .hero-art .leaf, body.loading .hero-art .glow { animation-play-stat
 
 /* G'oyalar (Pinterest embed) */
 .ideas-note { font-size: 13px; color: var(--muted); margin-bottom: 30px; max-width: 640px; }
-.ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 30px; align-items: start; }
+.ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr)); gap: 30px; align-items: start; }
 .idea { display: flex; flex-direction: column; align-items: center; gap: 16px; background: #fff; padding: 22px 16px 26px; }
 .idea > span[class*="PIN_"], .idea iframe { max-width: 100% !important; }
 @media (max-width: 400px) { .ideas { grid-template-columns: 1fr; } }
+
+/* Bosh ekran: eshik ochiladi, ortida oila */
+.hero-portal { position: relative; display: flex; justify-content: center; align-items: center; padding: 20px 0; }
+.portal-glow { position: absolute; inset: -12% -8%; background: radial-gradient(ellipse at 50% 55%, rgba(255, 214, 150, .38), transparent 62%); opacity: 0; transition: opacity 2.4s ease 1.4s; pointer-events: none; }
+.portal-frame { position: relative; width: min(470px, 100%); aspect-ratio: 1200 / 1150; padding: 12px 12px 0; background: linear-gradient(180deg, #e9dcc5, #c9b18b); box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .8), 0 0 0 1px rgba(214, 185, 138, .4); perspective: 1800px; }
+.portal-pic { position: relative; width: 100%; height: 100%; overflow: hidden; background: #2a2f38; }
+.portal-photo { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transform: scale(1.14); filter: brightness(.55) saturate(.9); transition: transform 3.4s var(--ease) 1s, filter 2.6s ease 1s; }
+.portal-door { position: absolute; inset: 12px 12px 0; perspective: 1800px; z-index: 2; pointer-events: none; }
+.pd-leaf { position: absolute; inset: 0; transform-origin: left center; background: linear-gradient(100deg, #f6f1e8 0%, #e3d8c6 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 8px 0 30px rgba(0, 0, 0, .25); transition: transform 2.8s cubic-bezier(.62, .02, .22, 1) .9s; }
+.pd-leaf i { position: absolute; display: block; }
+.pd-p1, .pd-p2 { left: 11%; right: 11%; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, .14), inset -2px -2px 4px rgba(255, 255, 255, .6); }
+.pd-p1 { top: 6%; height: 42%; }
+.pd-p2 { top: 53%; bottom: 6%; }
+.pd-h { right: 6%; top: 50%; width: 8px; height: 46px; border-radius: 4px; background: linear-gradient(180deg, #e2c48f, #b8925a); box-shadow: 0 2px 4px rgba(0, 0, 0, .35); }
+.hero-portal.in .pd-leaf { transform: rotateY(82deg); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), -10px 0 40px rgba(0, 0, 0, .45); }
+.hero-portal.in .portal-photo { transform: none; filter: none; }
+.hero-portal.in .portal-glow { opacity: 1; }
+body.loading .pd-leaf { transform: none !important; }
+body.loading .portal-photo { transform: scale(1.14) !important; filter: brightness(.55) !important; }
+@media (max-width: 1000px) { .hero-portal { margin-top: 30px; } }
+.hero > .container > * { min-width: 0; }
+@media (max-width: 1000px) { .hero > .container { grid-template-columns: minmax(0, 1fr); } .portal-frame { width: 100%; max-width: 470px; } }
+.idea { min-width: 0; overflow: hidden; }
+@media (max-width: 560px) { .idea { padding: 16px 4px 22px; } }
