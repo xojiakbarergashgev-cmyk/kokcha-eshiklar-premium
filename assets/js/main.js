@@ -193,7 +193,7 @@
 
   function card(p, i = 0) {
     const img = p.real
-      ? `<div class="ph" data-img="products/${p.id}-1.jpg"></div>${(p.imgs || 3) > 1 ? `<div class="ph alt" data-img="products/${p.id}-2.jpg"></div>` : ""}`
+      ? `<div class="ph" data-img="products/${p.id}-1.${p.ext || "jpg"}"></div>${(p.imgs || 3) > 1 ? `<div class="ph alt" data-img="products/${p.id}-2.jpg"></div>` : ""}`
       : `<div class="ph" data-img="products/${p.id}.jpg"></div>`;
     return `<a class="pcard rv" style="--d:${(i % 3) * 0.1}s" href="mahsulot.html?id=${p.id}">
       <div class="media${p.real ? " photo" : ""}">${p.badge ? `<span class="pbadge ${p.badge}">${t("badge." + p.badge)}</span>` : ""}
@@ -377,7 +377,7 @@
     const colorTxt = p.colors.length ? t("c." + ps.color) + ", " : "";
     const orderTxt = `${p.name} — ${colorTxt}${ps.size === "custom" ? t("p.custom") : "2000×" + ps.size}, ${ps.set === "2" ? t("p.set2") : t("p.set1")}`;
     const stage = p.real
-      ? `<div class="pp-gal"><div class="pp-stage media photo"><div class="ph" data-img="products/${p.id}-${ps.img}.jpg"></div>${door(p.door, ps.color)}</div>
+      ? `<div class="pp-gal"><div class="pp-stage media photo"><div class="ph" data-img="products/${p.id}-${ps.img}.${p.ext || "jpg"}"></div>${door(p.door, ps.color)}</div>
           <div class="pp-thumbs">${(p.imgs === 1 ? [] : [1, 2, 3]).map(n => `<button class="media photo ${n === ps.img ? "on" : ""}" data-pimg="${n}" aria-label="${n}"><div class="ph" data-img="products/${p.id}-${n}.jpg"></div></button>`).join("")}</div></div>`
       : `<div class="pp-stage media"><div class="ph" data-img="products/${p.id}-${ps.color}.jpg|products/${p.id}.jpg"></div>${door(p.door, ps.color)}</div>`;
     root.innerHTML = `<div class="pp">

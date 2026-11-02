@@ -37,6 +37,10 @@ window.COLORS = {
 // Haqiqiy eshiklar (rasmlari: assets/img/products/k<kod>-1.jpg, -2.jpg, -3.jpg).
 // price: null — narx "so'rov bo'yicha" ko'rsatiladi; narx qo'yish uchun raqam yozing.
 window.PRODUCTS = [
+  // Ko'kcha o'z dizaynlari (chizma, PNG): assets/img/products/kc0X-1.png
+  { id: "kc01", name: "Arka Grey", cat: "modern", door: "classic", color: "graphite", colors: [], mat: "mdf", price: null, real: true, imgs: 1, ext: "png", badge: "new" },
+  { id: "kc02", name: "Naqsh", cat: "classic", door: "classic", color: "walnut", colors: [], mat: "mdf", price: null, real: true, imgs: 1, ext: "png", badge: "new" },
+  { id: "kc03", name: "Arka Line", cat: "modern", door: "classic", color: "ivory", colors: [], mat: "mdf", price: null, real: true, imgs: 1, ext: "png", badge: "new" },
   { id: "k1035", name: "1035", cat: "classic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true, badge: "new" },
   { id: "k1034", name: "1034", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true, badge: "new" },
   { id: "k1033", name: "1033", cat: "neoclassic", door: "classic", color: "white", colors: [], mat: "mdf", price: null, real: true, badge: "new" },
