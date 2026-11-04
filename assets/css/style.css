@@ -596,14 +596,14 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .pr-svg { width: 100%; height: auto; display: block; }
 .pr-caption { text-align: center; font-family: var(--serif); font-size: 24px; color: var(--gold-2); min-height: 32px; margin-top: 4px; transition: opacity .3s; }
 .pr-svg .x, .pr-svg .pr-top, .pr-svg .pr-paint-mask, .pr-svg .pr-done { transform-box: fill-box; transform-origin: center; }
-.pr-svg .pr-paint-mask { transform-origin: left center; }
+.pr-svg .pr-paint-mask { transform-origin: center top; }
 /* boshlang'ich holat */
 .pr-cut { opacity: 0; }
 .pr-rail { opacity: 0; transition: opacity .5s; }
 .pr-svg .x { opacity: 0; transform: scale(.2); }
 .pr-top { opacity: 0; transform: translateY(-320px); }
 .pr-pat, .pr-pat-hi { opacity: 0; }
-.pr-paint-mask { transform: scaleX(0); }
+.pr-paint-mask { transform: scaleY(0); }
 .pr-gloss { transform: translateX(0); }
 .pr-handle, .pr-done { opacity: 0; }
 .pr-done { transform: scale(.4); }
@@ -637,3 +637,9 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
   .pr-steps { display: none; }
   .pr-wrap { gap: 18px; }
 }
+
+/* Vertikal sahna */
+.pr-stage { display: flex; flex-direction: column; align-items: center; }
+.pr-svg { width: auto; max-width: 100%; height: calc(100vh - 230px); height: calc(100svh - 230px); max-height: 640px; }
+@media (min-width: 1001px) { .pr-wrap { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1000px) { .pr-svg { height: calc(100svh - 330px); } }

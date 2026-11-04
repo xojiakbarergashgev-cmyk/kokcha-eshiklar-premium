@@ -323,6 +323,7 @@
     const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
     const steps = $$(".pr-steps li"), cap = $("#prCaption"), bar = $("#prBar");
     const Lc = cut.getTotalLength(), Lp = pats[0].getTotalLength();
+    const G = { x: +svg.dataset.x0, y: +svg.dataset.y0, w: +svg.dataset.w, h: +svg.dataset.h };
     cut.style.strokeDasharray = Lc;
     pats.forEach(p => { p.style.strokeDasharray = Lp; });
     // bosqich chegaralari (0..1 scroll ichida)
@@ -343,16 +344,16 @@
       xs.forEach((x, i) => { const v = Math.min(1, Math.max(0, k2 * (xs.length + 12) - i - 6) / 6); x.style.opacity = v; x.style.transform = `scale(${.2 + .8 * v})`; });
       // 3. ikkinchi qatlam
       top.style.opacity = k3 > 0 ? 1 : 0;
-      top.style.transform = `translateY(${-320 * (1 - k3) * (1 - k3)}px)`;
+      top.style.transform = `translateX(${-420 * (1 - k3) * (1 - k3)}px)`;
       // 4. frezer naqsh
       pats.forEach(pt => { pt.style.strokeDashoffset = Lp * (1 - k4); pt.style.opacity = k4 > 0 ? 1 : 0; });
       tool(router, k4 > 0 && k4 < 1, at(pats[0], Lp, k4));
       // 5. bo'yoq
-      mask.style.transform = `scaleX(${k5})`;
-      tool(gun, k5 > 0 && k5 < 1, `translate(${230 + 440 * k5} 92)`);
+      mask.style.transform = `scaleY(${k5})`;
+      tool(gun, k5 > 0 && k5 < 1, `translate(${G.x + G.w + 70} ${G.y + G.h * k5})`);
       // 6. tayyor
       handle.style.opacity = k6;
-      gloss.style.transform = `translateX(${600 * k6}px)`;
+      gloss.style.transform = `translateY(${(G.h + 110) * k6}px)`;
       done.style.opacity = k6 > .4 ? (k6 - .4) / .6 : 0;
       done.style.transform = `scale(${.4 + .6 * Math.min(1, k6 * 1.6)})`;
       // yozuv va bosqichlar
