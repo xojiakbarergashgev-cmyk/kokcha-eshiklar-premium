@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /telefon.html
+Disallow: /ipad.html
+
+Sitemap: https://xojiakbarergashgev-cmyk.github.io/kokcha-eshiklar-premium/sitemap.xml

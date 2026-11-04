@@ -1,7 +1,7 @@
 // Tarjimalar: uz — o'zbekcha, ru — ruscha, en — inglizcha
 window.I18N = {
   uz: {
-    "nav.home": "Bosh sahifa", "nav.catalog": "Katalog", "nav.portfolio": "Ishlarimiz", "nav.about": "Biz haqimizda", "nav.contact": "Aloqa", "pr.hint": "Pastga suring — jarayon davom etadi", "pr.eye": "Ishlab chiqarish", "pr.title": "Eshigingiz qanday tug'iladi", "pr.s1": "MDF list CNC stanokda eshik o'lchamiga kesiladi", "pr.s2": "Ichiga mayda X shaklidagi MDF to'r qo'yiladi — yengil va mustahkam", "pr.s3": "Ustidan ikkinchi MDF qatlam yopishtiriladi", "pr.s4": "Frezer (reyver) eshikka naqsh o'yadi", "pr.s5": "Ko'p qatlamli bo'yoq sepiladi", "pr.s6": "Tutqich o'rnatiladi — eshik tayyor!", "nav.ideas": "G'oyalar", "ideas.title": "Dizayn g'oyalari", "page.ideas.sub": "Ilhomlantiruvchi eshik g'oyalari. Yoqqanini tanlang — shunga o'xshashini sizning o'lchamingiz va rangingizda tayyorlab beramiz.", "ideas.note": "Rasmlar Pinterest'dan ko'rsatilmoqda va ularning mualliflik huquqi o'z egalariga tegishli. Bular tayyor mahsulotlarimiz emas — buyurtma uchun g'oyalar.", "ideas.order": "Shunga o'xshashini buyurtma qilish",
+    "seo.home": "Ko'kcha Eshiklar — MDF eshiklar fabrikasi, Toshkent", "nav.home": "Bosh sahifa", "nav.catalog": "Katalog", "nav.portfolio": "Ishlarimiz", "nav.about": "Biz haqimizda", "nav.contact": "Aloqa", "pr.hint": "Pastga suring — jarayon davom etadi", "pr.eye": "Ishlab chiqarish", "pr.title": "Eshigingiz qanday tug'iladi", "pr.s1": "MDF list CNC stanokda eshik o'lchamiga kesiladi", "pr.s2": "Ichiga mayda X shaklidagi MDF to'r qo'yiladi — yengil va mustahkam", "pr.s3": "Ustidan ikkinchi MDF qatlam yopishtiriladi", "pr.s4": "Frezer (reyver) eshikka naqsh o'yadi", "pr.s5": "Ko'p qatlamli bo'yoq sepiladi", "pr.s6": "Tutqich o'rnatiladi — eshik tayyor!", "nav.ideas": "G'oyalar", "ideas.title": "Dizayn g'oyalari", "page.ideas.sub": "Ilhomlantiruvchi eshik g'oyalari. Yoqqanini tanlang — shunga o'xshashini sizning o'lchamingiz va rangingizda tayyorlab beramiz.", "ideas.note": "Rasmlar Pinterest'dan ko'rsatilmoqda va ularning mualliflik huquqi o'z egalariga tegishli. Bular tayyor mahsulotlarimiz emas — buyurtma uchun g'oyalar.", "ideas.order": "Shunga o'xshashini buyurtma qilish",
     "cta.order": "Buyurtma berish", "cta.measure": "Bepul o'lchov", "cta.catalog": "Katalogni ko'rish", "cta.more": "Batafsil", "cta.all": "Barchasini ko'rish", "cta.send": "Ariza yuborish", "cta.call": "Qo'ng'iroq qilish",
     "top.addr": "Toshkent sh., Olmazor tumani, Sebzor massivi, 7-uy", "top.hours": "Du–Sha: 9:00–18:00", "top.addr2": "Toshkent sh., Olmazor tumani, Sebzor massivi, 7-uy", "top.free": "Toshkent bo'ylab bepul o'lchov",
     "sum": "so'm", "from": "dan boshlab",
@@ -15,7 +15,7 @@ window.I18N = {
     "desc.hidden": "Devor bilan bir tekislikda — ko'zga tashlanmaydigan minimalistik yechim.",
     "desc.entrance": "Mustahkam po'lat asos va MDF panellar — xavfsizlik va chiroy birga.",
 
-    "hero.badge": "O'zbekistondagi premium eshiklar brendi",
+    "hero.badge": "Ko'kcha Eshiklar — O'zbekistondagi premium eshiklar",
     "hero.t1": "Har bir eshik —", "hero.t2": "san'at asari",
     "hero.sub": "Ko'kcha Eshiklar Premium — o'z fabrikamizda ishlab chiqarilgan, Italiya furniturasi bilan jihozlangan MDF eshiklar. Sizning o'lchamingiz, sizning uslubingiz.",
     "st.1": "yillik tajriba", "st.2": "turdagi eshik", "st.3": "ta shourum", "st.4n": "10 yil", "st.4": "rasmiy kafolat",
@@ -96,7 +96,7 @@ window.I18N = {
   },
 
   ru: {
-    "nav.home": "Главная", "nav.catalog": "Каталог", "nav.portfolio": "Наши работы", "nav.about": "О нас", "nav.contact": "Контакты", "pr.hint": "Листайте вниз — процесс продолжится", "pr.eye": "Производство", "pr.title": "Как рождается ваша дверь", "pr.s1": "Лист МДФ раскраивается на станке с ЧПУ под размер двери", "pr.s2": "Внутрь укладывается сетка из мелких X-образных элементов МДФ — легко и прочно", "pr.s3": "Сверху приклеивается второй слой МДФ", "pr.s4": "Фрезер вырезает узор на двери", "pr.s5": "Наносится многослойная краска", "pr.s6": "Устанавливается ручка — дверь готова!", "nav.ideas": "Идеи", "ideas.title": "Идеи дизайна", "page.ideas.sub": "Вдохновляющие идеи дверей. Выберите понравившуюся — изготовим похожую в вашем размере и цвете.", "ideas.note": "Изображения показаны из Pinterest, авторские права принадлежат их владельцам. Это не наши готовые изделия, а идеи для заказа.", "ideas.order": "Заказать похожую",
+    "seo.home": "Кукча Эшиклари — фабрика дверей из МДФ, Ташкент", "nav.home": "Главная", "nav.catalog": "Каталог", "nav.portfolio": "Наши работы", "nav.about": "О нас", "nav.contact": "Контакты", "pr.hint": "Листайте вниз — процесс продолжится", "pr.eye": "Производство", "pr.title": "Как рождается ваша дверь", "pr.s1": "Лист МДФ раскраивается на станке с ЧПУ под размер двери", "pr.s2": "Внутрь укладывается сетка из мелких X-образных элементов МДФ — легко и прочно", "pr.s3": "Сверху приклеивается второй слой МДФ", "pr.s4": "Фрезер вырезает узор на двери", "pr.s5": "Наносится многослойная краска", "pr.s6": "Устанавливается ручка — дверь готова!", "nav.ideas": "Идеи", "ideas.title": "Идеи дизайна", "page.ideas.sub": "Вдохновляющие идеи дверей. Выберите понравившуюся — изготовим похожую в вашем размере и цвете.", "ideas.note": "Изображения показаны из Pinterest, авторские права принадлежат их владельцам. Это не наши готовые изделия, а идеи для заказа.", "ideas.order": "Заказать похожую",
     "cta.order": "Заказать", "cta.measure": "Бесплатный замер", "cta.catalog": "Смотреть каталог", "cta.more": "Подробнее", "cta.all": "Смотреть все", "cta.send": "Отправить заявку", "cta.call": "Позвонить",
     "top.addr": "г. Ташкент, Алмазарский район, массив Себзар, 7", "top.hours": "Пн–Сб: 9:00–18:00", "top.addr2": "г. Ташкент, Алмазарский район, массив Себзар, 7", "top.free": "Бесплатный замер по Ташкенту",
     "sum": "сум", "from": "от",
@@ -110,7 +110,7 @@ window.I18N = {
     "desc.hidden": "В одной плоскости со стеной — незаметное минималистичное решение.",
     "desc.entrance": "Прочный стальной каркас и МДФ-панели — безопасность и красота вместе.",
 
-    "hero.badge": "Премиальный бренд дверей в Узбекистане",
+    "hero.badge": "Кукча Эшиклари — премиальные двери Узбекистана",
     "hero.t1": "Каждая дверь —", "hero.t2": "произведение искусства",
     "hero.sub": "Ko'kcha Eshiklar Premium — двери из МДФ собственного производства с итальянской фурнитурой. Ваши размеры, ваш стиль.",
     "st.1": "лет опыта", "st.2": "видов дверей", "st.3": "шоурум", "st.4n": "10 лет", "st.4": "официальной гарантии",
@@ -191,7 +191,7 @@ window.I18N = {
   },
 
   en: {
-    "nav.home": "Home", "nav.catalog": "Catalog", "nav.portfolio": "Our work", "nav.about": "About us", "nav.contact": "Contact", "pr.hint": "Scroll down to continue the process", "pr.eye": "Production", "pr.title": "How your door is made", "pr.s1": "An MDF sheet is CNC-cut to the door size", "pr.s2": "A core of small X-shaped MDF pieces goes inside — light and strong", "pr.s3": "A second MDF layer is glued on top", "pr.s4": "A router carves the pattern into the door", "pr.s5": "Multi-layer paint is sprayed on", "pr.s6": "The handle goes on — the door is ready!", "nav.ideas": "Ideas", "ideas.title": "Design ideas", "page.ideas.sub": "Inspiring door ideas. Pick one you like — we will make a similar door in your size and colour.", "ideas.note": "Images are shown from Pinterest; copyright belongs to their owners. These are not our finished products but ideas for custom orders.", "ideas.order": "Order a similar door",
+    "seo.home": "Ko'kcha Eshiklar — MDF door factory, Tashkent", "nav.home": "Home", "nav.catalog": "Catalog", "nav.portfolio": "Our work", "nav.about": "About us", "nav.contact": "Contact", "pr.hint": "Scroll down to continue the process", "pr.eye": "Production", "pr.title": "How your door is made", "pr.s1": "An MDF sheet is CNC-cut to the door size", "pr.s2": "A core of small X-shaped MDF pieces goes inside — light and strong", "pr.s3": "A second MDF layer is glued on top", "pr.s4": "A router carves the pattern into the door", "pr.s5": "Multi-layer paint is sprayed on", "pr.s6": "The handle goes on — the door is ready!", "nav.ideas": "Ideas", "ideas.title": "Design ideas", "page.ideas.sub": "Inspiring door ideas. Pick one you like — we will make a similar door in your size and colour.", "ideas.note": "Images are shown from Pinterest; copyright belongs to their owners. These are not our finished products but ideas for custom orders.", "ideas.order": "Order a similar door",
     "cta.order": "Order now", "cta.measure": "Free measurement", "cta.catalog": "View catalog", "cta.more": "Learn more", "cta.all": "View all", "cta.send": "Send request", "cta.call": "Call us",
     "top.addr": "7 Sebzor, Olmazor district, Tashkent", "top.hours": "Mon–Sat: 9:00–18:00", "top.addr2": "7 Sebzor, Olmazor district, Tashkent", "top.free": "Free measurement across Tashkent",
     "sum": "UZS", "from": "from",
@@ -205,7 +205,7 @@ window.I18N = {
     "desc.hidden": "Flush with the wall — an invisible, minimalist solution.",
     "desc.entrance": "A solid steel frame with MDF panels — security and beauty together.",
 
-    "hero.badge": "Uzbekistan's premium door brand",
+    "hero.badge": "Ko'kcha Eshiklar — Uzbekistan's premium doors",
     "hero.t1": "Every door is", "hero.t2": "a work of art",
     "hero.sub": "Ko'kcha Eshiklar Premium — MDF doors made in our own factory and fitted with Italian hardware. Your size, your style.",
     "st.1": "years of experience", "st.2": "door models", "st.3": "showroom", "st.4n": "10 yrs", "st.4": "official warranty",

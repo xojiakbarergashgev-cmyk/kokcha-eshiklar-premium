@@ -600,7 +600,7 @@
     if (page === "portfolio") renderPortfolio();
     const tk = document.body.dataset.title;
     const name = document.body.dataset.titleText || (tk ? t(tk) : "");
-    document.title = (name ? name + " — " : "") + "Ko'kcha Eshiklar Premium";
+    document.title = page === "home" ? t("seo.home") : (name ? name + " — " : "") + "Ko'kcha Eshiklar";
     splitText();
     loadImages();
     reveal();
