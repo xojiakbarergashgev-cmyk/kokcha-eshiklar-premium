@@ -151,7 +151,7 @@
           <li>${t("top.addr")}</li><li>${t("top.hours")}</li>
         </ul></div>
       </div>
-      <div class="ftr-bot"><span>© ${new Date().getFullYear()} Ko'kcha Eshiklar Premium. ${t("footer.rights")}</span><span>${t("footer.privacy")}</span></div>
+      <div class="ftr-bot"><span>© ${new Date().getFullYear()} Ko'kcha eshiklar.uz — Ko'kcha Eshiklar Premium. ${t("footer.rights")}</span><span>${t("footer.privacy")}</span></div>
     </div></footer>`;
   }
 
@@ -600,7 +600,7 @@
     if (page === "portfolio") renderPortfolio();
     const tk = document.body.dataset.title;
     const name = document.body.dataset.titleText || (tk ? t(tk) : "");
-    document.title = page === "home" ? t("seo.home") : (name ? name + " — " : "") + "Ko'kcha Eshiklar";
+    document.title = page === "home" ? t("seo.home") : (name ? name + " | " : "") + "Ko'kcha eshiklar.uz";
     splitText();
     loadImages();
     reveal();
