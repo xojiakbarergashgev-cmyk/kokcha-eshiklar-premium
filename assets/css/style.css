@@ -643,3 +643,16 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .pr-svg { width: auto; max-width: 100%; height: calc(100vh - 230px); height: calc(100svh - 230px); max-height: 640px; }
 @media (min-width: 1001px) { .pr-wrap { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 1000px) { .pr-svg { height: calc(100svh - 330px); } }
+
+/* Arra, nalichnik va ochiladigan eshik */
+.pr-svg .saw { transform-box: fill-box; transform-origin: center; animation: sawspin .35s linear infinite; }
+@keyframes sawspin { to { transform: rotate(360deg); } }
+.pr-frame { opacity: 0; }
+.pr-svg .pr-leaf { transform-box: fill-box; transform-origin: right center; transition: transform 1.3s cubic-bezier(.6, .02, .25, 1); }
+.pr-open .pr-svg .pr-leaf { transform: scaleX(.15) skewY(-9deg); }
+.pr-svg .pr-family image { transition: transform 1.6s ease .3s; transform-box: fill-box; transform-origin: center; transform: scale(1.08); }
+.pr-open .pr-svg .pr-family image { transform: none; }
+.pr-ready { cursor: pointer; }
+.pr-ready .pr-hint { color: var(--gold-2); animation: hintpulse 1.6s ease-in-out infinite; }
+@keyframes hintpulse { 50% { opacity: .45; } }
+.pr-open .pr-hint { animation: none; }

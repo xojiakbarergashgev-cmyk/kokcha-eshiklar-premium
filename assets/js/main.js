@@ -319,7 +319,8 @@
     st._init = true;
     const svg = $("svg", st), cut = $(".pr-cut", svg), pats = $$(".pr-pat, .pr-pat-hi", svg);
     const sheet = $(".pr-sheet", svg), rails = $$(".pr-rail", svg), xs = $$(".x", svg), top = $(".pr-top", svg);
-    const mask = $(".pr-paint-mask", svg), gloss = $(".pr-gloss", svg), handle = $(".pr-handle", svg), done = $(".pr-done", svg);
+    const mask = $(".pr-paint-mask", svg), gloss = $(".pr-gloss", svg), handle = $(".pr-handle", svg), done = $(".pr-done", svg), frame = $(".pr-frame", svg);
+    const hint = $("#prHint");
     const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
     const steps = $$(".pr-steps li"), cap = $("#prCaption"), bar = $("#prBar");
     const Lc = cut.getTotalLength(), Lp = pats[0].getTotalLength();
@@ -353,14 +354,27 @@
       tool(gun, k5 > 0 && k5 < 1, `translate(${G.x + G.w + 70} ${G.y + G.h * k5})`);
       // 6. tayyor
       handle.style.opacity = k6;
+      frame.style.opacity = k6;
+      const ready = p >= .985;
+      st.classList.toggle("pr-ready", ready);
+      if (!ready && st.classList.contains("pr-open")) { st.classList.remove("pr-open"); last = -1; }
       gloss.style.transform = `translateY(${(G.h + 110) * k6}px)`;
       done.style.opacity = k6 > .4 ? (k6 - .4) / .6 : 0;
       done.style.transform = `scale(${.4 + .6 * Math.min(1, k6 * 1.6)})`;
       // yozuv va bosqichlar
       const n = p <= 0 ? 1 : Math.min(6, B.findIndex(b => p < b) === -1 ? 6 : B.findIndex(b => p < b));
-      if (n !== last) { last = n; steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n)); cap.textContent = t("pr.s" + n); }
+      if (n !== last) { last = n; steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n)); cap.textContent = t(st.classList.contains("pr-open") ? "pr.s7" : "pr.s" + n); if (hint) hint.textContent = t(ready ? "pr.hover" : "pr.hint"); }
       bar.style.transform = `scaleX(${p})`;
     }
+    // Tayyor eshik: sichqoncha olib borilsa (telefonda — bosilsa) ochiladi, ortida oila
+    const setOpen = on => {
+      if (on && !st.classList.contains("pr-ready")) return;
+      st.classList.toggle("pr-open", on);
+      cap.textContent = t(on ? "pr.s7" : "pr.s6");
+    };
+    st.addEventListener("mouseenter", () => setOpen(true));
+    st.addEventListener("mouseleave", () => setOpen(false));
+    st.addEventListener("click", () => setOpen(!st.classList.contains("pr-open")));
     st._redraw = () => { last = -1; draw(st._p || 0); };
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st._p = 1; draw(1); return; }
     let ticking = false;
