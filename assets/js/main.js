@@ -279,6 +279,9 @@
     const pf = $("#pfPreview");
     if (pf) pf.innerHTML = PORTFOLIO.slice(0, 4).map((it, i) => pfItem(it, ["big", "tall", "", ""][i], i)).join("");
     renderCfg();
+    initProcess();
+    const pc = $("#prCaption"), on = $(".pr-steps li.on");
+    if (pc && on) pc.textContent = t("pr.s" + on.dataset.step);
     const art = $(".hero-art");
     if (art && !$(".dust", art)) {
       art.insertAdjacentHTML("beforeend", `<div class="dust">${Array.from({ length: 22 }, () =>
@@ -307,6 +310,64 @@
     $$("#cfgPanel [data-c]").forEach(b => b.classList.toggle("on", b.dataset.c === cfg.c));
     $("#cfgName").textContent = t("c." + cfg.c);
     $("#cfgOrder").dataset.order = CFG_MODELS.find(x => x[0] === cfg.m)[1] + " — " + t("c." + cfg.c);
+  }
+
+  /* ---------- Ishlab chiqarish animatsiyasi ---------- */
+  function initProcess() {
+    const st = $("#prStage");
+    if (!st || st._init) return;
+    st._init = true;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st.classList.add("s1", "s2", "s3", "s4", "s5", "s6"); return; }
+    const svg = $("svg", st), cut = $(".pr-cut", svg), pats = $$(".pr-pat, .pr-pat-hi", svg);
+    const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
+    const steps = $$(".pr-steps li"), cap = $("#prCaption");
+    [cut, ...pats].forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+    const along = (el, path, dur) => new Promise(done => {
+      const L = path.getTotalLength(), t0 = performance.now();
+      el.classList.add("on");
+      const tick = now => {
+        const k = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength(L * k);
+        el.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
+        if (k < 1) requestAnimationFrame(tick); else { el.classList.remove("on"); done(); }
+      };
+      requestAnimationFrame(tick);
+    });
+    const sweep = (el, x1, x2, y, dur) => new Promise(done => {
+      const t0 = performance.now();
+      el.classList.add("on");
+      const tick = now => {
+        const k = Math.min(1, (now - t0) / dur);
+        el.setAttribute("transform", `translate(${x1 + (x2 - x1) * k} ${y})`);
+        if (k < 1) requestAnimationFrame(tick); else { el.classList.remove("on"); done(); }
+      };
+      requestAnimationFrame(tick);
+    });
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const show = n => {
+      st.classList.add("s" + n);
+      steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n));
+      cap.textContent = t("pr.s" + n);
+    };
+    async function loop() {
+      for (;;) {
+        show(1); await along(blade, cut, 2800); await wait(300);
+        show(2); await wait(2900);
+        show(3); await wait(1800);
+        show(4); await along(router, pats[0], 3200); await wait(300);
+        show(5); await sweep(gun, 230, 670, 92, 2600); await wait(300);
+        show(6); await wait(3200);
+        st.classList.add("pr-reset");
+        st.classList.remove("s1", "s2", "s3", "s4", "s5", "s6");
+        [cut, ...pats].forEach(p => { p.style.strokeDashoffset = p.getTotalLength(); });
+        void st.offsetWidth;
+        st.classList.remove("pr-reset");
+        await wait(500);
+      }
+    }
+    if ("IntersectionObserver" in window) {
+      const ob = new IntersectionObserver(es => { if (es[0].isIntersecting) { ob.disconnect(); loop(); } }, { threshold: .3 });
+      ob.observe(st);
+    } else loop();
   }
 
   /* ---------- Katalog ---------- */
