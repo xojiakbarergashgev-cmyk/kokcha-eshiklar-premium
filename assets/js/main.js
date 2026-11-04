@@ -280,8 +280,8 @@
     if (pf) pf.innerHTML = PORTFOLIO.slice(0, 4).map((it, i) => pfItem(it, ["big", "tall", "", ""][i], i)).join("");
     renderCfg();
     initProcess();
-    const pc = $("#prCaption"), on = $(".pr-steps li.on");
-    if (pc && on) pc.textContent = t("pr.s" + on.dataset.step);
+    const ps2 = $("#prStage");
+    if (ps2 && ps2._redraw) ps2._redraw();
     const art = $(".hero-art");
     if (art && !$(".dust", art)) {
       art.insertAdjacentHTML("beforeend", `<div class="dust">${Array.from({ length: 22 }, () =>
@@ -312,62 +312,66 @@
     $("#cfgOrder").dataset.order = CFG_MODELS.find(x => x[0] === cfg.m)[1] + " — " + t("c." + cfg.c);
   }
 
-  /* ---------- Ishlab chiqarish animatsiyasi ---------- */
+  /* ---------- Ishlab chiqarish animatsiyasi (scroll bilan boshqariladi) ---------- */
   function initProcess() {
-    const st = $("#prStage");
+    const st = $("#prStage"), sec = $("#jarayon-anim");
     if (!st || st._init) return;
     st._init = true;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st.classList.add("s1", "s2", "s3", "s4", "s5", "s6"); return; }
     const svg = $("svg", st), cut = $(".pr-cut", svg), pats = $$(".pr-pat, .pr-pat-hi", svg);
+    const sheet = $(".pr-sheet", svg), rails = $$(".pr-rail", svg), xs = $$(".x", svg), top = $(".pr-top", svg);
+    const mask = $(".pr-paint-mask", svg), gloss = $(".pr-gloss", svg), handle = $(".pr-handle", svg), done = $(".pr-done", svg);
     const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
-    const steps = $$(".pr-steps li"), cap = $("#prCaption");
-    [cut, ...pats].forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
-    const along = (el, path, dur) => new Promise(done => {
-      const L = path.getTotalLength(), t0 = performance.now();
-      el.classList.add("on");
-      const tick = now => {
-        const k = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength(L * k);
-        el.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
-        if (k < 1) requestAnimationFrame(tick); else { el.classList.remove("on"); done(); }
-      };
-      requestAnimationFrame(tick);
-    });
-    const sweep = (el, x1, x2, y, dur) => new Promise(done => {
-      const t0 = performance.now();
-      el.classList.add("on");
-      const tick = now => {
-        const k = Math.min(1, (now - t0) / dur);
-        el.setAttribute("transform", `translate(${x1 + (x2 - x1) * k} ${y})`);
-        if (k < 1) requestAnimationFrame(tick); else { el.classList.remove("on"); done(); }
-      };
-      requestAnimationFrame(tick);
-    });
-    const wait = ms => new Promise(r => setTimeout(r, ms));
-    const show = n => {
-      st.classList.add("s" + n);
-      steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n));
-      cap.textContent = t("pr.s" + n);
-    };
-    async function loop() {
-      for (;;) {
-        show(1); await along(blade, cut, 2800); await wait(300);
-        show(2); await wait(2900);
-        show(3); await wait(1800);
-        show(4); await along(router, pats[0], 3200); await wait(300);
-        show(5); await sweep(gun, 230, 670, 92, 2600); await wait(300);
-        show(6); await wait(3200);
-        st.classList.add("pr-reset");
-        st.classList.remove("s1", "s2", "s3", "s4", "s5", "s6");
-        [cut, ...pats].forEach(p => { p.style.strokeDashoffset = p.getTotalLength(); });
-        void st.offsetWidth;
-        st.classList.remove("pr-reset");
-        await wait(500);
-      }
+    const steps = $$(".pr-steps li"), cap = $("#prCaption"), bar = $("#prBar");
+    const Lc = cut.getTotalLength(), Lp = pats[0].getTotalLength();
+    cut.style.strokeDasharray = Lc;
+    pats.forEach(p => { p.style.strokeDasharray = Lp; });
+    // bosqich chegaralari (0..1 scroll ichida)
+    const B = [0, .17, .33, .47, .67, .85, 1];
+    const seg = (p, n) => Math.min(1, Math.max(0, (p - B[n - 1]) / (B[n] - B[n - 1])));
+    const at = (path, L, k) => { const pt = path.getPointAtLength(L * k); return `translate(${pt.x} ${pt.y})`; };
+    const tool = (el, on, tr) => { el.classList.toggle("on", on); if (on) el.setAttribute("transform", tr); };
+    let last = -1;
+    function draw(p) {
+      const k1 = seg(p, 1), k2 = seg(p, 2), k3 = seg(p, 3), k4 = seg(p, 4), k5 = seg(p, 5), k6 = seg(p, 6);
+      // 1. kesish
+      cut.style.strokeDashoffset = Lc * (1 - k1);
+      cut.style.opacity = k2 > 0 ? 1 - k2 * 3 : (k1 > 0 ? 1 : 0);
+      tool(blade, k1 > 0 && k1 < 1, at(cut, Lc, k1));
+      // 2. list olinadi, karkas va X to'r
+      sheet.style.opacity = 1 - Math.min(1, k2 * 3);
+      rails.forEach(r => { r.style.opacity = Math.min(1, k2 * 4); });
+      xs.forEach((x, i) => { const v = Math.min(1, Math.max(0, k2 * (xs.length + 12) - i - 6) / 6); x.style.opacity = v; x.style.transform = `scale(${.2 + .8 * v})`; });
+      // 3. ikkinchi qatlam
+      top.style.opacity = k3 > 0 ? 1 : 0;
+      top.style.transform = `translateY(${-320 * (1 - k3) * (1 - k3)}px)`;
+      // 4. frezer naqsh
+      pats.forEach(pt => { pt.style.strokeDashoffset = Lp * (1 - k4); pt.style.opacity = k4 > 0 ? 1 : 0; });
+      tool(router, k4 > 0 && k4 < 1, at(pats[0], Lp, k4));
+      // 5. bo'yoq
+      mask.style.transform = `scaleX(${k5})`;
+      tool(gun, k5 > 0 && k5 < 1, `translate(${230 + 440 * k5} 92)`);
+      // 6. tayyor
+      handle.style.opacity = k6;
+      gloss.style.transform = `translateX(${600 * k6}px)`;
+      done.style.opacity = k6 > .4 ? (k6 - .4) / .6 : 0;
+      done.style.transform = `scale(${.4 + .6 * Math.min(1, k6 * 1.6)})`;
+      // yozuv va bosqichlar
+      const n = p <= 0 ? 1 : Math.min(6, B.findIndex(b => p < b) === -1 ? 6 : B.findIndex(b => p < b));
+      if (n !== last) { last = n; steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n)); cap.textContent = t("pr.s" + n); }
+      bar.style.transform = `scaleX(${p})`;
     }
-    if ("IntersectionObserver" in window) {
-      const ob = new IntersectionObserver(es => { if (es[0].isIntersecting) { ob.disconnect(); loop(); } }, { threshold: .3 });
-      ob.observe(st);
-    } else loop();
+    st._redraw = () => { last = -1; draw(st._p || 0); };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st._p = 1; draw(1); return; }
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = sec.getBoundingClientRect(), total = sec.offsetHeight - innerHeight;
+      st._p = Math.min(1, Math.max(0, -r.top / (total || 1)));
+      draw(st._p);
+    };
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update);
+    update();
   }
 
   /* ---------- Katalog ---------- */

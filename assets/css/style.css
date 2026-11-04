@@ -613,23 +613,27 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 @keyframes chip { to { transform: translate(6px, -8px); opacity: 0; } }
 .pr-mist circle { animation: mist .5s ease-out infinite; }
 @keyframes mist { from { opacity: .5; } to { opacity: 0; transform: translateY(10px); } }
-/* 1: kesish */
-.s1 .pr-cut { opacity: 1; stroke-dashoffset: 0 !important; transition: stroke-dashoffset 2.8s linear; }
-/* 2: list olib tashlanadi, karkas va X to'r */
-.s2 .pr-sheet { opacity: 0; transition: opacity .7s; }
-.s2 .pr-cut { opacity: 0; transition: opacity .5s; }
-.s2 .pr-rail { opacity: 1; }
-.s2 .x { opacity: 1; transform: none; transition: opacity .3s, transform .35s cubic-bezier(.3, 1.6, .5, 1); transition-delay: calc(var(--i) * 22ms + .3s); }
-/* 3: ikkinchi qatlam */
-.s3 .pr-top { opacity: 1; transform: none; transition: transform 1.3s cubic-bezier(.3, .7, .2, 1), opacity .3s; }
-/* 4: frezer naqsh */
-.s4 .pr-pat, .s4 .pr-pat-hi { opacity: 1; stroke-dashoffset: 0 !important; transition: stroke-dashoffset 3.2s linear; }
-/* 5: bo'yoq */
-.s5 .pr-paint-mask { transform: scaleX(1); transition: transform 2.6s linear; }
-/* 6: tayyor */
-.s6 .pr-gloss { transform: translateX(600px); transition: transform 1.6s ease-in-out .2s; }
-.s6 .pr-handle { opacity: 1; transition: opacity .6s; }
-.s6 .pr-done { opacity: 1; transform: none; transition: opacity .4s .5s, transform .6s cubic-bezier(.3, 1.6, .5, 1) .5s; }
 .pr-reset *, .pr-reset *::before { transition: none !important; }
 @media (max-width: 1000px) { .pr-wrap { grid-template-columns: 1fr; gap: 30px; } .pr-text { order: 2; } .pr-caption { font-size: 20px; } }
 @media (prefers-reduced-motion: reduce) { .pr-stage .pr-sheet, .pr-stage .pr-cut { opacity: 0; } .pr-stage .pr-top, .pr-stage .pr-handle, .pr-stage .pr-pat, .pr-stage .pr-pat-hi { opacity: 1; transform: none; } .pr-stage .pr-paint-mask { transform: none; } }
+
+/* Scroll bilan boshqariladigan sahna */
+.pr-sec { padding: 0; }
+.pr-track { height: 460vh; position: relative; }
+.pr-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; padding-top: 70px; overflow: hidden; }
+.pr-sticky > .container { width: min(1280px, 100% - 32px); }
+.pr-svg .pr-cut, .pr-svg .pr-sheet, .pr-svg .pr-top, .pr-svg .x, .pr-svg .pr-handle, .pr-svg .pr-done, .pr-svg .pr-paint-mask { transition: none; }
+.pr-bar { height: 2px; background: var(--line-d); margin: 10px auto 0; max-width: 420px; }
+.pr-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-2)); transform-origin: left; transform: scaleX(0); }
+.pr-hint { text-align: center; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted-d); margin-top: 12px; }
+.pr-text .rv, .pr-stage.rv { opacity: 1; transform: none; }
+@media (min-width: 900px) { .pr-sticky > .container { width: min(1280px, 100% - 80px); } }
+@media (max-width: 1000px) {
+  .pr-track { height: 420vh; }
+  .pr-sticky { align-items: flex-start; padding-top: 84px; }
+  .pr-text { order: -1; }
+  .pr-text .h2 { font-size: 32px; }
+  .pr-text .eye { margin-bottom: 10px; }
+  .pr-steps { display: none; }
+  .pr-wrap { gap: 18px; }
+}
