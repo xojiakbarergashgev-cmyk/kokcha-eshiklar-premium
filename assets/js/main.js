@@ -320,13 +320,38 @@
     const svg = $("svg", st), cut = $(".pr-cut", svg), pats = $$(".pr-pat, .pr-pat-hi", svg);
     const sheet = $(".pr-sheet", svg), rails = $$(".pr-rail", svg), xs = $$(".x", svg), top = $(".pr-top", svg);
     const mask = $(".pr-paint-mask", svg), gloss = $(".pr-gloss", svg), handle = $(".pr-handle", svg), done = $(".pr-done", svg), frame = $(".pr-frame", svg);
-    const hint = $("#prHint");
+    const hint = $("#prHint"), room = $(".pr-room", svg), machine = $(".pr-machine", svg);
     const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
     const steps = $$(".pr-steps li"), cap = $("#prCaption"), bar = $("#prBar");
-    const Lc = cut.getTotalLength(), Lp = pats[0].getTotalLength();
+    const Lc = cut.getTotalLength();
+    // Naqshni bo'laklarga ajratamiz: har bir bo'lak faqat reyver unga yetganda o'yiladi
+    const segs = [];
+    pats.forEach((src, layer) => {
+      const subs = src.getAttribute("d").match(/M[^M]*/g) || [];
+      let acc = 0;
+      subs.forEach((d, i) => {
+        const el = src.cloneNode();
+        el.setAttribute("d", d);
+        el.removeAttribute("class");
+        src.parentNode.insertBefore(el, src);
+        const len = el.getTotalLength();
+        el.style.strokeDasharray = len + " " + (len + 1);
+        el.style.strokeDashoffset = len;
+        segs.push({ el, len, start: acc, layer });
+        acc += len;
+      });
+      src.style.display = "none";
+      if (layer === 0) st._patLen = acc;
+    });
+    const Lp = st._patLen, routeSegs = segs.filter(s => s.layer === 0);
+    const routerAt = k => {
+      const pos = Lp * k;
+      const s = routeSegs.find(s => pos <= s.start + s.len) || routeSegs[routeSegs.length - 1];
+      const pt = s.el.getPointAtLength(Math.max(0, Math.min(s.len, pos - s.start)));
+      return `translate(${pt.x} ${pt.y})`;
+    };
     const G = { x: +svg.dataset.x0, y: +svg.dataset.y0, w: +svg.dataset.w, h: +svg.dataset.h };
     cut.style.strokeDasharray = Lc;
-    pats.forEach(p => { p.style.strokeDasharray = Lp; });
     // bosqich chegaralari (0..1 scroll ichida)
     const B = [0, .17, .33, .47, .67, .85, 1];
     const seg = (p, n) => Math.min(1, Math.max(0, (p - B[n - 1]) / (B[n] - B[n - 1])));
@@ -347,14 +372,17 @@
       top.style.opacity = k3 > 0 ? 1 : 0;
       top.style.transform = `translateX(${-420 * (1 - k3) * (1 - k3)}px)`;
       // 4. frezer naqsh
-      pats.forEach(pt => { pt.style.strokeDashoffset = Lp * (1 - k4); pt.style.opacity = k4 > 0 ? 1 : 0; });
-      tool(router, k4 > 0 && k4 < 1, at(pats[0], Lp, k4));
+      const pos = Lp * k4;
+      segs.forEach(s => { const done = Math.max(0, Math.min(s.len, pos - s.start)); s.el.style.strokeDashoffset = s.len - done; s.el.style.opacity = done > 0 ? 1 : 0; });
+      tool(router, k4 > 0 && k4 < 1, routerAt(k4));
       // 5. bo'yoq
       mask.style.transform = `scaleY(${k5})`;
       tool(gun, k5 > 0 && k5 < 1, `translate(${G.x + G.w + 70} ${G.y + G.h * k5})`);
       // 6. tayyor
       handle.style.opacity = k6;
       frame.style.opacity = k6;
+      room.style.opacity = Math.min(1, k6 * 1.4);
+      machine.style.opacity = 1 - Math.min(1, k6 * 1.6);
       const ready = p >= .985;
       st.classList.toggle("pr-ready", ready);
       if (!ready && st.classList.contains("pr-open")) { st.classList.remove("pr-open"); last = -1; }
@@ -377,14 +405,22 @@
     st.addEventListener("click", () => setOpen(!st.classList.contains("pr-open")));
     st._redraw = () => { last = -1; draw(st._p || 0); };
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st._p = 1; draw(1); return; }
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const r = sec.getBoundingClientRect(), total = sec.offsetHeight - innerHeight;
-      st._p = Math.min(1, Math.max(0, -r.top / (total || 1)));
-      draw(st._p);
+    // Scroll maqsad qiymatni beradi; sahna unga ravon yetib boradi, shuning uchun
+    // asboblar sakramaydi va reyver faqat o'zi o'tgan joyni o'yadi.
+    let target = 0, cur = 0, running = false;
+    const tick = () => {
+      const d = target - cur;
+      cur = Math.abs(d) < .0008 ? target : cur + Math.sign(d) * Math.min(Math.abs(d), Math.max(.0016, Math.abs(d) * .09));
+      st._p = cur;
+      draw(cur);
+      if (cur !== target) requestAnimationFrame(tick); else running = false;
     };
-    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    const update = () => {
+      const r = sec.getBoundingClientRect(), total = sec.offsetHeight - innerHeight;
+      target = Math.min(1, Math.max(0, -r.top / (total || 1)));
+      if (!running) { running = true; requestAnimationFrame(tick); }
+    };
+    addEventListener("scroll", update, { passive: true });
     addEventListener("resize", update);
     update();
   }

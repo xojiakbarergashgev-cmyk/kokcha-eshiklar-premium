@@ -656,3 +656,10 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .pr-ready .pr-hint { color: var(--gold-2); animation: hintpulse 1.6s ease-in-out infinite; }
 @keyframes hintpulse { 50% { opacity: .45; } }
 .pr-open .pr-hint { animation: none; }
+
+/* Kattaroq sahna, xona */
+.pr-room { opacity: 0; }
+.pr-svg { height: calc(100vh - 170px); height: calc(100svh - 170px); max-height: 860px; }
+@media (min-width: 1001px) { .pr-wrap { grid-template-columns: .85fr 1.15fr; } }
+@media (max-width: 1000px) { .pr-svg { height: calc(100svh - 270px); } }
+.pr-stage { padding: 10px 10px 16px; }
