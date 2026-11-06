@@ -86,16 +86,22 @@
 
   /* ---------- 3D: eshik sichqonchaga qarab buriladi ---------- */
   let tiltHost = null;
-  const resetTilt = h => { const d = h && $(".door", h); if (d) { d.style.removeProperty("--tx"); d.style.removeProperty("--ty"); } };
+  const resetTilt = h => {
+    if (!h) return;
+    [h, $(".door", h)].forEach(el => { if (el) { el.style.removeProperty("--tx"); el.style.removeProperty("--ty"); } });
+  };
   document.addEventListener("mousemove", e => {
     const h = e.target.closest(".hero, .media");
     if (tiltHost && tiltHost !== h) resetTilt(tiltHost);
     tiltHost = h;
     if (!h) return;
-    const d = $(".door", h);
-    if (!d) return;
     const r = h.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    // haqiqiy eshik rasmlari ham 3D buriladi
+    h.style.setProperty("--ty", (x * 16).toFixed(1) + "deg");
+    h.style.setProperty("--tx", (-y * 10).toFixed(1) + "deg");
+    const d = $(".door", h);
+    if (!d) return;
     d.style.setProperty("--ty", (x * 26).toFixed(1) + "deg");
     d.style.setProperty("--tx", (-y * 8).toFixed(1) + "deg");
   }, { passive: true });
@@ -384,8 +390,13 @@
       room.style.opacity = Math.min(1, k6 * 1.4);
       machine.style.opacity = 1 - Math.min(1, k6 * 1.6);
       const ready = p >= .985;
+      if (ready && !st.classList.contains("pr-ready")) {
+        // Jarayon tugadi — eshik o'zi ochiladi
+        clearTimeout(st._openT);
+        st._openT = setTimeout(() => { if (st.classList.contains("pr-ready")) setOpen(true); }, 650);
+      }
       st.classList.toggle("pr-ready", ready);
-      if (!ready && st.classList.contains("pr-open")) { st.classList.remove("pr-open"); last = -1; }
+      if (!ready && st.classList.contains("pr-open")) { clearTimeout(st._openT); st.classList.remove("pr-open"); last = -1; }
       gloss.style.transform = `translateY(${(G.h + 110) * k6}px)`;
       done.style.opacity = k6 > .4 ? (k6 - .4) / .6 : 0;
       done.style.transform = `scale(${.4 + .6 * Math.min(1, k6 * 1.6)})`;
@@ -401,7 +412,6 @@
       cap.textContent = t(on ? "pr.s7" : "pr.s6");
     };
     st.addEventListener("mouseenter", () => setOpen(true));
-    st.addEventListener("mouseleave", () => setOpen(false));
     st.addEventListener("click", () => setOpen(!st.classList.contains("pr-open")));
     st._redraw = () => { last = -1; draw(st._p || 0); };
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { st._p = 1; draw(1); return; }

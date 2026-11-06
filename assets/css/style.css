@@ -663,3 +663,13 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 @media (min-width: 1001px) { .pr-wrap { grid-template-columns: .85fr 1.15fr; } }
 @media (max-width: 1000px) { .pr-svg { height: calc(100svh - 270px); } }
 .pr-stage { padding: 10px 10px 16px; }
+
+/* 3D eshik rasmlari: sichqonchaga qarab buriladi */
+.media.photo { perspective: 1100px; }
+.media.photo > .ph, .col .media > .ph { transform: rotateY(var(--ty, 0deg)) rotateX(var(--tx, 0deg)) scale(.96); transform-origin: center; transition: transform .6s var(--ease), filter .6s; }
+.media.photo > .ph.loaded { filter: drop-shadow(0 22px 22px rgba(30, 20, 10, .16)); }
+.pcard:hover .media.photo > .ph, .media.photo:hover > .ph { transform: rotateY(var(--ty, 0deg)) rotateX(var(--tx, 0deg)) scale(1.02); filter: drop-shadow(0 30px 30px rgba(30, 20, 10, .24)); }
+.pcard:hover .media.photo > .ph.alt.loaded { opacity: 1; }
+.col .media { perspective: 1100px; }
+.col:hover .media > .ph { transform: rotateY(var(--ty, 0deg)) rotateX(var(--tx, 0deg)) scale(1.06); }
+.pp-thumbs .ph { transform: none !important; filter: none !important; }
