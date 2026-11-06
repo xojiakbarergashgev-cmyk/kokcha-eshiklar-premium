@@ -81,12 +81,13 @@
       <div class="eye rv" data-i18n="pr.eye"></div>
       <h2 class="h2 rv" data-i18n="pr.title"></h2>
       <ol class="pr-steps">
-        <li data-step="1"><b>01</b><span data-i18n="pr.s1"></span></li>
-        <li data-step="2"><b>02</b><span data-i18n="pr.s2"></span></li>
-        <li data-step="3"><b>03</b><span data-i18n="pr.s3"></span></li>
-        <li data-step="4"><b>04</b><span data-i18n="pr.s4"></span></li>
-        <li data-step="5"><b>05</b><span data-i18n="pr.s5"></span></li>
-        <li data-step="6"><b>06</b><span data-i18n="pr.s6"></span></li>
+        <li data-step="1"><b>01</b><span data-i18n="pr.cad"></span></li>
+        <li data-step="2"><b>02</b><span data-i18n="pr.s1"></span></li>
+        <li data-step="3"><b>03</b><span data-i18n="pr.s2"></span></li>
+        <li data-step="4"><b>04</b><span data-i18n="pr.s3"></span></li>
+        <li data-step="5"><b>05</b><span data-i18n="pr.s4"></span></li>
+        <li data-step="6"><b>06</b><span data-i18n="pr.s5"></span></li>
+        <li data-step="7"><b>07</b><span data-i18n="pr.s6"></span></li>
       </ol>
     </div>
     <div class="pr-stage rv" id="prStage">
@@ -107,6 +108,7 @@
     <radialGradient id="warm" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#ffd59a" stop-opacity=".4"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></radialGradient>
     <radialGradient id="floorShadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
     <filter id="glowF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="cadGrid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0 H0 V50" fill="none" stroke="#3d7ab8" stroke-width=".8" opacity=".55"/><path d="M10 0 V50 M20 0 V50 M30 0 V50 M40 0 V50 M0 10 H50 M0 20 H50 M0 30 H50 M0 40 H50" stroke="#3d7ab8" stroke-width=".4" opacity=".3"/></pattern>
     <clipPath id="paintClip"><rect class="pr-paint-mask" x="190" y="150" width="220" height="500"/></clipPath>
     <clipPath id="doorClip"><rect x="190" y="150" width="220" height="500"/></clipPath>
   </defs>
@@ -166,6 +168,34 @@
     <path d="M180 650 V140 H420 V650" fill="none" stroke="#8a6a50" stroke-width="18" filter="url(#woodDark)" opacity=".5"/>
     <path d="M171 650 V131 H429 V650" fill="none" stroke="#3c2a1d" stroke-width="1.2"/>
     <path d="M189 650 V149 H411 V650" fill="none" stroke="#2a1c12" stroke-width="1.2"/>
+  </g>
+  <!-- 0. AutoCAD: mijoz eshigi aniq o'lchamda chiziladi -->
+  <g class="pr-cad">
+    <rect x="95" y="70" width="410" height="640" fill="#0b2340"/>
+    <rect x="95" y="70" width="410" height="640" fill="url(#cadGrid)"/>
+    <g fill="none" stroke="#8fd8ff" stroke-width="1.6" stroke-linejoin="round">
+      <path class="cad-l" d="M120 650 H480"/>
+      <path class="cad-l" d="M171 650 V131 H429 V650"/>
+      <path class="cad-l" d="M190 650 V150 H410 V650 Z"/>
+      <path class="cad-l" d="M286 164 H354 V636 H286 Z"/>
+      <path class="cad-l" d="M295 173 H345 V627 H295 Z"/>
+      <circle class="cad-l" cx="320" cy="214" r="21"/><circle class="cad-l" cx="320" cy="278" r="21"/><circle class="cad-l" cx="320" cy="342" r="21"/><circle class="cad-l" cx="320" cy="406" r="21"/><circle class="cad-l" cx="320" cy="470" r="21"/><circle class="cad-l" cx="320" cy="534" r="21"/><circle class="cad-l" cx="320" cy="598" r="21"/>
+      <path class="cad-l" d="M208 310 h8 v180 h-8 Z"/>
+    </g>
+    <g class="cad-dim" fill="#ffd27a" stroke="#ffd27a" font-family="ui-monospace, Menlo, monospace" font-size="13">
+      <path d="M190 655 V692 M410 655 V692 M190 682 H410 M190 682 l9 -4 v8 Z M410 682 l-9 -4 v8 Z" stroke-width="1"/>
+      <text x="300" y="676" text-anchor="middle" stroke="none">800</text>
+      <path d="M184 150 H132 M184 650 H132 M142 150 V650 M142 150 l-4 9 h8 Z M142 650 l-4 -9 h8 Z" stroke-width="1"/>
+      <text x="136" y="400" text-anchor="middle" stroke="none" transform="rotate(-90 136 400)">2000</text>
+      <text x="436" y="124" stroke="none" font-size="11">t = 40</text>
+      <text x="320" y="120" text-anchor="middle" stroke="none" font-size="10">R21 ×7</text>
+    </g>
+    <g font-family="ui-monospace, Menlo, monospace" fill="#8fd8ff">
+      <rect x="104" y="80" width="150" height="38" fill="#0b2340" stroke="#8fd8ff" stroke-width="1"/>
+      <text x="112" y="96" font-size="11" font-weight="700">KO'KCHA · AutoCAD</text>
+      <text x="112" y="111" font-size="9" opacity=".8">DWG-01 · 2000×800×40 mm</text>
+    </g>
+    <g class="cad-cur" stroke="#fff" stroke-width="1"><path d="M-14 0 H14 M0 -14 V14"/><rect x="-4" y="-4" width="8" height="8" fill="none"/></g>
   </g>
   <!-- asboblar -->
   <g class="pr-blade"><rect x="-6" y="-70" width="12" height="52" rx="3" fill="#9aa3b2"/><rect x="-22" y="-100" width="44" height="34" rx="5" fill="#d9822b"/><rect x="-14" y="-92" width="28" height="6" rx="2" fill="#1d1d1d" opacity=".45"/>

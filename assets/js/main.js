@@ -436,6 +436,8 @@
     const hint = $("#prHint"), room = $(".pr-room", svg), machine = $(".pr-machine", svg);
     const blade = $(".pr-blade", svg), router = $(".pr-router", svg), gun = $(".pr-gun", svg);
     const steps = $$(".pr-steps li"), cap = $("#prCaption"), bar = $("#prBar");
+    const cad = $(".pr-cad", svg), cadDim = $(".cad-dim", svg), cadCur = $(".cad-cur", svg);
+    const cadLines = $$(".cad-l", svg).map(el => { const len = el.getTotalLength(); el.style.strokeDasharray = len + " " + (len + 1); return { el, len }; });
     const Lc = cut.getTotalLength();
     // Naqshni bo'laklarga ajratamiz: har bir bo'lak faqat reyver unga yetganda o'yiladi
     const segs = [];
@@ -466,13 +468,23 @@
     const G = { x: +svg.dataset.x0, y: +svg.dataset.y0, w: +svg.dataset.w, h: +svg.dataset.h };
     cut.style.strokeDasharray = Lc;
     // bosqich chegaralari (0..1 scroll ichida)
-    const B = [0, .17, .33, .47, .67, .85, 1];
+    const B = [0, .13, .278, .417, .539, .713, .869, 1];
     const seg = (p, n) => Math.min(1, Math.max(0, (p - B[n - 1]) / (B[n] - B[n - 1])));
     const at = (path, L, k) => { const pt = path.getPointAtLength(L * k); return `translate(${pt.x} ${pt.y})`; };
     const tool = (el, on, tr) => { el.classList.toggle("on", on); if (on) el.setAttribute("transform", tr); };
     let last = -1;
     function draw(p) {
-      const k1 = seg(p, 1), k2 = seg(p, 2), k3 = seg(p, 3), k4 = seg(p, 4), k5 = seg(p, 5), k6 = seg(p, 6);
+      const kC = seg(p, 1), k1 = seg(p, 2), k2 = seg(p, 3), k3 = seg(p, 4), k4 = seg(p, 5), k5 = seg(p, 6), k6 = seg(p, 7);
+      // 0. AutoCAD chizma: chiziqlar ketma-ket chiziladi, keyin o'lchamlar, so'ng MDF'ga o'tiladi
+      const nL = cadLines.length, drawK = Math.min(1, kC / .6);
+      cadLines.forEach((l, i) => { const v = Math.min(1, Math.max(0, drawK * nL - i)); l.el.style.strokeDashoffset = l.len * (1 - v); });
+      const li = Math.min(nL - 1, Math.floor(drawK * nL)), cl = cadLines[li], cpt = cl.el.getPointAtLength(cl.len * Math.min(1, Math.max(0, drawK * nL - li)));
+      cadCur.setAttribute("transform", `translate(${cpt.x} ${cpt.y})`);
+      cadCur.style.opacity = kC > 0 && kC < .62 ? 1 : 0;
+      cadDim.style.opacity = Math.min(1, Math.max(0, (kC - .55) / .2));
+      const cadOut = Math.min(1, Math.max(0, (kC - .86) / .14));
+      cad.style.opacity = 1 - cadOut;
+      cad.style.visibility = cadOut >= 1 ? "hidden" : "visible";
       // 1. kesish
       cut.style.strokeDashoffset = Lc * (1 - k1);
       cut.style.opacity = k2 > 0 ? 1 - k2 * 3 : (k1 > 0 ? 1 : 0);
@@ -508,8 +520,8 @@
       done.style.opacity = k6 > .4 ? (k6 - .4) / .6 : 0;
       done.style.transform = `scale(${.4 + .6 * Math.min(1, k6 * 1.6)})`;
       // yozuv va bosqichlar
-      const n = p <= 0 ? 1 : Math.min(6, B.findIndex(b => p < b) === -1 ? 6 : B.findIndex(b => p < b));
-      if (n !== last) { last = n; steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n)); cap.textContent = t(st.classList.contains("pr-open") ? "pr.s7" : "pr.s" + n); if (hint) hint.textContent = t(ready ? "pr.hover" : "pr.hint"); }
+      const n = p <= 0 ? 1 : Math.min(7, B.findIndex(b => p < b) === -1 ? 7 : B.findIndex(b => p < b));
+      if (n !== last) { last = n; steps.forEach(li => li.classList.toggle("on", +li.dataset.step === n)); cap.textContent = t(st.classList.contains("pr-open") ? "pr.s7" : n === 1 ? "pr.cad" : "pr.s" + (n - 1)); if (hint) hint.textContent = t(ready ? "pr.hover" : "pr.hint"); }
       bar.style.transform = `scaleX(${p})`;
     }
     // Tayyor eshik: sichqoncha olib borilsa (telefonda — bosilsa) ochiladi, ortida oila
