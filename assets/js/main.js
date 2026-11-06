@@ -153,7 +153,7 @@
         <div><h4>${t("footer.contacts")}</h4><ul>
           <li><a href="tel:${C.tel}">${C.phone}</a></li>
           <li><a href="https://t.me/${C.telegram}" target="_blank" rel="noopener">@${C.telegram}</a></li>
-          <li><a href="mailto:${C.email}">${C.email}</a></li>
+          ${C.email ? `<li><a href="mailto:${C.email}">${C.email}</a></li>` : ""}
           <li>${t("top.addr")}</li><li>${t("top.hours")}</li>
         </ul></div>
       </div>
@@ -568,14 +568,14 @@
         <div class="chips">${CATS.map(c => `<button class="chip ${cs.cat === c ? "on" : ""}" data-cat="${c}">${c === "all" ? t("cat.all") : t("cat." + c)}</button>`).join("")}</div>
         <div class="tools-r">
           <input class="search" type="search" placeholder="${t("cat.search")}" value="${esc(cs.q)}">
-          <select class="sort">${["pop", "asc", "desc"].map(o => `<option value="${o}" ${cs.sort === o ? "selected" : ""}>${t("sort." + o)}</option>`).join("")}</select>
+          <select class="sort"${PRODUCTS.some(p => p.price) ? "" : " hidden"}>${["pop", "asc", "desc"].map(o => `<option value="${o}" ${cs.sort === o ? "selected" : ""}>${t("sort." + o)}</option>`).join("")}</select>
         </div>
       </div>
       <div class="colorbar"><span>${t("cat.colors")}:</span>
         <button class="cdot all ${cs.color === "all" ? "on" : ""}" data-color="all">${t("cat.all")}</button>
         ${Object.keys(COLORS).map(k => `<button class="cdot ${cs.color === k ? "on" : ""}" data-color="${k}" style="--sw:${swatch(k)}" title="${t("c." + k)}" aria-label="${t("c." + k)}"></button>`).join("")}
       </div>
-      <div class="count"><span id="count"></span><span>${t("cat.price_note")}</span></div>
+      <div class="count"><span id="count"></span>${PRODUCTS.some(p => p.price) ? `<span>${t("cat.price_note")}</span>` : ""}</div>
       <div class="pgrid" id="grid"></div>
       <div class="more" id="more"></div>`;
     drawGrid();
@@ -603,6 +603,8 @@
   /* ---------- Mahsulot sahifasi ---------- */
   const SIZES = { "600": 0.95, "700": 1, "800": 1, "900": 1.1, custom: 1.25 };
   const product = PRODUCTS.find(p => p.id === new URLSearchParams(location.search).get("id")) || PRODUCTS[0];
+  // mavjud bo'lmagan eshik so'ralsa, boshqa eshik ko'rsatmasdan katalogga qaytaramiz
+  if ($("#pp") && product.id !== new URLSearchParams(location.search).get("id")) location.replace("katalog.html");
   const ps = { color: product.color, size: "800", side: "left", set: "1", img: 1 };
 
   function seg(attr, cur, opts) {
@@ -614,6 +616,11 @@
     if (!root) return;
     const p = product;
     document.body.dataset.titleText = p.name;
+    // har bir eshik Google'da alohida sahifa bo'lib ko'rinsin
+    const url = "https://xojiakbarergashgev-cmyk.github.io/kokcha-eshiklar-premium/mahsulot.html?id=" + p.id;
+    const canon = $('link[rel="canonical"]'), ogu = $('meta[property="og:url"]');
+    if (canon) canon.href = url;
+    if (ogu) ogu.content = url;
     $("#ppName").textContent = p.name;
     $("#ppCrumb").textContent = p.name;
     $("#ppCat").textContent = t("cat." + p.cat);

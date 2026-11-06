@@ -714,3 +714,7 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .v360-door { --h: min(540px, 82cqh, calc(78cqw / var(--ar))) !important; }
 .pr-svg .pr-cad, .pr-svg .cad-l, .pr-svg .cad-dim, .pr-svg .cad-cur { transition: none; }
 @media (prefers-reduced-motion: reduce) { .pr-stage .pr-cad { display: none; } }
+
+/* uzun Telegram nomi telefonda ekrandan chiqmasin */
+.ct-item > div { min-width: 0; }
+.ct-item b, .ftr a { overflow-wrap: anywhere; }
