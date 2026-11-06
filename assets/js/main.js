@@ -320,29 +320,70 @@
   }
 
   /* ---------- Ishlab chiqarish animatsiyasi (scroll bilan boshqariladi) ---------- */
+  // 360° uchun: har bir rasmda eshik turgan joy [x0, x1, y0, y1, rasm eni, bo'yi, eshik rangi]
+  const DOOR_BOX = {
+    "kc01":[0.285,0.715,0.112,0.85,900,1200,"#aca9a0"],
+    "kc02":[0.259,0.741,0.084,0.85,900,1200,"#816249"],
+    "kc03":[0.279,0.724,0.145,0.85,900,1200,"#d9c3a6"],
+    "k1035":[0.31,0.712,0.066,0.952,1000,1000,"#d7d4ce"],
+    "k1034":[0.238,0.782,0.064,0.938,1000,1000,"#8c8c8e"],
+    "k1033":[0.3,0.714,0.06,0.966,1000,1000,"#4c4a46"],
+    "k1032":[0.25,0.76,0.084,0.938,1000,1000,"#b0ada9"],
+    "k1031":[0.312,0.704,0.078,0.946,1000,1000,"#cbc6bd"],
+    "k1030":[0.274,0.742,0.08,0.942,1000,1250,"#706f6d"],
+    "k1029":[0.34,0.686,0.05,0.958,1000,1000,"#8a8b85"],
+    "k1028":[0.308,0.712,0.066,0.952,1000,1000,"#6d6a64"],
+    "k1027":[0.31,0.7,0.1,0.962,1000,1000,"#2d2f5d"],
+    "k1026":[0.312,0.726,0.042,0.956,1000,1000,"#6e6b64"],
+    "k1025":[0.32,0.694,0.126,0.944,1000,1000,"#676459"],
+    "k1024":[0.31,0.712,0.066,0.952,1000,1000,"#6f7e97"],
+    "k1022":[0.258,0.762,0.08,0.918,1000,1000,"#674127"],
+    "k1021":[0.314,0.704,0.08,0.954,1000,1000,"#694329"],
+    "k1020":[0.308,0.702,0.05,0.958,1000,1000,"#4e3f34"],
+    "k1019":[0.326,0.708,0.082,0.958,1000,1000,"#58321b"],
+    "k1018":[0.332,0.698,0.038,0.97,1000,1000,"#899161"],
+    "k1017":[0.302,0.716,0.056,0.97,1000,1000,"#c0c0b7"],
+    "k1016":[0.312,0.726,0.044,0.956,1000,1000,"#666562"],
+    "k1015":[0.302,0.712,0.06,0.966,1000,1000,"#594f56"],
+    "k1014":[0.32,0.692,0.126,0.944,1000,1000,"#575757"],
+    "k1013":[0.32,0.694,0.126,0.946,1000,1000,"#6e5232"],
+    "k1012":[0.312,0.71,0.074,0.952,1000,1000,"#5c3531"],
+    "k1011":[0.3,0.714,0.058,0.966,1000,1000,"#374844"],
+    "k1010":[0.302,0.712,0.06,0.966,1000,1000,"#2b2e38"],
+    "k1009":[0.302,0.714,0.058,0.966,1000,1000,"#212540"],
+    "k1008":[0.32,0.692,0.128,0.944,1000,1000,"#353950"],
+    "k1006":[0.342,0.686,0.046,0.958,1000,1000,"#5f4232"],
+    "k1005":[0.31,0.712,0.068,0.952,1000,1000,"#525453"],
+    "k1003":[0.312,0.726,0.044,0.956,1000,1000,"#5c5f5a"],
+    "k1002":[0.32,0.692,0.128,0.944,1000,1000,"#c6c6c6"],
+    "kn01":[0.262,0.71,0.088,0.805,1060,1400,"#354056"],
+    "kn02":[0.338,0.664,0.165,0.835,1400,1400,"#b39558"],
+    "kn03":[0.25,0.729,0.086,0.845,1054,1400,"#e3e7e6"],
+    "kn04":[0.282,0.721,0.109,0.817,1055,1400,"#71454d"],
+    "kn05":[0.257,0.717,0.101,0.859,1055,1400,"#d6d8dc"]
+  };
   /* 360° ko'rgazma: haqiqiy eshik rasmlari 3D plita yuzasiga qo'yiladi */
   function init360() {
     const stage = $("#v360Stage");
     if (!stage) return;
     const door = $("#v360Door"), thumbs = $("#v360Thumbs");
-    // rasmda eshik turgan joy (x0, x1, y0, y1) — fon kesib tashlanadi
-    const CROP = { k: [.325, .665, .13, .95], kc: [.267, .733, .092, .825], kn: [.258, .712, .097, .796] };
-    const SIZE = { k: [1000, 1000], kc: [900, 1200], kn: [1060, 1400] };
-    const list = PRODUCTS.filter(p => p.real);
-    const kind = p => p.id.startsWith("kc") ? "kc" : p.id.startsWith("kn") ? "kn" : "k";
+    const list = PRODUCTS.filter(p => DOOR_BOX[p.id]);
     const src = p => `assets/img/products/${p.id}-1.${p.ext || "jpg"}`;
     if (!stage._built) {
-      thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${faceBg(p)}"></span></button>`).join("");
+      thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${faceBg(p)};aspect-ratio:${ratio(p)}"></span></button>`).join("");
     }
+    function ratio(p) { const [x0, x1, y0, y1, W, H] = DOOR_BOX[p.id]; return ((x1 - x0) * W / ((y1 - y0) * H)).toFixed(4); }
     function faceBg(p) {
-      const [x0, x1, y0, y1] = CROP[kind(p)], w = x1 - x0, hh = y1 - y0;
+      const [x0, x1, y0, y1] = DOOR_BOX[p.id], w = x1 - x0, hh = y1 - y0;
       return `background-image:url('${src(p)}');background-size:${(100 / w).toFixed(2)}% ${(100 / hh).toFixed(2)}%;background-position:${(x0 / (1 - w) * 100).toFixed(2)}% ${(y0 / (1 - hh) * 100).toFixed(2)}%`;
     }
     let idx = stage._idx || 0, rot = stage._rot || -25, vel = 0, drag = null, idle = 0;
     function show(i) {
       idx = (i + list.length) % list.length; stage._idx = idx;
-      const p = list[idx], [x0, x1, y0, y1] = CROP[kind(p)], [W, H] = SIZE[kind(p)];
-      door.style.setProperty("--ar", ((x1 - x0) * W / ((y1 - y0) * H)).toFixed(4));
+      const p = list[idx], col = DOOR_BOX[p.id][6];
+      // har eshik o'z haqiqiy proporsiyasida, qirralari o'z rangida
+      door.style.setProperty("--ar", ratio(p));
+      door.style.setProperty("--edge", col);
       $$(".front, .back", door).forEach(f => f.setAttribute("style", faceBg(p)));
       $("#v360Name").textContent = p.name;
       $("#v360Num").textContent = String(idx + 1).padStart(2, "0") + " / " + list.length;
