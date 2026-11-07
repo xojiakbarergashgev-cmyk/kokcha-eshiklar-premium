@@ -42,12 +42,79 @@
 <body data-page="home">
 <div id="site-header"></div>
 
-<!-- HIKOYA: eshik chizmadan tayyor holga keladi (butun ekran, scroll bilan) -->
-<section class="story pr-story" id="jarayon-anim">
+<!-- HIKOYA: chizmadan uyingizgacha (butun ekranli, scroll bilan) -->
+<section class="story" id="hikoya">
   <div class="st-track">
     <div class="st-stage">
-      <div class="st-bg"></div>
-      <div class="pr-stage st-door" id="prStage">
+      <div class="st-l st-bp on" data-s="0">
+        <svg class="st-bp-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><pattern id="stGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3d7ab8" stroke-width="1" opacity=".45"/><path d="M8 0V40M16 0V40M24 0V40M32 0V40M0 8H40M0 16H40M0 24H40M0 32H40" stroke="#3d7ab8" stroke-width=".5" opacity=".22"/></pattern></defs>
+          <rect width="1600" height="900" fill="#0b2340"/><rect width="1600" height="900" fill="url(#stGrid)"/>
+          <g fill="none" stroke="#9fdcff" stroke-width="2" stroke-linejoin="round">
+            <path class="bp-l" pathLength="1" d="M520 760H1080"/>
+            <path class="bp-l" pathLength="1" d="M650 760V118H950V760"/>
+            <path class="bp-l" pathLength="1" d="M676 760V142H924V760Z"/>
+            <path class="bp-l" pathLength="1" d="M770 162H830V740H770Z"/>
+            <path class="bp-l" pathLength="1" d="M780 172H820V730H780Z"/>
+            <path class="bp-l" pathLength="1" d="M800 210a14 14 0 1 1 0 .1M800 300a14 14 0 1 1 0 .1M800 390a14 14 0 1 1 0 .1M800 480a14 14 0 1 1 0 .1M800 570a14 14 0 1 1 0 .1M800 660a14 14 0 1 1 0 .1"/>
+            <path class="bp-l" pathLength="1" d="M698 360h9v190h-9Z"/>
+          </g>
+          <g class="bp-dim" fill="#ffd27a" stroke="#ffd27a" font-family="ui-monospace, Menlo, monospace" font-size="20">
+            <path d="M676 772V815M924 772V815M676 802H924M676 802l12-5v10ZM924 802l-12-5v10Z" stroke-width="1.5"/>
+            <text x="800" y="792" text-anchor="middle" stroke="none">800</text>
+            <path d="M664 142H600M664 760H600M612 142V760M612 142l-5 12h10ZM612 760l-5-12h10Z" stroke-width="1.5"/>
+            <text x="596" y="451" text-anchor="middle" stroke="none" transform="rotate(-90 596 451)">2000</text>
+            <text x="962" y="110" stroke="none" font-size="16">t = 40 mm</text>
+          </g>
+          <g font-family="ui-monospace, Menlo, monospace" fill="#9fdcff"><rect x="1150" y="680" width="300" height="74" fill="#0b2340" stroke="#9fdcff"/><text x="1168" y="712" font-size="20" font-weight="700">KO'KCHA · AutoCAD</text><text x="1168" y="740" font-size="15" opacity=".8">DWG-01 · 2000×800×40 mm</text></g>
+        </svg>
+      </div>
+      <div class="st-l" data-s="1"><img class="on" src="assets/img/production/2.jpg" alt="" decoding="async"></div>
+      <div class="st-l" data-s="2"><img class="on" src="assets/img/factory.jpg" alt="" decoding="async"></div>
+      <div class="st-l" data-s="3"><img src="assets/img/portfolio/1.jpg" alt="" class="on" data-v="0" decoding="async"><img src="assets/img/portfolio/3.jpg" alt="" class="" data-v="1" decoding="async"><img src="assets/img/portfolio/5.jpg" alt="" class="" data-v="2" decoding="async"><img src="assets/img/portfolio/6.jpg" alt="" class="" data-v="3" decoding="async"><img src="assets/img/portfolio/7.jpg" alt="" class="" data-v="4" decoding="async"><img src="assets/img/portfolio/9.jpg" alt="" class="" data-v="5" decoding="async"><img src="assets/img/portfolio/11.jpg" alt="" class="" data-v="6" decoding="async"><img src="assets/img/portfolio/13.jpg" alt="" class="" data-v="7" decoding="async"></div>
+      <div class="st-l" data-s="4"><img src="assets/img/portfolio/15.jpg" alt="" class="on" data-v="0" decoding="async"><img src="assets/img/portfolio/17.jpg" alt="" class="" data-v="1" decoding="async"><img src="assets/img/portfolio/18.jpg" alt="" class="" data-v="2" decoding="async"></div>
+      <div class="st-l" data-s="5"><img class="on" src="assets/img/hero-oila.jpg" alt="" decoding="async"></div>
+      <div class="st-shade"></div>
+
+      <div class="st-copy on" data-s="0">
+        <div class="st-eye"><b>01</b> <span data-i18n="st.e1"></span></div>
+        <h1><span data-i18n="hero.t1"></span> <em data-i18n="hero.t2"></em></h1>
+        <p data-i18n="st.s1"></p>
+      </div>
+      <div class="st-copy" data-s="1"><div class="st-eye"><b>02</b> <span data-i18n="st.e2"></span></div><h2 data-i18n="st.t2"></h2><p data-i18n="st.s2"></p></div>
+      <div class="st-copy" data-s="2"><div class="st-eye"><b>03</b> <span data-i18n="st.e3"></span></div><h2 data-i18n="st.t3"></h2><p data-i18n="st.s3"></p></div>
+      <div class="st-copy" data-s="3"><div class="st-eye"><b>04</b> <span data-i18n="st.e4"></span></div><h2 data-i18n="st.t4"></h2><p data-i18n="st.s4"></p><div class="st-chips"><button type="button" class="st-chip on" data-v="0" style="--c:#f1efe9"><i></i><span data-i18n="st.v1"></span></button><button type="button" class="st-chip" data-v="1" style="--c:#b3a56b"><i></i><span data-i18n="st.v2"></span></button><button type="button" class="st-chip" data-v="2" style="--c:#77756f"><i></i><span data-i18n="st.v3"></span></button><button type="button" class="st-chip" data-v="3" style="--c:#2f3e5c"><i></i><span data-i18n="st.v4"></span></button><button type="button" class="st-chip" data-v="4" style="--c:#5c2b2e"><i></i><span data-i18n="st.v5"></span></button><button type="button" class="st-chip" data-v="5" style="--c:#3d5a8a"><i></i><span data-i18n="st.v6"></span></button><button type="button" class="st-chip" data-v="6" style="--c:#3b3c37"><i></i><span data-i18n="st.v7"></span></button><button type="button" class="st-chip" data-v="7" style="--c:#8a6a4c"><i></i><span data-i18n="st.v8"></span></button></div></div>
+      <div class="st-copy" data-s="4"><div class="st-eye"><b>05</b> <span data-i18n="st.e5"></span></div><h2 data-i18n="st.t5"></h2><p data-i18n="st.s5"></p><div class="st-chips"><button type="button" class="st-chip on" data-v="0"><span data-i18n="st.r1"></span></button><button type="button" class="st-chip" data-v="1"><span data-i18n="st.r2"></span></button><button type="button" class="st-chip" data-v="2"><span data-i18n="st.r3"></span></button></div></div>
+      <div class="st-copy" data-s="5"><div class="st-eye"><b>06</b> <span data-i18n="st.e6"></span></div><h2 data-i18n="st.t6"></h2><p data-i18n="st.s6"></p>
+        <div class="st-btns"><a href="katalog.html" class="btn btn-gold"><span data-i18n="cta.catalog"></span> <span class="arr">→</span></a><button class="btn btn-line" data-order=""><span data-i18n="cta.measure"></span></button></div>
+      </div>
+
+      <div class="st-count"><b id="stNum">01</b> / 06</div>
+      <button type="button" class="st-next" id="stNext"><span data-i18n="st.next"></span> <span class="arr">↓</span></button>
+      <div class="st-bar"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ISHLAB CHIQARISH ANIMATSIYASI: MDF kesish → X to'r → 2-qatlam → frezer naqsh → bo'yoq -->
+<section class="dark pr-sec" id="jarayon-anim">
+ <div class="pr-track">
+ <div class="pr-sticky">
+  <div class="container pr-wrap">
+    <div class="pr-text">
+      <div class="eye rv" data-i18n="pr.eye"></div>
+      <h2 class="h2 rv" data-i18n="pr.title"></h2>
+      <ol class="pr-steps">
+        <li data-step="1"><b>01</b><span data-i18n="pr.cad"></span></li>
+        <li data-step="2"><b>02</b><span data-i18n="pr.s1"></span></li>
+        <li data-step="3"><b>03</b><span data-i18n="pr.s2"></span></li>
+        <li data-step="4"><b>04</b><span data-i18n="pr.s3"></span></li>
+        <li data-step="5"><b>05</b><span data-i18n="pr.s4"></span></li>
+        <li data-step="6"><b>06</b><span data-i18n="pr.s5"></span></li>
+        <li data-step="7"><b>07</b><span data-i18n="pr.s6"></span></li>
+      </ol>
+    </div>
+    <div class="pr-stage rv" id="prStage">
 <svg class="pr-svg" viewBox="95 70 410 640" data-x0="190" data-y0="150" data-w="220" data-h="500" role="img" aria-label="MDF eshik ishlab chiqarish jarayoni">
   <defs>
     <pattern id="mdfDots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1" fill="#8a6440" opacity=".35"/><circle cx="10" cy="11" r=".8" fill="#fff" opacity=".18"/></pattern>
@@ -162,22 +229,13 @@
   <g class="pr-gun"><path d="M0 0 L-60 -24 L-60 24 Z" fill="#8a6a50" opacity=".3"/><rect x="0" y="-14" width="40" height="28" rx="6" fill="#5c6678"/><rect x="40" y="-6" width="22" height="12" fill="#9aa3b2"/><rect x="62" y="-20" width="34" height="48" rx="8" fill="#6e4f39"/><g class="pr-mist"><circle cx="-24" cy="-8" r="5" fill="#6e4f39" opacity=".35"/><circle cx="-34" cy="8" r="7" fill="#6e4f39" opacity=".25"/><circle cx="-46" cy="0" r="9" fill="#6e4f39" opacity=".18"/></g></g>
   <g class="pr-done"><circle cx="466" cy="160" r="26" fill="#b8925a"/><path d="M454 160 l8 9 l16 -18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
 </svg>
-      </div>
-      <div class="st-shade"></div>
-      <div class="st-copy on" data-s="0"><div class="st-eye"><b>01</b> <span data-i18n="pe.1"></span></div><h1><span data-i18n="hero.t1"></span> <em data-i18n="hero.t2"></em></h1><p data-i18n="pr.cad"></p></div>
-      <div class="st-copy" data-s="1"><div class="st-eye"><b>02</b> <span data-i18n="pe.2"></span></div><h2 data-i18n="pt.2"></h2><p data-i18n="pr.s1"></p></div>
-      <div class="st-copy" data-s="2"><div class="st-eye"><b>03</b> <span data-i18n="pe.3"></span></div><h2 data-i18n="pt.3"></h2><p data-i18n="pr.s2"></p></div>
-      <div class="st-copy" data-s="3"><div class="st-eye"><b>04</b> <span data-i18n="pe.4"></span></div><h2 data-i18n="pt.4"></h2><p data-i18n="pr.s3"></p></div>
-      <div class="st-copy" data-s="4"><div class="st-eye"><b>05</b> <span data-i18n="pe.5"></span></div><h2 data-i18n="pt.5"></h2><p data-i18n="pr.s4"></p></div>
-      <div class="st-copy" data-s="5"><div class="st-eye"><b>06</b> <span data-i18n="pe.6"></span></div><h2 data-i18n="pt.6"></h2><p data-i18n="pr.s5"></p></div>
-      <div class="st-copy" data-s="6"><div class="st-eye"><b>07</b> <span data-i18n="pe.7"></span></div><h2 data-i18n="pt.7"></h2><p data-i18n="pr.s6"></p><div class="st-chips"><button type="button" class="st-chip on" data-col="walnut" style="--c:#86654a"><i></i><span data-i18n="st.c1"></span></button><button type="button" class="st-chip" data-col="white" style="--c:#f1ece2"><i></i><span data-i18n="st.c2"></span></button><button type="button" class="st-chip" data-col="navy" style="--c:#2f3e5c"><i></i><span data-i18n="st.c3"></span></button><button type="button" class="st-chip" data-col="graphite" style="--c:#4c4c49"><i></i><span data-i18n="st.c4"></span></button><button type="button" class="st-chip" data-col="bordo" style="--c:#5f2c30"><i></i><span data-i18n="st.c5"></span></button></div><div class="st-btns"><a href="katalog.html" class="btn btn-gold"><span data-i18n="cta.catalog"></span> <span class="arr">→</span></a><button class="btn btn-line" data-order=""><span data-i18n="cta.measure"></span></button></div></div>
-      <div class="sr-only" id="prCaption" aria-live="polite"></div>
-      <div class="st-count"><b id="stNum">01</b> / 07</div>
-      <button type="button" class="st-next" id="stNext"><span data-i18n="st.next"></span> <span class="arr">↓</span></button>
-      <div class="st-bar"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
-      <i id="prBar" hidden></i>
+      <div class="pr-caption" id="prCaption"></div>
+      <div class="pr-bar"><i id="prBar"></i></div>
+      <div class="pr-hint" id="prHint" data-i18n="pr.hint"></div>
     </div>
   </div>
+ </div>
+ </div>
 </section>
 
 <!-- 360° KO'RGAZMA -->
