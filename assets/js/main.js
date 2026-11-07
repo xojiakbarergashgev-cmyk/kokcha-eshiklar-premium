@@ -286,7 +286,6 @@
     if (pf) pf.innerHTML = PORTFOLIO.slice(0, 4).map((it, i) => pfItem(it, ["big", "tall", "", ""][i], i)).join("");
     renderCfg();
     initProcess();
-    initStory();
     init360();
     const ps2 = $("#prStage");
     if (ps2 && ps2._redraw) ps2._redraw();
@@ -363,45 +362,6 @@
     "kn04":[0.282,0.721,0.109,0.817,1055,1400,"#71454d"],
     "kn05":[0.257,0.717,0.101,0.859,1055,1400,"#d6d8dc"]
   };
-  /* Hikoya: butun ekranli bosqichlar, scroll bilan almashadi */
-  function initStory() {
-    const sec = $("#hikoya");
-    if (!sec || sec._init) return;
-    sec._init = true;
-    const layers = $$(".st-l", sec), copies = $$(".st-copy", sec), bars = $$(".st-bar b", sec), N = layers.length;
-    const num = $("#stNum"), next = $("#stNext");
-    let cur = 0;
-    const span = () => sec.offsetHeight - innerHeight;
-    function set(i) {
-      if (i === cur) return;
-      cur = i;
-      layers.forEach((l, j) => l.classList.toggle("on", j === i));
-      copies.forEach((c, j) => c.classList.toggle("on", j === i));
-      num.textContent = String(i + 1).padStart(2, "0");
-    }
-    function update() {
-      const p = Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / (span() || 1)));
-      set(Math.min(N - 1, Math.floor(p * N)));
-      bars.forEach((b, j) => b.style.transform = `scaleX(${Math.min(1, Math.max(0, p * N - j))})`);
-    }
-    addEventListener("scroll", update, { passive: true });
-    addEventListener("resize", update);
-    update();
-    next.addEventListener("click", () => {
-      const top = sec.getBoundingClientRect().top + scrollY;
-      const y = cur < N - 1 ? top + span() * (cur + 1) / N + 4 : top + sec.offsetHeight;
-      scrollTo({ top: y, behavior: "smooth" });
-    });
-    // variant tugmalari: xona o'zgarmaydi, eshik almashadi
-    sec.addEventListener("click", e => {
-      const b = e.target.closest(".st-chip");
-      if (!b) return;
-      const s = b.closest(".st-copy").dataset.s, v = b.dataset.v;
-      $$(".st-chip", b.parentNode).forEach(c => c.classList.toggle("on", c === b));
-      $$(`.st-l[data-s="${s}"] img`, sec).forEach(im => im.classList.toggle("on", im.dataset.v === v));
-    });
-  }
-
   /* 360° ko'rgazma: haqiqiy eshik rasmlari 3D plita yuzasiga qo'yiladi */
   function init360() {
     const stage = $("#v360Stage");
