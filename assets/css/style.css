@@ -723,15 +723,15 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .room-sec { background: var(--ivory, #f6f1e9); }
 .room { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 40px; align-items: center; }
 .room-stage { position: relative; height: min(600px, 70svh); perspective: 1300px; perspective-origin: 50% 42%; overflow: hidden; border-radius: 22px; background: #2a2119; container-type: size; }
-.room-scene { --ar: .5; --ry: 0deg; --dh: min(330px, 62cqh); --dw: calc(var(--dh) * var(--ar)); --W: 125cqw; --WH: calc(var(--dh) + 26cqh); --D: 70cqh;
+.room-scene { --ar: .5; --ry: 0deg; --dh: min(420px, 70cqh); --dw: calc(var(--dh) * var(--ar)); --ow: calc(var(--dw) * .84); --oh: calc(var(--dh) * .93); --W: 125cqw; --WH: calc(var(--dh) * 1.32); --D: 70cqh;
   position: absolute; left: 50%; top: 50%; width: var(--W); height: var(--WH); margin-left: calc(var(--W) / -2); margin-top: calc(var(--WH) / -2 - 4cqh);
   transform-style: preserve-3d; transform: translateZ(calc(var(--D) * -.55)) rotateY(var(--ry)); transition: transform 1.2s cubic-bezier(.4, .1, .2, 1); }
 .room-scene > * { position: absolute; display: block; }
 .rm-wall { top: 0; background: linear-gradient(180deg, #e9dfd0, #ddd0bd); }
 .rm-wall::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #f4efe7; box-shadow: 0 -1px 0 rgba(0, 0, 0, .08); }
-.rm-wall.l { left: 0; width: calc((var(--W) - var(--dw)) / 2); height: var(--WH); }
-.rm-wall.r { right: 0; width: calc((var(--W) - var(--dw)) / 2); height: var(--WH); }
-.rm-wall.t { left: calc((var(--W) - var(--dw)) / 2); width: var(--dw); height: calc(var(--WH) - var(--dh)); }
+.rm-wall.l { left: 0; width: calc((var(--W) - var(--ow)) / 2); height: var(--WH); }
+.rm-wall.r { right: 0; width: calc((var(--W) - var(--ow)) / 2); height: var(--WH); }
+.rm-wall.t { left: calc((var(--W) - var(--ow)) / 2); width: var(--ow); height: calc(var(--WH) - var(--oh)); }
 .rm-wall.t::after { display: none; }
 .rm-art { position: absolute; right: 18%; top: 22%; width: 90px; height: 116px; border: 6px solid #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); background: linear-gradient(135deg, #b9a27e, #6f5a43 60%, #2f3e5c); }
 .rm-lamp { position: absolute; left: 22%; top: 18%; width: 34px; height: 54px; border-radius: 4px 4px 18px 18px; background: linear-gradient(#f3d9a6, #d6b98a); box-shadow: 0 0 60px 30px rgba(255, 214, 150, .35); }
@@ -740,15 +740,15 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .rm-side.r { right: 0; transform-origin: right center; transform: rotateY(90deg); }
 .rm-floor { left: 0; top: var(--WH); width: var(--W); height: var(--D); transform-origin: top center; transform: rotateX(90deg); background: repeating-linear-gradient(90deg, #a9825a 0 70px, #9b7650 70px 72px, #b08a61 72px 140px, #9b7650 140px 142px); }
 .rm-ceil { left: 0; top: 0; width: var(--W); height: var(--D); transform-origin: top center; transform: rotateX(90deg); background: #efe8dd; }
-.rm-beyond { left: calc((var(--W) - var(--dw)) / 2 - 18cqw); width: calc(var(--dw) + 36cqw); top: calc(var(--WH) - var(--dh) - 10cqh); height: calc(var(--dh) + 10cqh); transform: translateZ(-34cqh); overflow: hidden; background: #3a2c1f; }
+.rm-beyond { left: calc((var(--W) - var(--ow)) / 2 - 18cqw); width: calc(var(--ow) + 36cqw); top: calc(var(--WH) - var(--oh) - 10cqh); height: calc(var(--oh) + 10cqh); transform: translateZ(-34cqh); overflow: hidden; background: #3a2c1f; }
 .rm-beyond img { width: 100%; height: 100%; object-fit: cover; object-position: 44% 40%; transform: scale(1.5); transform-origin: 62% 40%; }
 .rm-jamb { background: #cdbfa8; }
-.rm-jamb.l, .rm-jamb.r { top: calc(var(--WH) - var(--dh)); width: 34cqh; height: var(--dh); }
-.rm-jamb.l { left: calc((var(--W) - var(--dw)) / 2); transform-origin: left center; transform: rotateY(90deg); }
-.rm-jamb.r { left: calc((var(--W) + var(--dw)) / 2 - 34cqh); transform-origin: right center; transform: rotateY(-90deg); }
-.rm-jamb.t { left: calc((var(--W) - var(--dw)) / 2); top: calc(var(--WH) - var(--dh)); width: var(--dw); height: 34cqh; transform-origin: top center; transform: rotateX(-90deg); background: #bfb099; }
-.rm-door { left: calc((var(--W) - var(--dw)) / 2); top: calc(var(--WH) - var(--dh)); width: var(--dw); height: var(--dh); transform-style: preserve-3d; transform-origin: right center; transform: translateZ(1px); transition: transform 1.3s cubic-bezier(.6, .02, .25, 1); cursor: pointer; }
-.rm-door.open { transform: translateZ(1px) rotateY(-80deg); }
+.rm-jamb.l, .rm-jamb.r { top: calc(var(--WH) - var(--oh)); width: 34cqh; height: var(--oh); }
+.rm-jamb.l { left: calc((var(--W) - var(--ow)) / 2); transform-origin: left center; transform: rotateY(90deg); }
+.rm-jamb.r { left: calc((var(--W) + var(--ow)) / 2 - 34cqh); transform-origin: right center; transform: rotateY(-90deg); }
+.rm-jamb.t { left: calc((var(--W) - var(--ow)) / 2); top: calc(var(--WH) - var(--oh)); width: var(--ow); height: 34cqh; transform-origin: top center; transform: rotateX(-90deg); background: #bfb099; }
+.rm-door { left: calc((var(--W) - var(--dw)) / 2); top: calc(var(--WH) - var(--dh)); width: var(--dw); height: var(--dh); transform-style: preserve-3d; transform-origin: right center; transform: translateZ(2px); transition: transform 1.3s cubic-bezier(.6, .02, .25, 1); cursor: pointer; }
+.rm-door.open { transform: translateZ(2px) rotateY(-80deg); }
 .rm-door .rf { position: absolute; inset: 0; display: block; background-repeat: no-repeat; backface-visibility: hidden; }
 .rm-door .front { box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
 .rm-door .back { transform: rotateY(180deg) translateZ(14px); filter: brightness(.8); }
@@ -780,3 +780,5 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .room-types button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
 /* fonsiz PNG eshik: soya eshik shaklida tushadi */
 .rm-door .front { box-shadow: none; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .28)); }
+/* eshik ostidagi ostona: tabaqa va pol orasidagi tirqish qorong'i ko'rinmasin */
+.rm-sill { left: calc((var(--W) - var(--dw)) / 2); width: var(--dw); top: calc(var(--WH) - var(--dh) * .06); height: calc(var(--dh) * .06); background: linear-gradient(180deg, #b48d63, #a37d55); transform: translateZ(1px); }
