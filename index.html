@@ -242,6 +242,47 @@
   </div>
 </section>
 
+<!-- XONADA KO'RING: eshik xona devoriga o'rnatilgan, tomonlardan ko'rinadi va ochiladi -->
+<section class="sec room-sec" id="xonada">
+  <div class="container">
+    <div class="head">
+      <div><div class="eye rv" data-i18n="room.eye"></div><h2 class="h2 rv" data-i18n="room.title"></h2></div>
+      <p class="lead rv" data-i18n="room.sub"></p>
+    </div>
+    <div class="room rv">
+      <div class="room-stage" id="roomStage">
+        <div class="room-scene" id="roomScene">
+          <div class="rm-side l"></div>
+          <div class="rm-side r"></div>
+          <div class="rm-floor"></div>
+          <div class="rm-ceil"></div>
+          <!-- eshik ortidagi xona -->
+          <div class="rm-beyond"><img src="assets/img/hero-oila.jpg" alt="" loading="lazy"></div>
+          <div class="rm-jamb l"></div><div class="rm-jamb r"></div><div class="rm-jamb t"></div>
+          <!-- devor: eshik o'rni ochiq qoladi -->
+          <div class="rm-wall l"><i class="rm-art"></i></div>
+          <div class="rm-wall r"><i class="rm-lamp"></i></div>
+          <div class="rm-wall t"></div>
+          <div class="rm-door" id="roomDoor"><i class="rf front"></i><i class="rf back"></i><i class="rf edge"></i></div>
+        </div>
+        <div class="room-views">
+          <button type="button" data-view="left" data-i18n="room.left"></button>
+          <button type="button" data-view="front" class="on" data-i18n="room.front"></button>
+          <button type="button" data-view="right" data-i18n="room.right"></button>
+          <button type="button" class="room-open" id="roomOpen"><span data-i18n="room.open"></span></button>
+        </div>
+      </div>
+      <div class="room-info">
+        <span class="v360-num" id="roomNum"></span>
+        <h3 id="roomName"></h3>
+        <p class="room-hint" data-i18n="room.hint"></p>
+        <a class="btn btn-gold" id="roomLink" href="katalog.html"><span data-i18n="cta.more"></span> →</a>
+      </div>
+      <div class="room-thumbs" id="roomThumbs"></div>
+    </div>
+  </div>
+</section>
+
 <div class="mq"><div class="mq-track" id="mq"></div></div>
 
 <!-- KOLLEKSIYALAR -->

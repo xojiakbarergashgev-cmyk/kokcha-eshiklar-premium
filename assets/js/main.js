@@ -287,6 +287,7 @@
     renderCfg();
     initProcess();
     init360();
+    initRoom();
     const ps2 = $("#prStage");
     if (ps2 && ps2._redraw) ps2._redraw();
     const art = $(".hero-art");
@@ -362,6 +363,49 @@
     "kn04":[0.282,0.721,0.109,0.817,1055,1400,"#71454d"],
     "kn05":[0.257,0.717,0.101,0.859,1055,1400,"#d6d8dc"]
   };
+  /* Xonada ko'ring: eshik devorga o'rnatilgan, chapdan/to'g'ridan/o'ngdan ko'rinadi va ochiladi */
+  const doorRatio = id => { const [x0, x1, y0, y1, W, H] = DOOR_BOX[id]; return ((x1 - x0) * W / ((y1 - y0) * H)).toFixed(4); };
+  const doorBg = p => {
+    const [x0, x1, y0, y1] = DOOR_BOX[p.id], w = x1 - x0, hh = y1 - y0;
+    return `background-image:url('assets/img/products/${p.id}-1.${p.ext || "jpg"}');background-size:${(100 / w).toFixed(2)}% ${(100 / hh).toFixed(2)}%;background-position:${(x0 / (1 - w) * 100).toFixed(2)}% ${(y0 / (1 - hh) * 100).toFixed(2)}%`;
+  };
+  function initRoom() {
+    const stage = $("#roomStage");
+    if (!stage) return;
+    const scene = $("#roomScene"), door = $("#roomDoor"), thumbs = $("#roomThumbs"), openBtn = $("#roomOpen");
+    const list = PRODUCTS.filter(p => DOOR_BOX[p.id]);
+    const label = () => $("span", openBtn).textContent = t(door.classList.contains("open") ? "room.close" : "room.open");
+    if (stage._built) { label(); return; }
+    stage._built = true;
+    thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${doorBg(p)};aspect-ratio:${doorRatio(p.id)}"></span></button>`).join("");
+    let idx = 0;
+    function setOpen(on) { door.classList.toggle("open", on); openBtn.classList.toggle("on", on); label(); }
+    function show(i) {
+      idx = (i + list.length) % list.length;
+      const p = list[idx];
+      scene.style.setProperty("--ar", doorRatio(p.id));
+      scene.style.setProperty("--edge", DOOR_BOX[p.id][6]);
+      $$(".front, .back", door).forEach(f => f.setAttribute("style", doorBg(p)));
+      $("#roomName").textContent = p.name;
+      $("#roomNum").textContent = String(idx + 1).padStart(2, "0") + " / " + list.length;
+      $("#roomLink").href = "mahsulot.html?id=" + p.id;
+      $$("button", thumbs).forEach((b, j) => b.classList.toggle("on", j === idx));
+      const on = $("button.on", thumbs);
+      if (on) thumbs.scrollTo({ left: on.offsetLeft - thumbs.clientWidth / 2 + on.clientWidth / 2, behavior: "smooth" });
+      setOpen(false);
+    }
+    show(0);
+    thumbs.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(+b.dataset.i); });
+    openBtn.addEventListener("click", () => setOpen(!door.classList.contains("open")));
+    door.addEventListener("click", () => setOpen(!door.classList.contains("open")));
+    // xonaga chapdan / to'g'ridan / o'ngdan qarash
+    const VIEW = { left: 26, front: 0, right: -26 };
+    $$("[data-view]", stage).forEach(b => b.addEventListener("click", () => {
+      scene.style.setProperty("--ry", VIEW[b.dataset.view] + "deg");
+      $$("[data-view]", stage).forEach(x => x.classList.toggle("on", x === b));
+    }));
+  }
+
   /* 360° ko'rgazma: haqiqiy eshik rasmlari 3D plita yuzasiga qo'yiladi */
   function init360() {
     const stage = $("#v360Stage");
