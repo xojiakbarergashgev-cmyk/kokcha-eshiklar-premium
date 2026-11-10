@@ -366,7 +366,7 @@
   function init360() {
     const stage = $("#v360Stage");
     if (!stage) return;
-    const rig = $("#v360Rig"), thumbs = $("#v360Thumbs"), openBtn = $("#v360Open");
+    const door = $("#v360Door"), thumbs = $("#v360Thumbs");
     const list = PRODUCTS.filter(p => DOOR_BOX[p.id]);
     const src = p => `assets/img/products/${p.id}-1.${p.ext || "jpg"}`;
     if (!stage._built) {
@@ -377,43 +377,31 @@
       const [x0, x1, y0, y1] = DOOR_BOX[p.id], w = x1 - x0, hh = y1 - y0;
       return `background-image:url('${src(p)}');background-size:${(100 / w).toFixed(2)}% ${(100 / hh).toFixed(2)}%;background-position:${(x0 / (1 - w) * 100).toFixed(2)}% ${(y0 / (1 - hh) * 100).toFixed(2)}%`;
     }
-    let idx = stage._idx || 0, rot = stage._rot || -25, vel = 0, drag = null, idle = 0, aim = null;
-    // ko'rinish burchaklari: chapdan, to'g'ridan, o'ngdan
-    const VIEW = { left: 55, front: 0, right: -55 };
-    const lookAt = a => { aim = a + 360 * Math.round((rot - a) / 360); vel = 0; };
-    function setOpen(on) {
-      rig.classList.toggle("open", on);
-      $("span", openBtn).textContent = t(on ? "v360.close" : "v360.open");
-      openBtn.classList.toggle("on", on);
-      if (on) lookAt(18); // ochiq eshik ichkarisi yaxshi ko'rinsin
-    }
+    let idx = stage._idx || 0, rot = stage._rot || -25, vel = 0, drag = null, idle = 0;
     function show(i) {
       idx = (i + list.length) % list.length; stage._idx = idx;
       const p = list[idx], col = DOOR_BOX[p.id][6];
       // har eshik o'z haqiqiy proporsiyasida, qirralari o'z rangida
-      rig.style.setProperty("--ar", ratio(p));
-      rig.style.setProperty("--edge", col);
-      if (stage._built) setOpen(false);
-      $$(".front, .back", rig).forEach(f => f.setAttribute("style", faceBg(p)));
+      door.style.setProperty("--ar", ratio(p));
+      door.style.setProperty("--edge", col);
+      $$(".front, .back", door).forEach(f => f.setAttribute("style", faceBg(p)));
       $("#v360Name").textContent = p.name;
       $("#v360Num").textContent = String(idx + 1).padStart(2, "0") + " / " + list.length;
       $("#v360Link").href = "mahsulot.html?id=" + p.id;
       $$("button", thumbs).forEach((b, j) => b.classList.toggle("on", j === idx));
       const on = $("button.on", thumbs);
       if (on) thumbs.scrollTo({ left: on.offsetLeft - thumbs.clientWidth / 2 + on.clientWidth / 2, behavior: "smooth" });
-      rig.classList.remove("swap"); void rig.offsetWidth; rig.classList.add("swap");
+      door.classList.remove("swap"); void door.offsetWidth; door.classList.add("swap");
     }
     show(idx);
-    if (stage._built) { $("span", openBtn).textContent = t(rig.classList.contains("open") ? "v360.close" : "v360.open"); return; }
+    if (stage._built) return;
     stage._built = true;
     thumbs.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { show(+b.dataset.i); idle = 0; } });
     $(".prev", stage).addEventListener("click", () => { show(idx - 1); idle = 0; });
     $(".next", stage).addEventListener("click", () => { show(idx + 1); idle = 0; });
-    $$("[data-view]", stage).forEach(b => b.addEventListener("click", () => lookAt(VIEW[b.dataset.view])));
-    openBtn.addEventListener("click", () => setOpen(!rig.classList.contains("open")));
     stage.addEventListener("pointerdown", e => {
       if (e.target.closest("button")) return;
-      drag = { x: e.clientX, x0: e.clientX, r: rot, t: performance.now(), onDoor: !!e.target.closest(".v360-rig") }; vel = 0; aim = null;
+      drag = { x: e.clientX, r: rot, t: performance.now() }; vel = 0;
       stage.setPointerCapture(e.pointerId); stage.classList.add("grab");
     });
     stage.addEventListener("pointermove", e => {
@@ -421,26 +409,18 @@
       const nr = drag.r + (e.clientX - drag.x) * .6, now = performance.now();
       vel = (nr - rot) / Math.max(1, now - drag.t) * 16; drag.t = now; rot = nr;
     });
-    const end = e => {
-      if (!drag) return;
-      // surilmasdan bosilsa — eshik ochiladi / yopiladi
-      if (drag.onDoor && e.type === "pointerup" && Math.abs(e.clientX - drag.x0) < 6) setOpen(!rig.classList.contains("open"));
-      drag = null; idle = 0; stage.classList.remove("grab");
-    };
+    const end = () => { if (drag) { drag = null; idle = 0; stage.classList.remove("grab"); } };
     stage.addEventListener("pointerup", end);
     stage.addEventListener("pointercancel", end);
     let vis = false;
     new IntersectionObserver(es => es.forEach(en => { vis = en.isIntersecting; if (vis) requestAnimationFrame(loop); })).observe(stage);
     function loop() {
-      if (!drag && aim !== null) {
-        rot += (aim - rot) * .1;
-        if (Math.abs(aim - rot) < .1) rot = aim;
-      } else if (!drag) {
+      if (!drag) {
         rot += vel; vel *= .94;
-        if (Math.abs(vel) < .05) { vel = 0; idle++; if (idle > 90 && !rig.classList.contains("open")) rot += .35; } // bo'sh turganda o'zi aylanadi
+        if (Math.abs(vel) < .05) { vel = 0; idle++; if (idle > 90) rot += .35; } // bo'sh turganda o'zi aylanadi
       }
       stage._rot = rot;
-      rig.style.transform = `rotateX(-6deg) rotateY(${rot.toFixed(2)}deg)`;
+      door.style.transform = `rotateX(-6deg) rotateY(${rot.toFixed(2)}deg)`;
       $("#v360Deg").textContent = Math.round(((rot % 360) + 360) % 360) + "°";
       if (vis) requestAnimationFrame(loop);
     }
