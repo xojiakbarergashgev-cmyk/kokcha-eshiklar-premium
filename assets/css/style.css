@@ -718,3 +718,18 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 /* uzun Telegram nomi telefonda ekrandan chiqmasin */
 .ct-item > div { min-width: 0; }
 .ct-item b, .ftr a { overflow-wrap: anywhere; }
+
+/* 360°: chapdan / to'g'ridan / o'ngdan va eshikni ochish */
+.v360-rig { --h: min(520px, 74cqh, calc(78cqw / var(--ar))); --t: 18px; position: relative; height: var(--h); width: calc(var(--h) * var(--ar)); transform-style: preserve-3d; }
+.v360-rig.swap { animation: v360in .7s var(--ease); }
+.v360-rig .v360-door { position: absolute; inset: 0; width: auto; height: auto; transform-origin: right center; transition: transform 1.3s cubic-bezier(.6, .02, .25, 1); animation: none; }
+.v360-rig.open .v360-door { transform: rotateY(-78deg); }
+.v360-hole { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; background: #1a1209; box-shadow: 0 0 0 6px #2a1d12, 0 0 0 7px rgba(214, 185, 138, .35); }
+.v360-hole img { width: 100%; height: 100%; object-fit: cover; object-position: 44% 40%; transform-origin: 62% 40%; transform: scale(1.75); transition: transform 1.6s ease .2s; }
+.v360-rig.open .v360-hole img { transform: scale(1.55); }
+.v360-views { position: absolute; left: 50%; bottom: 14px; translate: -50% 0; display: flex; gap: 6px; padding: 5px; border-radius: 999px; background: rgba(14, 21, 32, .7); border: 1px solid rgba(214, 185, 138, .3); z-index: 3; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); max-width: calc(100% - 24px); overflow-x: auto; scrollbar-width: none; }
+.v360-views button { flex: none; padding: 9px 15px; border-radius: 999px; border: 0; background: transparent; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .04em; cursor: pointer; transition: background .3s, color .3s; white-space: nowrap; }
+.v360-views button:hover { background: rgba(255, 255, 255, .12); }
+.v360-views .v360-open { background: var(--gold); }
+.v360-views .v360-open.on { background: #fff; color: #111; }
+@media (max-width: 900px) { .v360-rig { --t: 14px; } .v360-views button { padding: 8px 11px; font-size: 11px; } .v360-nav { top: 42%; } }
