@@ -772,3 +772,11 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
   .room-views button { padding: 8px 11px; font-size: 11px; }
   .rm-art { width: 54px; height: 70px; }
 }
+
+/* Xona: eshik turlari */
+.room-types { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+.room-types button { padding: 11px 20px; border-radius: 999px; border: 1px solid var(--line, #e2d8c8); background: #fff; color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
+.room-types button:hover { border-color: var(--gold); }
+.room-types button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+/* fonsiz PNG eshik: soya eshik shaklida tushadi */
+.rm-door .front { box-shadow: none; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .28)); }

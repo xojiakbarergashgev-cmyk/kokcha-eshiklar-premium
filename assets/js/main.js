@@ -364,21 +364,30 @@
     "kn05":[0.257,0.717,0.101,0.859,1055,1400,"#d6d8dc"]
   };
   /* Xonada ko'ring: eshik devorga o'rnatilgan, chapdan/to'g'ridan/o'ngdan ko'rinadi va ochiladi */
-  const doorRatio = id => { const [x0, x1, y0, y1, W, H] = DOOR_BOX[id]; return ((x1 - x0) * W / ((y1 - y0) * H)).toFixed(4); };
-  const doorBg = p => {
-    const [x0, x1, y0, y1] = DOOR_BOX[p.id], w = x1 - x0, hh = y1 - y0;
-    return `background-image:url('assets/img/products/${p.id}-1.${p.ext || "jpg"}');background-size:${(100 / w).toFixed(2)}% ${(100 / hh).toFixed(2)}%;background-position:${(x0 / (1 - w) * 100).toFixed(2)}% ${(y0 / (1 - hh) * 100).toFixed(2)}%`;
-  };
+  // Fonsiz PNG eshiklar (assets/img/products/png): [eni, bo'yi] va turi (oynali / to'liq / yashirin)
+  const DOOR_PNG = {"k1002":[300,680],"k1003":[307,680],"k1005":[301,680],"k1006":[252,680],"k1008":[297,680],"k1009":[303,680],"k1010":[301,680],"k1011":[305,680],"k1012":[305,680],"k1013":[299,680],"k1014":[300,680],"k1015":[307,680],"k1016":[303,680],"k1017":[303,680],"k1018":[258,680],"k1019":[345,680],"k1020":[338,680],"k1021":[329,680],"k1022":[450,680],"k1024":[302,680],"k1025":[304,680],"k1026":[306,680],"k1027":[306,680],"k1028":[300,680],"k1029":[252,680],"k1030":[340,680],"k1031":[346,680],"k1032":[446,680],"k1033":[304,680],"k1034":[457,680],"k1035":[301,680],"kc01":[309,680],"kc02":[333,680],"kc03":[330,680],"kn01":[334,680],"kn02":[325,680],"kn03":[341,680],"kn04":[331,680],"kn05":[331,680]};
+  const DOOR_TYPE = {"k1002":"full","k1003":"full","k1005":"glass","k1006":"hidden","k1008":"full","k1009":"full","k1010":"full","k1011":"full","k1012":"full","k1013":"full","k1014":"full","k1015":"full","k1016":"glass","k1017":"full","k1018":"hidden","k1019":"glass","k1020":"glass","k1021":"full","k1022":"glass","k1024":"full","k1025":"full","k1026":"glass","k1027":"full","k1028":"glass","k1029":"hidden","k1030":"glass","k1031":"full","k1032":"glass","k1033":"glass","k1034":"glass","k1035":"full","kc01":"full","kc02":"full","kc03":"full","kn01":"full","kn02":"full","kn03":"full","kn04":"full","kn05":"full"};
+  const doorRatio = id => (DOOR_PNG[id][0] / DOOR_PNG[id][1]).toFixed(4);
+  const doorBg = p => `background-image:url('assets/img/products/png/${p.id}.png');background-size:100% 100%;background-position:center`;
   function initRoom() {
     const stage = $("#roomStage");
     if (!stage) return;
     const scene = $("#roomScene"), door = $("#roomDoor"), thumbs = $("#roomThumbs"), openBtn = $("#roomOpen");
-    const list = PRODUCTS.filter(p => DOOR_BOX[p.id]);
+    const all = PRODUCTS.filter(p => DOOR_PNG[p.id]);
+    let list = all.filter(p => DOOR_TYPE[p.id] === "full");
     const label = () => $("span", openBtn).textContent = t(door.classList.contains("open") ? "room.close" : "room.open");
     if (stage._built) { label(); return; }
     stage._built = true;
-    thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${doorBg(p)};aspect-ratio:${doorRatio(p.id)}"></span></button>`).join("");
+    const fill = () => { thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${doorBg(p)};aspect-ratio:${doorRatio(p.id)}"></span></button>`).join(""); };
+    fill();
     let idx = 0;
+    // oynali / to'liq / yashirin eshiklar alohida
+    $$("[data-type]", $("#roomTypes")).forEach(b => b.addEventListener("click", () => {
+      $$("[data-type]", $("#roomTypes")).forEach(x => x.classList.toggle("on", x === b));
+      list = all.filter(p => DOOR_TYPE[p.id] === b.dataset.type);
+      fill();
+      show(0);
+    }));
     function setOpen(on) { door.classList.toggle("open", on); openBtn.classList.toggle("on", on); label(); }
     function show(i) {
       idx = (i + list.length) % list.length;
@@ -411,15 +420,10 @@
     const stage = $("#v360Stage");
     if (!stage) return;
     const door = $("#v360Door"), thumbs = $("#v360Thumbs");
-    const list = PRODUCTS.filter(p => DOOR_BOX[p.id]);
-    const src = p => `assets/img/products/${p.id}-1.${p.ext || "jpg"}`;
+    const list = PRODUCTS.filter(p => DOOR_PNG[p.id]);
+    const ratio = p => doorRatio(p.id), faceBg = doorBg;
     if (!stage._built) {
       thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${faceBg(p)};aspect-ratio:${ratio(p)}"></span></button>`).join("");
-    }
-    function ratio(p) { const [x0, x1, y0, y1, W, H] = DOOR_BOX[p.id]; return ((x1 - x0) * W / ((y1 - y0) * H)).toFixed(4); }
-    function faceBg(p) {
-      const [x0, x1, y0, y1] = DOOR_BOX[p.id], w = x1 - x0, hh = y1 - y0;
-      return `background-image:url('${src(p)}');background-size:${(100 / w).toFixed(2)}% ${(100 / hh).toFixed(2)}%;background-position:${(x0 / (1 - w) * 100).toFixed(2)}% ${(y0 / (1 - hh) * 100).toFixed(2)}%`;
     }
     let idx = stage._idx || 0, rot = stage._rot || -25, vel = 0, drag = null, idle = 0;
     function show(i) {
