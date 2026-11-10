@@ -723,7 +723,7 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .room-sec { background: var(--ivory, #f6f1e9); }
 .room { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 40px; align-items: center; }
 .room-stage { position: relative; height: min(600px, 70svh); perspective: 1300px; perspective-origin: 50% 42%; overflow: hidden; border-radius: 22px; background: #2a2119; container-type: size; }
-.room-scene { --ar: .5; --ry: 0deg; --dh: min(420px, 70cqh); --dw: calc(var(--dh) * var(--ar)); --ow: calc(var(--dw) * .84); --oh: calc(var(--dh) * .93); --W: 125cqw; --WH: calc(var(--dh) * 1.32); --D: 70cqh;
+.room-scene { --ar: .5; --ry: 0deg; --base: min(420px, 70cqh); --dh: var(--base); --dw: calc(var(--base) * var(--ar)); --ow: calc(var(--dw) * .84); --oh: calc(var(--dh) * .93); --W: 125cqw; --WH: calc(var(--base) * 1.32); --D: 70cqh;
   position: absolute; left: 50%; top: 50%; width: var(--W); height: var(--WH); margin-left: calc(var(--W) / -2); margin-top: calc(var(--WH) / -2 - 4cqh);
   transform-style: preserve-3d; transform: translateZ(calc(var(--D) * -.55)) rotateY(var(--ry)); transition: transform 1.2s cubic-bezier(.4, .1, .2, 1); }
 .room-scene > * { position: absolute; display: block; }
@@ -782,3 +782,12 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 .rm-door .front { box-shadow: none; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .28)); }
 /* eshik ostidagi ostona: tabaqa va pol orasidagi tirqish qorong'i ko'rinmasin */
 .rm-sill { left: calc((var(--W) - var(--dw)) / 2); width: var(--dw); top: calc(var(--WH) - var(--dh) * .06); height: calc(var(--dh) * .06); background: linear-gradient(180deg, #b48d63, #a37d55); transform: translateZ(1px); }
+/* arkali eshik: devordagi o'yiq ham arka shaklida */
+.rm-archfill { display: none; left: calc((var(--W) - var(--ow)) / 2); top: calc(var(--WH) - var(--oh) - 1px); width: var(--ow); height: calc(var(--ow) / 2 + 1px); background: linear-gradient(180deg, #e9dfd0, #ddd0bd) 0 calc((var(--WH) - var(--oh)) * -1) / 100% var(--WH) no-repeat;
+  -webkit-mask: radial-gradient(circle at 50% 100%, transparent calc(var(--ow) / 2), #000 calc(var(--ow) / 2 + 1px)); mask: radial-gradient(circle at 50% 100%, transparent calc(var(--ow) / 2), #000 calc(var(--ow) / 2 + 1px)); }
+.room-scene.arch .rm-archfill { display: block; }
+.room-scene.arch .rm-jamb.t { display: none; }
+/* yashirin eshik: poldan shiftgacha, devor bilan bir tekisda (nalichniksiz) */
+.room-scene.hidden { --dh: var(--WH); --ow: var(--dw); --oh: var(--dh); }
+.room-scene.hidden .rm-wall.t, .room-scene.hidden .rm-jamb.t { display: none; }
+.room-scene.hidden .rm-sill { display: none; }
