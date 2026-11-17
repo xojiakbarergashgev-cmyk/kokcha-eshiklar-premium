@@ -111,7 +111,7 @@
     <img class="logo-img" src="assets/img/logo.png" alt="Ko'kcha Eshiklar Premium" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
     <span class="logo-fb"><span class="logo-mark"></span><span class="logo-txt"><b>KO'KCHA</b><span>ESHIKLAR · PREMIUM</span></span></span></a>`;
 
-  const NAV = [["home", "index.html"], ["catalog", "katalog.html"], ["portfolio", "ishlarimiz.html"], ["about", "biz-haqimizda.html"], ["ideas", "goyalar.html"], ["contact", "aloqa.html"]];
+  const NAV = [["home", "index.html"], ["catalog", "katalog.html"], ["try", "sinash.html"], ["portfolio", "ishlarimiz.html"], ["about", "biz-haqimizda.html"], ["ideas", "goyalar.html"], ["contact", "aloqa.html"]];
   const langBtns = () => LANGS.map(l => `<button data-lang="${l}" class="${l === lang ? "on" : ""}">${l.toUpperCase()}</button>`).join("");
 
   function header() {
@@ -606,6 +606,148 @@
     update();
   }
 
+  /* ---------- Uyingizda sinang: mijoz rasmini yuklaydi, eshik rasmdagi o'ringa qo'yiladi ---------- */
+  // 4 nuqtaga cho'zish uchun gomografiya (to'g'ri to'rtburchak -> ixtiyoriy to'rtburchak)
+  function homography(w, h, q) {
+    const s = [[0, 0], [w, 0], [w, h], [0, h]], A = [], b = [];
+    for (let i = 0; i < 4; i++) {
+      const [x, y] = s[i], [u, v] = q[i];
+      A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
+      A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
+    }
+    for (let c = 0; c < 8; c++) { // Gauss usuli
+      let m = c;
+      for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[m][c])) m = r;
+      [A[c], A[m]] = [A[m], A[c]]; [b[c], b[m]] = [b[m], b[c]];
+      for (let r = 0; r < 8; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; }
+    }
+    const x = b.map((v, i) => v / A[i][i]);
+    return [x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], 1];
+  }
+  const hApply = (H, x, y) => { const d = H[6] * x + H[7] * y + 1; return [(H[0] * x + H[1] * y + H[2]) / d, (H[3] * x + H[4] * y + H[5]) / d]; };
+  function initTry() {
+    const stage = $("#tryStage");
+    if (!stage || stage._init) return;
+    stage._init = true;
+    const photo = $("#tryPhoto"), door = $("#tryDoor"), hs = $$(".try-h", stage), grid = $("#tryGrid");
+    const all = PRODUCTS.filter(p => DOOR_PNG[p.id]);
+    let list = all.filter(p => DOOR_TYPE[p.id] === "full"), cur = list[0];
+    let pts = null; // rasmga nisbatan (0..1) 4 burchak: chap-tepa, o'ng-tepa, o'ng-past, chap-past
+    const DW = 300;
+    // eshikni rasm markaziga, haqiqiy proporsiyasida avtomatik qo'yadi
+    function autoPlace() {
+      const r = photo.naturalWidth / photo.naturalHeight, ar = DOOR_PNG[cur.id][0] / DOOR_PNG[cur.id][1];
+      const h = .7, w = Math.min(.8, h * ar / r), x = .5 - w / 2, y = .92 - h;
+      pts = [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
+      draw();
+    }
+    function draw() {
+      if (!pts) return;
+      const W = photo.clientWidth, Hh = photo.clientHeight, dh = DW * DOOR_PNG[cur.id][1] / DOOR_PNG[cur.id][0];
+      const q = pts.map(([x, y]) => [x * W, y * Hh]);
+      const H = homography(DW, dh, q);
+      door.style.width = DW + "px"; door.style.height = dh + "px";
+      door.style.transform = `matrix3d(${H[0]},${H[3]},0,${H[6]},${H[1]},${H[4]},0,${H[7]},0,0,1,0,${H[2]},${H[5]},0,1)`;
+      hs.forEach((el, i) => { el.style.left = q[i][0] + "px"; el.style.top = q[i][1] + "px"; });
+    }
+    function pick(p) {
+      const wasAr = cur && DOOR_PNG[cur.id][0] / DOOR_PNG[cur.id][1];
+      cur = p;
+      door.style.backgroundImage = `url('assets/img/products/png/${p.id}.png')`;
+      $("#tryName").textContent = p.name;
+      $("#tryNum").textContent = t(DOOR_TYPE[p.id] === "glass" ? "room.t.glass" : DOOR_TYPE[p.id] === "hidden" ? "room.t.hidden" : "room.t.full");
+      $("#tryLink").href = "mahsulot.html?id=" + p.id;
+      $("#tryOrder").dataset.order = p.name;
+      $$("button", grid).forEach(b => b.classList.toggle("on", b.dataset.id === p.id));
+      // eni boshqa eshikka moslab o'zgaradi, joyi saqlanadi
+      if (pts && wasAr) {
+        const k = (DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]) / wasAr, cx = (pts[0][0] + pts[1][0] + pts[2][0] + pts[3][0]) / 4;
+        pts = pts.map(([x, y]) => [cx + (x - cx) * k, y]);
+      }
+      draw();
+    }
+    const fill = () => { grid.innerHTML = list.map(p => `<button type="button" data-id="${p.id}" aria-label="${p.name}"><span style="background-image:url('assets/img/products/png/${p.id}.png');aspect-ratio:${DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]}"></span><b>${p.name}</b></button>`).join(""); };
+    fill();
+    pick(cur);
+    grid.addEventListener("click", e => { const b = e.target.closest("button"); if (b) pick(all.find(p => p.id === b.dataset.id)); });
+    $$("[data-type]", $("#tryTypes")).forEach(b => b.addEventListener("click", () => {
+      $$("[data-type]", $("#tryTypes")).forEach(x => x.classList.toggle("on", x === b));
+      list = all.filter(p => DOOR_TYPE[p.id] === b.dataset.type);
+      fill(); pick(list[0]);
+    }));
+    function load(src) {
+      photo.onload = () => {
+        $("#tryDrop").hidden = true; stage.hidden = false; $("#tryBar").hidden = false;
+        requestAnimationFrame(autoPlace);
+        stage.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+      photo.src = src;
+    }
+    // rasm faqat brauzerda o'qiladi, hech qayerga yuborilmaydi
+    const onFile = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => load(r.result); r.readAsDataURL(f); e.target.value = ""; };
+    $("#tryFile").addEventListener("change", onFile);
+    $("#tryFile2").addEventListener("change", onFile);
+    $("#tryDemo").addEventListener("click", () => load("assets/img/portfolio/1.jpg"));
+    $("#tryAuto").addEventListener("click", autoPlace);
+    $("#tryLight").addEventListener("input", e => { door.style.filter = `brightness(${e.target.value / 100})`; });
+    const cmp = $("#tryCmp"), show = on => stage.classList.toggle("cmp", on);
+    cmp.addEventListener("pointerdown", () => show(true));
+    ["pointerup", "pointerleave", "pointercancel"].forEach(ev => cmp.addEventListener(ev, () => show(false)));
+    addEventListener("resize", draw);
+    // burchaklarni yoki butun eshikni surish
+    let drag = null;
+    stage.addEventListener("pointerdown", e => {
+      const h = e.target.closest(".try-h"), onDoor = e.target === door;
+      if (!h && !onDoor) return;
+      e.preventDefault();
+      drag = { i: h ? +h.dataset.h : -1, x: e.clientX, y: e.clientY, p0: pts.map(p => p.slice()) };
+      stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener("pointermove", e => {
+      if (!drag) return;
+      const dx = (e.clientX - drag.x) / photo.clientWidth, dy = (e.clientY - drag.y) / photo.clientHeight;
+      const mv = ([x, y]) => [Math.min(1.2, Math.max(-.2, x + dx)), Math.min(1.2, Math.max(-.2, y + dy))];
+      pts = drag.i < 0 ? drag.p0.map(mv) : drag.p0.map((p, i) => i === drag.i ? mv(p) : p);
+      draw();
+    });
+    const end = () => { drag = null; };
+    stage.addEventListener("pointerup", end);
+    stage.addEventListener("pointercancel", end);
+    // natijani rasm qilib saqlash: eshik to'r bo'laklari bilan rasm ustiga chiziladi
+    $("#trySave").addEventListener("click", () => {
+      const iw = photo.naturalWidth, ih = photo.naturalHeight, c = document.createElement("canvas");
+      c.width = iw; c.height = ih;
+      const g = c.getContext("2d");
+      g.drawImage(photo, 0, 0);
+      const im = new Image();
+      im.onload = () => {
+        const sw = im.naturalWidth, sh = im.naturalHeight, H = homography(sw, sh, pts.map(([x, y]) => [x * iw, y * ih])), N = 24;
+        g.filter = `brightness(${$("#tryLight").value / 100})`;
+        for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+          const x0 = sw * i / N, x1 = sw * (i + 1) / N, y0 = sh * j / N, y1 = sh * (j + 1) / N;
+          const P = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], Q = P.map(([x, y]) => hApply(H, x, y));
+          [[0, 1, 2], [0, 2, 3]].forEach(tri => {
+            const [a, b, d] = tri.map(k => P[k]), [A, B, D] = tri.map(k => Q[k]);
+            const den = (b[0] - a[0]) * (d[1] - a[1]) - (d[0] - a[0]) * (b[1] - a[1]);
+            const m11 = ((B[0] - A[0]) * (d[1] - a[1]) - (D[0] - A[0]) * (b[1] - a[1])) / den, m12 = ((D[0] - A[0]) * (b[0] - a[0]) - (B[0] - A[0]) * (d[0] - a[0])) / den;
+            const m21 = ((B[1] - A[1]) * (d[1] - a[1]) - (D[1] - A[1]) * (b[1] - a[1])) / den, m22 = ((D[1] - A[1]) * (b[0] - a[0]) - (B[1] - A[1]) * (d[0] - a[0])) / den;
+            g.save();
+            const cx = (A[0] + B[0] + D[0]) / 3, cy = (A[1] + B[1] + D[1]) / 3, ex = p => [p[0] + (p[0] - cx) * .02, p[1] + (p[1] - cy) * .02];
+            g.beginPath(); g.moveTo(...ex(A)); g.lineTo(...ex(B)); g.lineTo(...ex(D)); g.closePath(); g.clip();
+            g.setTransform(m11, m21, m12, m22, A[0] - m11 * a[0] - m12 * a[1], A[1] - m21 * a[0] - m22 * a[1]);
+            g.drawImage(im, 0, 0);
+            g.restore();
+          });
+        }
+        const a = document.createElement("a");
+        a.download = "kokcha-eshik-" + cur.id + ".jpg";
+        a.href = c.toDataURL("image/jpeg", .9);
+        a.click();
+      };
+      im.src = `assets/img/products/png/${cur.id}.png`;
+    });
+  }
+
   /* ---------- Katalog ---------- */
   const CATS = ["all", "classic", "neoclassic", "modern", "glass", "hidden", "entrance"];
   const PAGE_SIZE = 12;
@@ -836,6 +978,7 @@
     if (page === "catalog") renderCatalog();
     if (page === "product") renderProduct();
     if (page === "portfolio") renderPortfolio();
+    if (page === "try") initTry();
     const tk = document.body.dataset.title;
     const name = document.body.dataset.titleText || (tk ? t(tk) : "");
     document.title = page === "home" ? t("seo.home") : (name ? name + " | " : "") + "Ko'kcha eshiklar.uz";
