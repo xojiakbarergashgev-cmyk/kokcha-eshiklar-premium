@@ -837,3 +837,14 @@ body.loading .portal-photo { transform: scale(1.14) !important; filter: brightne
 @media (max-width: 900px) { .room-btns { justify-content: center; } }
 .try > * { min-width: 0; }
 .try-drop[hidden], .try-stage[hidden], .try-bar[hidden] { display: none; }
+/* AI holati; nuqtalar faqat "qo'lda to'g'irlash" rejimida */
+.try-ai { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px; background: rgba(14, 21, 32, .82); color: #fff; font-size: 13px; font-weight: 600; z-index: 3; max-width: calc(100% - 24px); text-align: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.try-ai[hidden] { display: none; }
+.try-ai i { flex: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--gold-2); border-top-color: transparent; animation: spin .8s linear infinite; }
+.try-stage:not(.busy) .try-ai i { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.try-stage .try-h { display: none; }
+.try-stage.manual .try-h { display: block; }
+.try-stage:not(.manual) .try-door { cursor: pointer; }
+.try-stage.busy .try-door { opacity: 0; }
+.try-stage .try-door { transition: opacity .4s; }

@@ -625,6 +625,94 @@
     return [x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], 1];
   }
   const hApply = (H, x, y) => { const d = H[6] * x + H[7] * y + 1; return [(H[0] * x + H[1] * y + H[2]) / d, (H[3] * x + H[4] * y + H[5]) / d]; };
+  // AI: rasmdagi eshikni topadi (SegFormer, ADE20K "door" sinfi) — brauzerda ishlaydi, rasm hech qayerga yuborilmaydi
+  let segPipe = null;
+  async function findDoors(img) {
+    if (!segPipe) {
+      const { pipeline } = await import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.1");
+      segPipe = pipeline("image-segmentation", "Xenova/segformer-b0-finetuned-ade-512-512", { dtype: "q8" });
+    }
+    const seg = await segPipe;
+    const { RawImage } = await import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.1");
+    const k = Math.min(1, 512 / Math.max(img.naturalWidth, img.naturalHeight)), cv = document.createElement("canvas");
+    cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
+    cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+    const out = await seg(await RawImage.fromBlob(await new Promise(r => cv.toBlob(r, "image/jpeg", .9))));
+    const masks = out.filter(o => /door/.test(o.label));
+    if (!masks.length) return { comps: [], W: 0, H: 0, lab: null };
+    const W = masks[0].mask.width, H = masks[0].mask.height, on = new Uint8Array(W * H);
+    masks.forEach(m => { for (let i = 0; i < W * H; i++) if (m.mask.data[i] > 127) on[i] = 1; });
+    // bog'langan bo'laklar: har biri alohida eshik
+    const lab = new Int32Array(W * H).fill(-1), comps = [];
+    for (let s = 0; s < W * H; s++) {
+      if (!on[s] || lab[s] >= 0) continue;
+      const id = comps.length, st = [s];
+      let n = 0, tl = [1e9], tr = [-1e9], br = [-1e9], bl = [1e9];
+      lab[s] = id;
+      while (st.length) {
+        const i = st.pop(), x = i % W, y = (i / W) | 0;
+        n++;
+        if (x + y < tl[0]) tl = [x + y, x, y];
+        if (x - y > tr[0]) tr = [x - y, x, y];
+        if (x + y > br[0]) br = [x + y, x, y];
+        if (x - y < bl[0]) bl = [x - y, x, y];
+        for (const j of [i - 1, i + 1, i - W, i + W]) {
+          if (j < 0 || j >= W * H || (j === i - 1 && x === 0) || (j === i + 1 && x === W - 1)) continue;
+          if (on[j] && lab[j] < 0) { lab[j] = id; st.push(j); }
+        }
+      }
+      comps.push({ n, q: [tl, tr, br, bl].map(p => [p[1] / W, p[2] / H]) });
+    }
+    comps.forEach((c, id) => { if (c.n > W * H * .005) c.q = fitQuad(lab, W, H, id) || c.q; });
+    return { comps, W, H, lab };
+  }
+  // eshik qirralariga to'g'ri chiziq o'tkazib (chetga chiqqan nuqtalarsiz), burchaklarni kesishmadan olamiz
+  function fitLine(pts) { // x = a + b*t
+    let use = pts;
+    for (let pass = 0; pass < 3 && use.length > 4; pass++) {
+      const n = use.length, st = use.reduce((a, [t]) => a + t, 0) / n, sx = use.reduce((a, [, x]) => a + x, 0) / n;
+      let num = 0, den = 0;
+      use.forEach(([t, x]) => { num += (t - st) * (x - sx); den += (t - st) ** 2; });
+      const b = den ? num / den : 0, a = sx - b * st;
+      const res = use.map(([t, x]) => Math.abs(x - (a + b * t))).sort((u, v) => u - v), cut = res[Math.floor(res.length * .7)] + 1;
+      use = use.filter(([t, x]) => Math.abs(x - (a + b * t)) <= cut);
+      if (pass === 2 || use.length <= 4) return [a, b];
+    }
+    const n = use.length || 1, st = use.reduce((a, [t]) => a + t, 0) / n, sx = use.reduce((a, [, x]) => a + x, 0) / n;
+    return [sx, 0];
+  }
+  function fitQuad(lab, W, H, id) {
+    let x0 = W, x1 = 0, y0 = H, y1 = 0;
+    for (let i = 0; i < W * H; i++) if (lab[i] === id) { const x = i % W, y = (i / W) | 0; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    const w = x1 - x0, h = y1 - y0;
+    if (w < 4 || h < 8) return null;
+    const L = [], R = [], T = [], B = [];
+    for (let y = Math.round(y0 + h * .12); y <= y1 - h * .12; y++) {
+      let a = -1, b = -1;
+      for (let x = x0; x <= x1; x++) if (lab[y * W + x] === id) { if (a < 0) a = x; b = x; }
+      if (a >= 0) { L.push([y, a]); R.push([y, b]); }
+    }
+    for (let x = Math.round(x0 + w * .15); x <= x1 - w * .15; x++) {
+      let a = -1, b = -1;
+      for (let y = y0; y <= y1; y++) if (lab[y * W + x] === id) { if (a < 0) a = y; b = y; }
+      if (a >= 0) { T.push([x, a]); B.push([x, b]); }
+    }
+    if (L.length < 5 || T.length < 3) return null;
+    const [la, lb0] = fitLine(L), [ra, rb0] = fitLine(R), [ta, tb] = fitLine(T);
+    // pastki qirra poldagi aks tufayli qiyshayadi — tepaga parallel olinadi; yon qirralar haddan tashqari og'masin
+    const bb = tb, off = B.map(([x, y]) => y - bb * x).sort((u, v) => u - v), ba = off[Math.floor(off.length / 2)];
+    const lb = Math.max(-.05, Math.min(.05, lb0)), rb = Math.max(-.05, Math.min(.05, rb0));
+    // chap/o'ng: x = a + b*y; tepa/past: y = a + b*x — kesishma
+    const cross = (va, vb, ha, hb) => { const y = (ha + hb * va) / (1 - hb * vb), x = va + vb * y; return [x / W, y / H]; };
+    return [cross(la, lb, ta, tb), cross(ra, rb, ta, tb), cross(ra, rb, ba, bb), cross(la, lb, ba, bb)];
+  }
+  // topilgan eshik tabaqasidan nalichnik bilan birga to'liq o'lchamga kengaytirish
+  function grow(q) {
+    const [tl, tr, br, bl] = q, w = ((tr[0] - tl[0]) + (br[0] - bl[0])) / 2, h = ((bl[1] - tl[1]) + (br[1] - tr[1])) / 2;
+    const ex = w * .08, ey = h * .045;
+    return [[tl[0] - ex, tl[1] - ey], [tr[0] + ex, tr[1] - ey], [br[0] + ex, br[1] + ey * .2], [bl[0] - ex, bl[1] + ey * .2]];
+  }
+
   function initTry() {
     const stage = $("#tryStage");
     if (!stage || stage._init) return;
@@ -651,7 +739,6 @@
       hs.forEach((el, i) => { el.style.left = q[i][0] + "px"; el.style.top = q[i][1] + "px"; });
     }
     function pick(p) {
-      const wasAr = cur && DOOR_PNG[cur.id][0] / DOOR_PNG[cur.id][1];
       cur = p;
       door.style.backgroundImage = `url('assets/img/products/png/${p.id}.png')`;
       $("#tryName").textContent = p.name;
@@ -659,11 +746,6 @@
       $("#tryLink").href = "mahsulot.html?id=" + p.id;
       $("#tryOrder").dataset.order = p.name;
       $$("button", grid).forEach(b => b.classList.toggle("on", b.dataset.id === p.id));
-      // eni boshqa eshikka moslab o'zgaradi, joyi saqlanadi
-      if (pts && wasAr) {
-        const k = (DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]) / wasAr, cx = (pts[0][0] + pts[1][0] + pts[2][0] + pts[3][0]) / 4;
-        pts = pts.map(([x, y]) => [cx + (x - cx) * k, y]);
-      }
       draw();
     }
     const fill = () => { grid.innerHTML = list.map(p => `<button type="button" data-id="${p.id}" aria-label="${p.name}"><span style="background-image:url('assets/img/products/png/${p.id}.png');aspect-ratio:${DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]}"></span><b>${p.name}</b></button>`).join(""); };
@@ -675,11 +757,24 @@
       list = all.filter(p => DOOR_TYPE[p.id] === b.dataset.type);
       fill(); pick(list[0]);
     }));
+    let found = null;
+    const aiBox = $("#tryAi"), aiMsg = $("span", aiBox);
+    async function detect() {
+      stage.classList.add("busy"); aiBox.hidden = false; aiMsg.textContent = t("try.ai");
+      try {
+        found = await findDoors(photo);
+        const best = found.comps.filter(c => c.n > found.W * found.H * .01).sort((a, b) => b.n - a.n)[0];
+        if (best) { pts = grow(best.q); stage.classList.remove("manual"); aiBox.hidden = true; draw(); }
+        else { aiMsg.textContent = t("try.notfound"); stage.classList.add("manual"); autoPlace(); }
+      } catch (e) { aiMsg.textContent = t("try.notfound"); stage.classList.add("manual"); autoPlace(); }
+      stage.classList.remove("busy");
+    }
     function load(src) {
       photo.onload = () => {
         $("#tryDrop").hidden = true; stage.hidden = false; $("#tryBar").hidden = false;
-        requestAnimationFrame(autoPlace);
+        found = null; pts = null; door.style.transform = "scale(0)";
         stage.scrollIntoView({ behavior: "smooth", block: "center" });
+        requestAnimationFrame(detect);
       };
       photo.src = src;
     }
@@ -688,7 +783,8 @@
     $("#tryFile").addEventListener("change", onFile);
     $("#tryFile2").addEventListener("change", onFile);
     $("#tryDemo").addEventListener("click", () => load("assets/img/portfolio/1.jpg"));
-    $("#tryAuto").addEventListener("click", autoPlace);
+    $("#tryAuto").addEventListener("click", () => detect());
+    $("#tryManual").addEventListener("click", () => stage.classList.toggle("manual"));
     $("#tryLight").addEventListener("input", e => { door.style.filter = `brightness(${e.target.value / 100})`; });
     const cmp = $("#tryCmp"), show = on => stage.classList.toggle("cmp", on);
     cmp.addEventListener("pointerdown", () => show(true));
@@ -698,7 +794,13 @@
     let drag = null;
     stage.addEventListener("pointerdown", e => {
       const h = e.target.closest(".try-h"), onDoor = e.target === door;
-      if (!h && !onDoor) return;
+      // rasmda boshqa eshikka bosilsa — AI o'sha eshikka qo'yadi
+      if (!h && found && found.lab) {
+        const r = photo.getBoundingClientRect(), x = Math.floor((e.clientX - r.left) / r.width * found.W), y = Math.floor((e.clientY - r.top) / r.height * found.H);
+        const id = found.lab[y * found.W + x];
+        if (id >= 0 && found.comps[id].n > 30 && (!onDoor || !stage.classList.contains("manual"))) { pts = grow(found.comps[id].q); draw(); return; }
+      }
+      if (!h && !(onDoor && stage.classList.contains("manual"))) return;
       e.preventDefault();
       drag = { i: h ? +h.dataset.h : -1, x: e.clientX, y: e.clientY, p0: pts.map(p => p.slice()) };
       stage.setPointerCapture(e.pointerId);
