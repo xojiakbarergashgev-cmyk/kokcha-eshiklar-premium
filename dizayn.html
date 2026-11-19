@@ -3,123 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ko'kcha eshiklar.uz — shourum dizayni</title>
+<title>Ko'kcha eshiklar.uz — yangi dizayn</title>
 <meta name="description" content="Ko'kcha Eshiklar — Toshkentdagi MDF eshiklar fabrikasi.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/d3.css">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/d3.css?v=5">
 </head>
-<body>
+<body class="is-loading">
 
-<header class="d-hdr">
-  <a class="d-logo" href="dizayn.html"><b>K</b>Ko'kcha<span>Eshiklar</span></a>
-  <nav class="d-nav">
+<!-- yuklanish ekrani -->
+<div class="ld" id="ld">
+  <div class="ld-in">
+    <svg class="ld-door" viewBox="0 0 60 100" aria-hidden="true"><path d="M8 98V8h44v90" /><path d="M14 98V14h32v84" /><circle cx="40" cy="56" r="2" /></svg>
+    <span class="ld-num" id="ldNum">0</span>
+  </div>
+  <i class="ld-panel t"></i><i class="ld-panel b"></i>
+</div>
+
+<!-- kursor -->
+<div class="cur" id="cur"><span id="curTxt"></span></div>
+
+<header class="hd">
+  <a class="hd-logo" href="dizayn.html">Ko'kcha<sup>®</sup></a>
+  <nav class="hd-nav">
     <a href="#modellar" data-t="nav.models"></a>
-    <a href="#turlar" data-t="nav.types"></a>
-    <a href="#detal" data-t="nav.detail"></a>
+    <a href="#jarayon" data-t="nav.process"></a>
     <a href="sinash.html" data-t="nav.try"></a>
     <a href="aloqa.html" data-t="nav.contact"></a>
   </nav>
-  <div class="d-hdr-r">
-    <div class="d-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
-    <a class="d-btn gold sm" href="tel:+998901301010">+998 90 130 10 10</a>
+  <div class="hd-r">
+    <div class="hd-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
+    <a class="btn-pill mag" href="aloqa.html"><span data-t="cta.order"></span></a>
   </div>
 </header>
 
-<!-- 1. SHOURUM: yorug'lik ostida eshik, poldagi aksi bilan -->
-<section class="d-hero" id="modellar">
-  <div class="d-spot"></div>
-  <div class="d-hero-l">
-    <span class="d-eye" data-t="h.eye"></span>
-    <h1><span data-t="h.t1"></span><br><em data-t="h.t2"></em></h1>
-    <p data-t="h.sub"></p>
-    <div class="d-hero-btns">
-      <a class="d-btn gold" href="aloqa.html" data-t="h.cta"></a>
-      <a class="d-link" href="katalog.html" data-t="h.cat"></a>
+<!-- 1. HERO: harflar birma-bir ko'tariladi -->
+<section class="hero">
+  <div class="hero-top">
+    <span class="tiny" data-t="h.k1"></span>
+    <span class="tiny" data-t="h.k2"></span>
+    <span class="tiny">41.33° N, 69.25° E</span>
+  </div>
+  <h1 class="hero-title" aria-label="Ko'kcha">
+    <span class="row"><span class="split">KO'KCHA</span></span>
+    <span class="row r2"><em class="split" data-t="h.sub1"></em><img class="hero-door" src="assets/img/products/png/kc02.png" alt=""><span class="split" data-t="h.sub2"></span></span>
+  </h1>
+  <div class="hero-bot">
+    <p data-t="h.p"></p>
+    <span class="tiny scroll-ind" data-t="h.scroll"></span>
+  </div>
+</section>
+
+<!-- 2. RASM KENGAYADI: kichik oynadan butun ekranga -->
+<section class="grow" id="grow">
+  <div class="grow-pin">
+    <div class="grow-frame" id="growFrame"><img src="assets/img/hero-oila.jpg" alt=""></div>
+    <h2 class="grow-txt" id="growTxt"><span data-t="g.t1"></span> <em data-t="g.t2"></em></h2>
+  </div>
+</section>
+
+<!-- 3. YUGURUVCHI YOZUV -->
+<section class="mq" id="mq">
+  <div class="mq-row"><div class="mq-track" data-dir="-1"></div></div>
+  <div class="mq-row alt"><div class="mq-track" data-dir="1"></div></div>
+</section>
+
+<!-- 4. MANIFEST: so'zlar birma-bir yonadi -->
+<section class="mani">
+  <span class="tiny" data-t="m.eye"></span>
+  <p class="words" id="words" data-t="m.text"></p>
+</section>
+
+<!-- 5. GORIZONTAL GALEREYA -->
+<section class="hz" id="modellar">
+  <div class="hz-pin">
+    <div class="hz-track" id="hzTrack">
+      <div class="hz-intro">
+        <span class="tiny" data-t="z.eye"></span>
+        <h2><span data-t="z.t1"></span><br><em data-t="z.t2"></em></h2>
+        <p data-t="z.p"></p>
+      </div>
+      <div id="hzCards" class="hz-cards"></div>
+      <a class="hz-end" href="katalog.html"><span data-t="z.all"></span><b>→</b></a>
     </div>
   </div>
-  <div class="d-stage">
-    <div class="d-door-box" id="dBox">
-      <img class="d-door" id="dDoor" src="assets/img/products/png/kc02.png" alt="">
-      <img class="d-mirror" id="dMirror" src="assets/img/products/png/kc02.png" alt="" aria-hidden="true">
-    </div>
-  </div>
-  <div class="d-hero-r">
-    <span class="d-count"><b id="dNum">01</b> / <span id="dTot">39</span></span>
-    <h2 id="dName">Naqsh</h2>
-    <span class="d-type" id="dType"></span>
-    <ul class="d-spec">
-      <li><span data-t="s.mat"></span><b>MDF</b></li>
-      <li><span data-t="s.thick"></span><b>40 mm</b></li>
-      <li><span data-t="s.size"></span><b data-t="s.sizev"></b></li>
-      <li><span data-t="s.hw"></span><b data-t="s.hwv"></b></li>
-    </ul>
-    <a class="d-link" id="dLink" href="katalog.html" data-t="s.more"></a>
-  </div>
-  <div class="d-slider">
-    <button class="d-arr" id="dPrev" aria-label="prev">←</button>
-    <div class="d-thumbs" id="dThumbs"></div>
-    <button class="d-arr" id="dNext" aria-label="next">→</button>
-  </div>
+  <div class="hz-bar"><i id="hzBar"></i></div>
 </section>
 
-<!-- 2. TURLAR -->
-<section class="d-types" id="turlar">
-  <div class="d-head">
-    <span class="d-eye" data-t="t.eye"></span>
-    <h2 data-t="t.title"></h2>
-  </div>
-  <div class="d-tabs" id="dTabs">
-    <button class="on" data-type="full" data-t="t.full"></button>
-    <button data-type="glass" data-t="t.glass"></button>
-    <button data-type="hidden" data-t="t.hidden"></button>
-  </div>
-  <div class="d-grid" id="dGrid"></div>
+<!-- 6. TAXLANADIGAN KARTOCHKALAR: jarayon -->
+<section class="stack" id="jarayon">
+  <div class="stack-head"><span class="tiny" data-t="p.eye"></span><h2 data-t="p.title"></h2></div>
+  <div class="st-card" style="--cb:#e4dccf"><span class="st-n">01</span><div><h3 data-t="p.1t"></h3><p data-t="p.1"></p></div><img src="assets/img/production/1.jpg" alt=""></div>
+  <div class="st-card" style="--cb:#d8cbb6"><span class="st-n">02</span><div><h3 data-t="p.2t"></h3><p data-t="p.2"></p></div><img src="assets/img/production/2.jpg" alt=""></div>
+  <div class="st-card" style="--cb:#c9b495"><span class="st-n">03</span><div><h3 data-t="p.3t"></h3><p data-t="p.3"></p></div><img src="assets/img/factory.jpg" alt=""></div>
+  <div class="st-card dark" style="--cb:#1b1714"><span class="st-n">04</span><div><h3 data-t="p.4t"></h3><p data-t="p.4"></p></div><img src="assets/img/portfolio/16.jpg" alt=""></div>
 </section>
 
-<!-- 3. DETAL -->
-<section class="d-detail" id="detal">
-  <div class="d-zoom"><img src="assets/img/products/png/k1013.png" alt=""></div>
-  <div class="d-detail-txt">
-    <span class="d-eye" data-t="d.eye"></span>
-    <h2 data-t="d.title"></h2>
-    <div class="d-feats">
-      <div><b>01</b><h3 data-t="d.1t"></h3><p data-t="d.1"></p></div>
-      <div><b>02</b><h3 data-t="d.2t"></h3><p data-t="d.2"></p></div>
-      <div><b>03</b><h3 data-t="d.3t"></h3><p data-t="d.3"></p></div>
-      <div><b>04</b><h3 data-t="d.4t"></h3><p data-t="d.4"></p></div>
-    </div>
-  </div>
+<!-- 7. YAKUN -->
+<section class="cta">
+  <h2 class="cta-t"><span data-t="c.t1"></span><br><em data-t="c.t2"></em></h2>
+  <a class="cta-btn mag" href="aloqa.html"><span data-t="c.btn"></span></a>
 </section>
 
-<!-- 4. XONADA -->
-<section class="d-room">
-  <img src="assets/img/hero-oila.jpg" alt="">
-  <div class="d-room-in">
-    <span class="d-eye" data-t="r.eye"></span>
-    <h2 data-t="r.title"></h2>
-    <a class="d-btn gold" href="sinash.html" data-t="nav.try"></a>
+<footer class="ft">
+  <div class="ft-cols">
+    <div><span class="tiny" data-t="f.addr"></span><p data-t="f.addrv"></p></div>
+    <div><span class="tiny" data-t="f.phone"></span><p><a href="tel:+998901301010">+998 90 130 10 10</a><br><a href="tel:+998950541010">+998 95 054 10 10</a></p></div>
+    <div><span class="tiny">Social</span><p><a href="https://t.me/kokcha_eshiklari_fabrikasi" target="_blank" rel="noopener">Telegram</a><br><a href="https://www.instagram.com/kokcha.eshiklari.uz/" target="_blank" rel="noopener">Instagram</a></p></div>
+    <div><span class="tiny" data-t="f.site"></span><p><a href="index.html" data-t="f.main"></a></p></div>
   </div>
-</section>
-
-<!-- 5. YAKUN -->
-<footer class="d-end">
-  <h2><span data-t="e.t1"></span> <em data-t="e.t2"></em></h2>
-  <div class="d-end-btns">
-    <a class="d-btn gold" href="aloqa.html" data-t="h.cta"></a>
-    <a class="d-btn line" href="https://t.me/kokcha_eshiklari_fabrikasi" target="_blank" rel="noopener">Telegram</a>
-  </div>
-  <div class="d-foot">
-    <span>© Ko'kcha eshiklar.uz</span>
-    <span data-t="e.addr"></span>
-    <a href="index.html" data-t="e.home"></a>
-  </div>
+  <div class="ft-word">KO'KCHA</div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="assets/js/data.js"></script>
-<script src="assets/js/d3.js"></script>
+<script src="assets/js/d3.js?v=3"></script>
 </body>
 </html>
