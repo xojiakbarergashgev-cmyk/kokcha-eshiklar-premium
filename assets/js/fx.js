@@ -114,7 +114,7 @@
     if (!sec || !cards) return;
     const GLASS = ["k1034", "k1033", "k1032", "k1030", "k1028", "k1026", "k1022", "k1020", "k1019", "k1016", "k1005"], HIDDEN = ["k1006", "k1029", "k1018"];
     const TYPE = { uz: ["To'liq", "Oynali", "Yashirin"], ru: ["Глухая", "Со стеклом", "Скрытая"], en: ["Solid", "Glass", "Hidden"] };
-    const IDS = ["kc02", "k1035", "k1013", "kc03", "k1027", "k1016", "k1021", "k1031", "k1010", "k1006"];
+    const IDS = ["kc02", "k1035", "k1013", "kc03", "k1027", "k1016", "k1021", "k1031", "k1010", "k1006", "k1033", "k1012", "kn01", "k1020", "k1014"];
     const lang = TYPE[document.documentElement.lang] ? document.documentElement.lang : "uz";
     const nm = id => ((window.PRODUCTS || []).find(p => p.id === id) || {}).name || id;
     const ty = id => TYPE[lang][GLASS.includes(id) ? 1 : HIDDEN.includes(id) ? 2 : 0];
