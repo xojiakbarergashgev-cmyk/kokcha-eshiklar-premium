@@ -9,76 +9,66 @@
 <link rel="icon" href="assets/img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/v2.css">
 </head>
 <body>
 
-<!-- sarlavha -->
+<!-- sarlavha (Arriva uslubi) -->
 <header class="v-hdr">
-  <a class="v-logo" href="yangi.html">KO'KCHA <span>/</span> ESHIKLAR</a>
+  <a class="v-logo" href="yangi.html"><i></i>Ko'kcha <span>Eshiklar</span></a>
   <nav class="v-nav">
     <a href="katalog.html" data-t="nav.catalog"></a>
     <a href="sinash.html" data-t="nav.try"></a>
-    <a href="ishlarimiz.html" data-t="nav.work"></a>
+    <a href="biz-haqimizda.html" data-t="nav.about"></a>
     <a href="aloqa.html" data-t="nav.contact"></a>
   </nav>
   <div class="v-hdr-r">
     <div class="v-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
-    <a class="v-pill dark" href="aloqa.html" data-t="cta.order"></a>
+    <a class="v-btn" href="aloqa.html" data-t="cta.quote"></a>
   </div>
 </header>
 
-<!-- 1. HERO: o'rtada eshik, ikki yonida ulkan yozuv (qahva namunasidagidek) -->
+<!-- 1. HERO: o'rtada katta eshik, ostida eshiklar qatori -->
 <section class="v-hero">
-  <div class="v-chips" id="vChips" aria-hidden="true"></div>
-  <div class="v-hero-in">
-    <div class="v-crumb"><span data-t="h.crumb1"></span> <i>›</i> <span data-t="h.crumb2"></span></div>
-    <h1 class="v-word l">KO'KCHA</h1>
-    <div class="v-door-wrap">
-      <div class="v-shadow"></div>
-      <img class="v-door" id="vDoor" src="assets/img/products/png/kc02.png" alt="Ko'kcha eshigi">
-    </div>
-    <h1 class="v-word r" aria-hidden="true" data-t="h.word2"></h1>
-    <div class="v-hero-txt">
-      <p data-t="h.sub"></p>
-      <div class="v-hero-btns">
-        <a class="v-pill dark" href="katalog.html" data-t="h.cta"></a>
-        <button class="v-circle" id="vNext" aria-label="next">→</button>
+  <div class="v-hero-l">
+    <h1><span data-t="h.t1"></span><br><em data-t="h.t2"></em></h1>
+    <div class="v-arrows"><button id="vPrev" aria-label="prev">←</button><button id="vNext2" aria-label="next">→</button></div>
+    <p class="v-fact"><b>5</b> <span data-t="h.fact"></span></p>
+  </div>
+  <div class="v-hero-c">
+    <img class="v-door" id="vDoor" src="assets/img/products/png/k1035.png" alt="Ko'kcha eshigi">
+    <span class="v-tag" id="vName">1035</span>
+  </div>
+  <div class="v-hero-r">
+    <div class="v-since"><em data-t="h.since1"></em><em data-t="h.since2"></em></div>
+    <div class="v-note"><i></i><p data-t="h.sub"></p></div>
+    <a class="v-explore" href="katalog.html" data-t="h.cta"></a>
+  </div>
+  <div class="v-row" id="vRow"></div>
+</section>
+
+<!-- 2. ESHIK OCHILADI — ORTIDA UY (Tylko uslubi) -->
+<section class="v-portal" id="vPortal">
+  <div class="v-portal-sticky">
+    <div class="v-portal-scene" id="vScene">
+      <div class="v-wall"></div>
+      <div class="v-way">
+        <img class="v-beyond" src="assets/img/hero-oila.jpg" alt="">
+        <div class="v-leaf" id="vLeaf"><img src="assets/img/products/png/k1013.png" alt=""></div>
       </div>
+      <div class="v-casing"></div>
     </div>
-    <div class="v-hero-side">
-      <span class="v-num" id="vNum">01 / 06</span>
-      <b id="vName">Naqsh</b>
-      <span class="v-line"></span>
+    <div class="v-portal-txt">
+      <span class="v-mono" data-t="p.eye"></span>
+      <h2 data-t="p.title"></h2>
     </div>
+    <span class="v-mono v-portal-hint" data-t="p.hint"></span>
   </div>
 </section>
 
-<!-- 2. PASTGA SURING — ESHIK YIG'ILADI (qurilish namunasidagidek) -->
-<section class="v-build" id="vBuild">
-  <div class="v-build-sticky">
-    <div class="v-build-top">
-      <span class="v-mono" data-t="b.eye"></span>
-      <h2 data-t="b.title"></h2>
-      <p data-t="b.sub"></p>
-    </div>
-    <div class="v-kit" id="vKit">
-      <i class="k-stile l"></i><i class="k-stile r"></i>
-      <i class="k-rail t"></i><i class="k-rail m"></i><i class="k-rail b"></i>
-      <i class="k-panel"></i>
-      <i class="k-band"></i>
-      <img class="k-final" src="assets/img/products/png/kc02.png" alt="">
-    </div>
-    <div class="v-build-steps">
-      <span data-s="0" data-t="b.s1"></span><span data-s="1" data-t="b.s2"></span><span data-s="2" data-t="b.s3"></span><span data-s="3" data-t="b.s4"></span><span data-s="4" data-t="b.s5"></span>
-    </div>
-    <div class="v-mono v-scroll" data-t="b.scroll"></div>
-  </div>
-</section>
-
-<!-- 3. XONALAR: butun ekranli interyer, eshik xonada (interyer namunasidagidek) -->
-<section class="v-room" data-room="0">
+<!-- 3. XONALAR (FORMA uslubi: sarlavha chapda / o'ngda) -->
+<section class="v-room">
   <div class="v-room-bg" id="vLiving">
     <img class="on" src="assets/img/portfolio/1.jpg" alt="" data-v="0">
     <img src="assets/img/portfolio/6.jpg" alt="" data-v="1">
@@ -87,6 +77,7 @@
     <img src="assets/img/portfolio/11.jpg" alt="" data-v="4">
     <img src="assets/img/portfolio/13.jpg" alt="" data-v="5">
   </div>
+  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
   <div class="v-room-in">
     <span class="v-mono">01 / <span data-t="r1.k"></span></span>
     <h2 data-t="r1.t"></h2>
@@ -100,53 +91,48 @@
       <button data-v="5" style="--c:#8a6a4c" data-t="c.6"></button>
     </div>
   </div>
-  <span class="v-mono v-room-tag" data-t="r.tag"></span>
 </section>
-<section class="v-room">
+<section class="v-room right">
   <div class="v-room-bg"><img class="on" src="assets/img/hero-oila.jpg" alt="" style="object-position:50% 30%"></div>
+  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
   <div class="v-room-in">
     <span class="v-mono">02 / <span data-t="r2.k"></span></span>
     <h2 data-t="r2.t"></h2>
     <span class="v-mono sm" data-t="r2.s"></span>
   </div>
-  <span class="v-mono v-room-tag" data-t="r.tag"></span>
 </section>
 <section class="v-room">
   <div class="v-room-bg"><img class="on" src="assets/img/portfolio/17.jpg" alt=""></div>
+  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
   <div class="v-room-in">
     <span class="v-mono">03 / <span data-t="r3.k"></span></span>
     <h2 data-t="r3.t"></h2>
     <span class="v-mono sm" data-t="r3.s"></span>
   </div>
-  <span class="v-mono v-room-tag" data-t="r.tag"></span>
-</section>
-<section class="v-room">
-  <div class="v-room-bg"><img class="on" src="assets/img/portfolio/18.jpg" alt=""></div>
-  <div class="v-room-in">
-    <span class="v-mono">04 / <span data-t="r4.k"></span></span>
-    <h2 data-t="r4.t"></h2>
-    <span class="v-mono sm" data-t="r4.s"></span>
-    <a class="v-pill light" href="aloqa.html" data-t="r4.cta"></a>
-  </div>
-  <span class="v-mono v-room-tag" data-t="r.tag"></span>
 </section>
 
-<!-- 4. MODELLAR qatori -->
-<section class="v-models">
-  <div class="v-models-head">
-    <h2 data-t="m.title"></h2>
-    <a class="v-pill dark" href="katalog.html" data-t="m.all"></a>
+<!-- 4. NEGA KO'KCHA (AVARIA uslubi: ramkadagi keng rasm, nafis sarlavha) -->
+<section class="v-why">
+  <div class="v-frame"><img src="assets/img/portfolio/18.jpg" alt=""></div>
+  <div class="v-why-in">
+    <span class="v-small" data-t="w.eye"></span>
+    <h2 data-t="w.title"></h2>
+    <p class="v-why-sub" data-t="w.sub"></p>
+    <div class="v-why-grid">
+      <div><b data-t="w.1t"></b><p data-t="w.1"></p></div>
+      <div><b data-t="w.2t"></b><p data-t="w.2"></p></div>
+      <div><b data-t="w.3t"></b><p data-t="w.3"></p></div>
+    </div>
   </div>
-  <div class="v-strip" id="vStrip"></div>
 </section>
 
 <!-- 5. YAKUN -->
 <section class="v-end">
-  <span class="v-mono" data-t="e.eye"></span>
-  <h2 data-t="e.title"></h2>
+  <span class="v-small" data-t="e.eye"></span>
+  <h2><span data-t="e.t1"></span> <em data-t="e.t2"></em></h2>
   <div class="v-end-btns">
-    <a class="v-pill light" href="tel:+998901301010">+998 90 130 10 10</a>
-    <a class="v-pill ghost" href="sinash.html" data-t="nav.try"></a>
+    <a class="v-btn" href="tel:+998901301010">+998 90 130 10 10</a>
+    <a class="v-btn ghost" href="sinash.html" data-t="nav.try"></a>
   </div>
   <div class="v-foot">
     <span>© Ko'kcha eshiklar.uz</span>
