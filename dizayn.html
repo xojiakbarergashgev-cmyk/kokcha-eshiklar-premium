@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ko'kcha eshiklar.uz — shourum dizayni</title>
+<meta name="description" content="Ko'kcha Eshiklar — Toshkentdagi MDF eshiklar fabrikasi.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/d3.css">
+</head>
+<body>
+
+<header class="d-hdr">
+  <a class="d-logo" href="dizayn.html"><b>K</b>Ko'kcha<span>Eshiklar</span></a>
+  <nav class="d-nav">
+    <a href="#modellar" data-t="nav.models"></a>
+    <a href="#turlar" data-t="nav.types"></a>
+    <a href="#detal" data-t="nav.detail"></a>
+    <a href="sinash.html" data-t="nav.try"></a>
+    <a href="aloqa.html" data-t="nav.contact"></a>
+  </nav>
+  <div class="d-hdr-r">
+    <div class="d-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
+    <a class="d-btn gold sm" href="tel:+998901301010">+998 90 130 10 10</a>
+  </div>
+</header>
+
+<!-- 1. SHOURUM: yorug'lik ostida eshik, poldagi aksi bilan -->
+<section class="d-hero" id="modellar">
+  <div class="d-spot"></div>
+  <div class="d-hero-l">
+    <span class="d-eye" data-t="h.eye"></span>
+    <h1><span data-t="h.t1"></span><br><em data-t="h.t2"></em></h1>
+    <p data-t="h.sub"></p>
+    <div class="d-hero-btns">
+      <a class="d-btn gold" href="aloqa.html" data-t="h.cta"></a>
+      <a class="d-link" href="katalog.html" data-t="h.cat"></a>
+    </div>
+  </div>
+  <div class="d-stage">
+    <div class="d-door-box" id="dBox">
+      <img class="d-door" id="dDoor" src="assets/img/products/png/kc02.png" alt="">
+      <img class="d-mirror" id="dMirror" src="assets/img/products/png/kc02.png" alt="" aria-hidden="true">
+    </div>
+  </div>
+  <div class="d-hero-r">
+    <span class="d-count"><b id="dNum">01</b> / <span id="dTot">39</span></span>
+    <h2 id="dName">Naqsh</h2>
+    <span class="d-type" id="dType"></span>
+    <ul class="d-spec">
+      <li><span data-t="s.mat"></span><b>MDF</b></li>
+      <li><span data-t="s.thick"></span><b>40 mm</b></li>
+      <li><span data-t="s.size"></span><b data-t="s.sizev"></b></li>
+      <li><span data-t="s.hw"></span><b data-t="s.hwv"></b></li>
+    </ul>
+    <a class="d-link" id="dLink" href="katalog.html" data-t="s.more"></a>
+  </div>
+  <div class="d-slider">
+    <button class="d-arr" id="dPrev" aria-label="prev">←</button>
+    <div class="d-thumbs" id="dThumbs"></div>
+    <button class="d-arr" id="dNext" aria-label="next">→</button>
+  </div>
+</section>
+
+<!-- 2. TURLAR -->
+<section class="d-types" id="turlar">
+  <div class="d-head">
+    <span class="d-eye" data-t="t.eye"></span>
+    <h2 data-t="t.title"></h2>
+  </div>
+  <div class="d-tabs" id="dTabs">
+    <button class="on" data-type="full" data-t="t.full"></button>
+    <button data-type="glass" data-t="t.glass"></button>
+    <button data-type="hidden" data-t="t.hidden"></button>
+  </div>
+  <div class="d-grid" id="dGrid"></div>
+</section>
+
+<!-- 3. DETAL -->
+<section class="d-detail" id="detal">
+  <div class="d-zoom"><img src="assets/img/products/png/k1013.png" alt=""></div>
+  <div class="d-detail-txt">
+    <span class="d-eye" data-t="d.eye"></span>
+    <h2 data-t="d.title"></h2>
+    <div class="d-feats">
+      <div><b>01</b><h3 data-t="d.1t"></h3><p data-t="d.1"></p></div>
+      <div><b>02</b><h3 data-t="d.2t"></h3><p data-t="d.2"></p></div>
+      <div><b>03</b><h3 data-t="d.3t"></h3><p data-t="d.3"></p></div>
+      <div><b>04</b><h3 data-t="d.4t"></h3><p data-t="d.4"></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. XONADA -->
+<section class="d-room">
+  <img src="assets/img/hero-oila.jpg" alt="">
+  <div class="d-room-in">
+    <span class="d-eye" data-t="r.eye"></span>
+    <h2 data-t="r.title"></h2>
+    <a class="d-btn gold" href="sinash.html" data-t="nav.try"></a>
+  </div>
+</section>
+
+<!-- 5. YAKUN -->
+<footer class="d-end">
+  <h2><span data-t="e.t1"></span> <em data-t="e.t2"></em></h2>
+  <div class="d-end-btns">
+    <a class="d-btn gold" href="aloqa.html" data-t="h.cta"></a>
+    <a class="d-btn line" href="https://t.me/kokcha_eshiklari_fabrikasi" target="_blank" rel="noopener">Telegram</a>
+  </div>
+  <div class="d-foot">
+    <span>© Ko'kcha eshiklar.uz</span>
+    <span data-t="e.addr"></span>
+    <a href="index.html" data-t="e.home"></a>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/d3.js"></script>
+</body>
+</html>
