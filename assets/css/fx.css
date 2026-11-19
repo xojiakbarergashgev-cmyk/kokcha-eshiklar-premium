@@ -1,0 +1,53 @@
+/* Ko'kcha — yangi ranglar, shriftlar va mukofotli saytlar uslubidagi effektlar (eski sayt ustiga) */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --ink: #141210;
+  --ink-2: #1d1a17;
+  --ink-3: #27231f;
+  --paper: #efeae2;
+  --ivory: #e6dfd4;
+  --text: #141210;
+  --muted: #7d756b;
+  --muted-d: #a69f95;
+  --gold: #b4572f;
+  --gold-2: #e09a72;
+  --line: #d9d1c4;
+  --line-d: rgba(239, 234, 226, .12);
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+h1, h2, h3, .serif { font-weight: 400; letter-spacing: -.02em; }
+.h2 { letter-spacing: -.03em; }
+::selection { background: var(--gold); color: #fff; }
+
+/* kursor (faqat sichqonchali qurilmalarda) */
+.fx-cur { position: fixed; left: 0; top: 0; z-index: 2000; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #fff; mix-blend-mode: difference; pointer-events: none; display: grid; place-items: center; transition: width .35s, height .35s, margin .35s, background .3s; }
+.fx-cur span { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #fff; opacity: 0; white-space: nowrap; transition: opacity .3s; }
+.fx-cur.link { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+.fx-cur.view { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--gold); mix-blend-mode: normal; }
+.fx-cur.view span { opacity: 1; }
+@media (hover: none) { .fx-cur { display: none; } }
+
+/* sahifalar orasidagi parda */
+.fx-curtain { position: fixed; inset: 0; z-index: 1900; background: var(--ink); transform: translateY(100%); pointer-events: none; display: grid; place-items: center; }
+.fx-curtain b { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 7vw, 110px); color: var(--paper); letter-spacing: -.03em; }
+
+/* rasm ochilib chiqishi */
+.fx-img { clip-path: inset(12% 12% 12% 12% round 8px); transition: clip-path 1.3s cubic-bezier(.7, 0, .2, 1); }
+.fx-img > * { transform: scale(1.15); transition: transform 1.6s cubic-bezier(.2, .7, .2, 1); }
+.fx-img.fx-in { clip-path: inset(0 0 0 0 round 0); }
+.fx-img.fx-in > * { transform: none; }
+
+/* so'zma-so'z yonadigan matn */
+.fx-words .fw { opacity: .18; transition: opacity .25s; }
+
+/* pastdagi ulkan nom */
+.fx-word { font-family: var(--sans); font-weight: 500; font-size: 22.5vw; line-height: .78; letter-spacing: -.06em; color: var(--paper); white-space: nowrap; margin: 60px 0 -3vw; text-align: center; overflow: hidden; opacity: .95; }
+.fx-word span { display: inline-block; }
+/* yangi shriftda menyu bir qatorda tursin */
+.nav { gap: 24px; letter-spacing: .08em; font-weight: 500; }
+.nav a { white-space: nowrap; }
+@media (max-width: 1320px) { .nav { gap: 16px; font-size: 11px; letter-spacing: .06em; } }
