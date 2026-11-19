@@ -11,6 +11,7 @@
   let lenis = null;
   if (window.Lenis && !reduce) {
     lenis = new Lenis({ lerp: .1 });
+    window.__lenis = lenis;
     if (hasG) { lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
     else { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
   }
@@ -106,10 +107,36 @@
   });
   addEventListener("pageshow", e => { if (e.persisted && hasG) gsap.set(curtain, { yPercent: 100 }); });
 
+
+  /* bosh sahifa: yonga suriladigan eshiklar galereyasi */
+  function homeGallery() {
+    const sec = $("#hzHome"), cards = $("#hzhCards");
+    if (!sec || !cards) return;
+    const GLASS = ["k1034", "k1033", "k1032", "k1030", "k1028", "k1026", "k1022", "k1020", "k1019", "k1016", "k1005"], HIDDEN = ["k1006", "k1029", "k1018"];
+    const TYPE = { uz: ["To'liq", "Oynali", "Yashirin"], ru: ["Глухая", "Со стеклом", "Скрытая"], en: ["Solid", "Glass", "Hidden"] };
+    const IDS = ["kc02", "k1035", "k1013", "kc03", "k1027", "k1016", "k1021", "k1031", "k1010", "k1006"];
+    const lang = TYPE[document.documentElement.lang] ? document.documentElement.lang : "uz";
+    const nm = id => ((window.PRODUCTS || []).find(p => p.id === id) || {}).name || id;
+    const ty = id => TYPE[lang][GLASS.includes(id) ? 1 : HIDDEN.includes(id) ? 2 : 0];
+    cards.innerHTML = IDS.map((id, n) => `<a class="hzh-card" href="mahsulot.html?id=${id}"><span class="no">${String(n + 1).padStart(2, "0")}</span><img src="assets/img/products/png/${id}.png" alt="" loading="lazy"><b>${nm(id)}</b><span>${ty(id)}</span></a>`).join("");
+    if (!hasG || sec._st) return;
+    const track = $("#hzhTrack"), dist = () => Math.max(0, track.scrollWidth - innerWidth);
+    sec._st = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: sec, start: "top top", end: () => "+=" + dist(), pin: ".hzh-pin", scrub: 1, invalidateOnRefresh: true, onUpdate: s => { $("#hzhBar").style.transform = `scaleX(${s.progress})`; } } });
+  }
+
   // main.js sahifani chizib bo'lgach (va til almashganda) effektlarni qayta ulaymiz
-  function apply() { markImgs(); wordify(); addWord(); if (hasG) ScrollTrigger.refresh(); }
+  function apply() { markImgs(); wordify(); addWord(); homeGallery(); if (hasG) ScrollTrigger.refresh(); }
   const mo = new MutationObserver(() => { clearTimeout(mo._t); mo._t = setTimeout(apply, 120); });
   ["#site-footer", "main", "body"].forEach(s => { const el = $(s); if (el) mo.observe(el, { childList: true, subtree: s !== "body" }); });
   addEventListener("load", apply);
+  // rasmlar yuklanib sahifa balandligi o'zgarsa, scroll animatsiyalari qayta o'lchanadi
+  if (hasG && "ResizeObserver" in window) {
+    let lastH = 0, rt;
+    new ResizeObserver(() => {
+      const h = document.body.scrollHeight;
+      if (Math.abs(h - lastH) < 4) return;
+      lastH = h; clearTimeout(rt); rt = setTimeout(() => ScrollTrigger.refresh(), 250);
+    }).observe(document.body);
+  }
   setTimeout(apply, 300);
 })();
