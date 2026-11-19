@@ -4,144 +4,96 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ko'kcha eshiklar.uz — yangi dizayn</title>
-<meta name="description" content="Ko'kcha Eshiklar — Toshkentdagi MDF eshiklar fabrikasi. Eshiklar o'z ustaxonamizda yasaladi.">
+<meta name="description" content="Ko'kcha Eshiklar — Toshkentdagi MDF eshiklar fabrikasi. Har bir eshik ortida — sizning uyingiz.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/v2.css">
 </head>
 <body>
 
-<!-- sarlavha (Arriva uslubi) -->
-<header class="v-hdr">
-  <a class="v-logo" href="yangi.html"><i></i>Ko'kcha <span>Eshiklar</span></a>
-  <nav class="v-nav">
+<!-- sarlavha (FORMA uslubi) -->
+<header class="f-hdr">
+  <a class="f-logo" href="yangi.html">KO'KCHA</a>
+  <nav class="f-nav">
     <a href="katalog.html" data-t="nav.catalog"></a>
     <a href="sinash.html" data-t="nav.try"></a>
     <a href="biz-haqimizda.html" data-t="nav.about"></a>
     <a href="aloqa.html" data-t="nav.contact"></a>
   </nav>
-  <div class="v-hdr-r">
-    <div class="v-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
-    <a class="v-btn" href="aloqa.html" data-t="cta.quote"></a>
+  <div class="f-hdr-r">
+    <span class="f-tag" data-t="hdr.tag"></span>
+    <div class="f-lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div>
   </div>
 </header>
 
-<!-- 1. HERO: o'rtada katta eshik, ostida eshiklar qatori -->
-<section class="v-hero">
-  <div class="v-hero-l">
-    <h1><span data-t="h.t1"></span><br><em data-t="h.t2"></em></h1>
-    <div class="v-arrows"><button id="vPrev" aria-label="prev">←</button><button id="vNext2" aria-label="next">→</button></div>
-    <p class="v-fact"><b>5</b> <span data-t="h.fact"></span></p>
-  </div>
-  <div class="v-hero-c">
-    <img class="v-door" id="vDoor" src="assets/img/products/png/k1035.png" alt="Ko'kcha eshigi">
-    <span class="v-tag" id="vName">1035</span>
-  </div>
-  <div class="v-hero-r">
-    <div class="v-since"><em data-t="h.since1"></em><em data-t="h.since2"></em></div>
-    <div class="v-note"><i></i><p data-t="h.sub"></p></div>
-    <a class="v-explore" href="katalog.html" data-t="h.cta"></a>
-  </div>
-  <div class="v-row" id="vRow"></div>
-</section>
+<!-- BITTA UZLUKSIZ YO'L: eshik ochiladi → xona → keyingi qavat eshigi (Tylko + FORMA videolari) -->
+<section class="f-walk" id="fWalk">
+  <div class="f-stage">
 
-<!-- 2. ESHIK OCHILADI — ORTIDA UY (Tylko uslubi) -->
-<section class="v-portal" id="vPortal">
-  <div class="v-portal-sticky">
-    <div class="v-portal-scene" id="vScene">
-      <div class="v-wall"></div>
-      <div class="v-way">
-        <img class="v-beyond" src="assets/img/hero-oila.jpg" alt="">
-        <div class="v-leaf" id="vLeaf"><img src="assets/img/products/png/k1013.png" alt=""></div>
+    <div class="f-floor" data-k="0" style="--wall:#5a3424;--wall2:#6d4230;--floor:#d9d4cc">
+      <div class="f-scene">
+        <div class="f-wall"></div>
+        <div class="f-way"><img class="f-in crop" src="assets/img/hero-oila.jpg" alt=""><div class="f-leaf"><img src="assets/img/products/png/k1013.png" alt=""></div></div>
+        <div class="f-cas"></div>
+        <div class="f-ground"></div>
       </div>
-      <div class="v-casing"></div>
+      <div class="f-room"><img src="assets/img/hero-oila.jpg" alt="" style="object-position:50% 32%"></div>
+      <div class="f-title"><span class="f-mono">01 / <span data-t="r1.k"></span></span><h2 data-t="r1.t"></h2><span class="f-mono sm" data-t="r1.s"></span></div>
+      <div class="f-model"><span class="f-mono" data-t="m.door"></span> <b>1013</b></div>
     </div>
-    <div class="v-portal-txt">
-      <span class="v-mono" data-t="p.eye"></span>
-      <h2 data-t="p.title"></h2>
+
+    <div class="f-floor" data-k="1" style="--wall:#e7e3dc;--wall2:#f1eee9;--floor:#c9c2b8">
+      <div class="f-scene">
+        <div class="f-wall"></div>
+        <div class="f-way"><img class="f-in" src="assets/img/portfolio/17.jpg" alt=""><div class="f-leaf"><img src="assets/img/products/png/k1035.png" alt=""></div></div>
+        <div class="f-cas"></div>
+        <div class="f-ground"></div>
+      </div>
+      <div class="f-room"><img src="assets/img/portfolio/17.jpg" alt=""></div>
+      <div class="f-title"><span class="f-mono">02 / <span data-t="r2.k"></span></span><h2 data-t="r2.t"></h2><span class="f-mono sm" data-t="r2.s"></span></div>
+      <div class="f-model dark"><span class="f-mono" data-t="m.door"></span> <b>1035</b></div>
     </div>
-    <span class="v-mono v-portal-hint" data-t="p.hint"></span>
+
+    <div class="f-floor" data-k="2" style="--wall:#2f3a48;--wall2:#3a4757;--floor:#cfc8be">
+      <div class="f-scene">
+        <div class="f-wall"></div>
+        <div class="f-way"><img class="f-in" src="assets/img/portfolio/18.jpg" alt=""><div class="f-leaf"><img src="assets/img/products/png/k1010.png" alt=""></div></div>
+        <div class="f-cas"></div>
+        <div class="f-ground"></div>
+      </div>
+      <div class="f-room"><img src="assets/img/portfolio/18.jpg" alt=""></div>
+      <div class="f-title"><span class="f-mono">03 / <span data-t="r3.k"></span></span><h2 data-t="r3.t"></h2><span class="f-mono sm" data-t="r3.s"></span></div>
+      <div class="f-model"><span class="f-mono" data-t="m.door"></span> <b>1010</b></div>
+    </div>
+
+    <!-- kirish yozuvi -->
+    <div class="f-intro" id="fIntro">
+      <span class="f-mono" data-t="i.eye"></span>
+      <h1>KO'KCHA</h1>
+      <p class="f-mono" data-t="i.sub"></p>
+    </div>
+    <div class="f-prog" id="fProg"><i></i></div>
   </div>
 </section>
 
-<!-- 3. XONALAR (FORMA uslubi: sarlavha chapda / o'ngda) -->
-<section class="v-room">
-  <div class="v-room-bg" id="vLiving">
-    <img class="on" src="assets/img/portfolio/1.jpg" alt="" data-v="0">
-    <img src="assets/img/portfolio/6.jpg" alt="" data-v="1">
-    <img src="assets/img/portfolio/7.jpg" alt="" data-v="2">
-    <img src="assets/img/portfolio/3.jpg" alt="" data-v="3">
-    <img src="assets/img/portfolio/11.jpg" alt="" data-v="4">
-    <img src="assets/img/portfolio/13.jpg" alt="" data-v="5">
+<!-- YAKUN -->
+<section class="f-end">
+  <span class="f-mono" data-t="e.eye"></span>
+  <h2 data-t="e.title"></h2>
+  <div class="f-end-btns">
+    <a class="f-btn" href="katalog.html" data-t="e.cat"></a>
+    <a class="f-btn ghost" href="tel:+998901301010">+998 90 130 10 10</a>
   </div>
-  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
-  <div class="v-room-in">
-    <span class="v-mono">01 / <span data-t="r1.k"></span></span>
-    <h2 data-t="r1.t"></h2>
-    <span class="v-mono sm" data-t="r1.s"></span>
-    <div class="v-swatch" id="vSwatch">
-      <button class="on" data-v="0" style="--c:#f1efe9" data-t="c.1"></button>
-      <button data-v="1" style="--c:#2f3e5c" data-t="c.2"></button>
-      <button data-v="2" style="--c:#5c2b2e" data-t="c.3"></button>
-      <button data-v="3" style="--c:#b3a56b" data-t="c.4"></button>
-      <button data-v="4" style="--c:#3b3c37" data-t="c.5"></button>
-      <button data-v="5" style="--c:#8a6a4c" data-t="c.6"></button>
-    </div>
-  </div>
-</section>
-<section class="v-room right">
-  <div class="v-room-bg"><img class="on" src="assets/img/hero-oila.jpg" alt="" style="object-position:50% 30%"></div>
-  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
-  <div class="v-room-in">
-    <span class="v-mono">02 / <span data-t="r2.k"></span></span>
-    <h2 data-t="r2.t"></h2>
-    <span class="v-mono sm" data-t="r2.s"></span>
-  </div>
-</section>
-<section class="v-room">
-  <div class="v-room-bg"><img class="on" src="assets/img/portfolio/17.jpg" alt=""></div>
-  <div class="v-room-top"><span>KO'KCHA</span><span class="v-mono" data-t="r.tag"></span></div>
-  <div class="v-room-in">
-    <span class="v-mono">03 / <span data-t="r3.k"></span></span>
-    <h2 data-t="r3.t"></h2>
-    <span class="v-mono sm" data-t="r3.s"></span>
-  </div>
-</section>
-
-<!-- 4. NEGA KO'KCHA (AVARIA uslubi: ramkadagi keng rasm, nafis sarlavha) -->
-<section class="v-why">
-  <div class="v-frame"><img src="assets/img/portfolio/18.jpg" alt=""></div>
-  <div class="v-why-in">
-    <span class="v-small" data-t="w.eye"></span>
-    <h2 data-t="w.title"></h2>
-    <p class="v-why-sub" data-t="w.sub"></p>
-    <div class="v-why-grid">
-      <div><b data-t="w.1t"></b><p data-t="w.1"></p></div>
-      <div><b data-t="w.2t"></b><p data-t="w.2"></p></div>
-      <div><b data-t="w.3t"></b><p data-t="w.3"></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 5. YAKUN -->
-<section class="v-end">
-  <span class="v-small" data-t="e.eye"></span>
-  <h2><span data-t="e.t1"></span> <em data-t="e.t2"></em></h2>
-  <div class="v-end-btns">
-    <a class="v-btn" href="tel:+998901301010">+998 90 130 10 10</a>
-    <a class="v-btn ghost" href="sinash.html" data-t="nav.try"></a>
-  </div>
-  <div class="v-foot">
+  <div class="f-foot">
     <span>© Ko'kcha eshiklar.uz</span>
     <span data-t="e.addr"></span>
     <a href="index.html" data-t="e.old"></a>
   </div>
 </section>
 
-<script src="assets/js/data.js"></script>
 <script src="assets/js/v2.js"></script>
 </body>
 </html>
