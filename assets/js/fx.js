@@ -121,7 +121,8 @@
     cards.innerHTML = IDS.map((id, n) => `<a class="hzh-card" href="mahsulot.html?id=${id}"><span class="no">${String(n + 1).padStart(2, "0")}</span><img src="assets/img/products/png/${id}.png" alt="" loading="lazy"><b>${nm(id)}</b><span>${ty(id)}</span></a>`).join("");
     if (!hasG || sec._st) return;
     const track = $("#hzhTrack"), dist = () => Math.max(0, track.scrollWidth - innerWidth);
-    sec._st = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: sec, start: "top top", end: () => "+=" + dist(), pin: ".hzh-pin", scrub: 1, invalidateOnRefresh: true, onUpdate: s => { $("#hzhBar").style.transform = `scaleX(${s.progress})`; } } });
+    // sahifani to'xtatmaydi: bo'lim ekrandan o'tayotganda eshiklar yonga siljiydi
+    sec._st = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: sec, start: "top 85%", end: "bottom 15%", scrub: .6, invalidateOnRefresh: true, onUpdate: s => { $("#hzhBar").style.transform = `scaleX(${s.progress})`; } } });
   }
 
   // main.js sahifani chizib bo'lgach (va til almashganda) effektlarni qayta ulaymiz

@@ -60,7 +60,7 @@ h1, h2, h3, .serif { font-weight: 400; letter-spacing: -.02em; }
 
 /* bosh sahifa: yonga suriladigan eshiklar galereyasi */
 .hzh { position: relative; background: var(--ivory); }
-.hzh-pin { height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+.hzh-pin { padding: clamp(70px, 11vh, 120px) 0 clamp(80px, 12vh, 130px); overflow: hidden; display: flex; align-items: center; }
 .hzh-track { display: flex; align-items: center; gap: 26px; padding: 0 max(16px, calc((100vw - 1280px) / 2)); will-change: transform; }
 .hzh-intro { flex: none; width: min(440px, 80vw); padding-right: 30px; }
 .hzh-intro h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 5.4vw, 92px); line-height: .92; letter-spacing: -.03em; margin: 14px 0 18px; }
