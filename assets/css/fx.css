@@ -1,5 +1,4 @@
 /* Ko'kcha — yangi ranglar, shriftlar va mukofotli saytlar uslubidagi effektlar (eski sayt ustiga) */
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
   --ink: #3a2a1e;
@@ -117,3 +116,4 @@ h1, h2, h3, .serif { font-weight: 400; letter-spacing: -.02em; }
 .v360-hint { color: var(--muted); }
 .v360-thumbs button { background: #fff; box-shadow: 0 4px 14px rgba(58, 42, 30, .06); }
 .cta-band { background: linear-gradient(135deg, var(--ivory), #fff); color: var(--ink); }
+.v360-thumbs button img, .room-thumbs button img { display: block; height: 100%; width: auto; max-width: none; border-radius: 3px; }

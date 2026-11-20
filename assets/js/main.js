@@ -56,10 +56,11 @@
     document.body.classList.remove("loading");
     setTimeout(() => loader.remove(), 1100);
   }
-  const wait = seen ? 150 : 900;
-  if (document.readyState === "complete") setTimeout(hideLoader, wait);
-  else addEventListener("load", () => setTimeout(hideLoader, wait));
-  setTimeout(hideLoader, 3500);
+  // sahifa tuzilishi tayyor bo'lishi bilan ochiladi (rasmlarni kutmaydi)
+  const wait = seen ? 0 : 450;
+  if (document.readyState !== "loading") setTimeout(hideLoader, wait);
+  else addEventListener("DOMContentLoaded", () => setTimeout(hideLoader, wait));
+  setTimeout(hideLoader, 1800);
 
   /* ---------- Sarlavhalarni so'zlarga bo'lish ---------- */
   function splitText() {
@@ -222,8 +223,18 @@
   /* ---------- Rasmlar ----------
      data-img="a.jpg|b.jpg" — assets/img/ ichidan ketma-ket qidiriladi.
      Rasm topilmasa, chizilgan eshik va rasm nomi ko'rsatiladi. */
+  let imgIO = null;
   function loadImages(root = document) {
+    if (!imgIO && "IntersectionObserver" in window) {
+      imgIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { imgIO.unobserve(en.target); loadImg(en.target); } }), { rootMargin: "600px 0px" });
+    }
     $$("[data-img]", root).forEach(el => {
+      if (el._src === el.dataset.img) return;
+      if (imgIO) imgIO.observe(el); else loadImg(el);
+    });
+  }
+  function loadImg(el) {
+    {
       const key = el.dataset.img;
       if (el._src === key) return;
       el._src = key;
@@ -248,7 +259,7 @@
         im.src = src;
       };
       next();
-    });
+    }
   }
 
   /* ---------- Animatsiya ---------- */
@@ -370,6 +381,7 @@
   const ARCH = ["kc03"];
   const doorRatio = id => (DOOR_PNG[id][0] / DOOR_PNG[id][1]).toFixed(4);
   const doorBg = p => `background-image:url('assets/img/products/png/${p.id}.png');background-size:100% 100%;background-position:center`;
+  const doorSm = p => `background-image:url('assets/img/products/png-sm/${p.id}.png');background-size:100% 100%;background-position:center`;
   function initRoom() {
     const stage = $("#roomStage");
     if (!stage) return;
@@ -379,7 +391,7 @@
     const label = () => $("span", openBtn).textContent = t(door.classList.contains("open") ? "room.close" : "room.open");
     if (stage._built) { label(); return; }
     stage._built = true;
-    const fill = () => { thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${doorBg(p)};aspect-ratio:${doorRatio(p.id)}"></span></button>`).join(""); };
+    const fill = () => { thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><img src="assets/img/products/png-sm/${p.id}.png" alt="" loading="lazy" decoding="async" style="aspect-ratio:${doorRatio(p.id)}"></button>`).join(""); };
     fill();
     let idx = 0;
     // oynali / to'liq / yashirin eshiklar alohida
@@ -427,7 +439,7 @@
     const list = PRODUCTS.filter(p => DOOR_PNG[p.id]);
     const ratio = p => doorRatio(p.id), faceBg = doorBg;
     if (!stage._built) {
-      thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><span style="${faceBg(p)};aspect-ratio:${ratio(p)}"></span></button>`).join("");
+      thumbs.innerHTML = list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.name}"><img src="assets/img/products/png-sm/${p.id}.png" alt="" loading="lazy" decoding="async" style="aspect-ratio:${ratio(p)}"></button>`).join("");
     }
     let idx = stage._idx || 0, rot = stage._rot || -25, vel = 0, drag = null, idle = 0;
     function show(i) {
@@ -748,7 +760,7 @@
       $$("button", grid).forEach(b => b.classList.toggle("on", b.dataset.id === p.id));
       draw();
     }
-    const fill = () => { grid.innerHTML = list.map(p => `<button type="button" data-id="${p.id}" aria-label="${p.name}"><span style="background-image:url('assets/img/products/png/${p.id}.png');aspect-ratio:${DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]}"></span><b>${p.name}</b></button>`).join(""); };
+    const fill = () => { grid.innerHTML = list.map(p => `<button type="button" data-id="${p.id}" aria-label="${p.name}"><span style="background-image:url('assets/img/products/png-sm/${p.id}.png');aspect-ratio:${DOOR_PNG[p.id][0] / DOOR_PNG[p.id][1]}"></span><b>${p.name}</b></button>`).join(""); };
     fill();
     pick(cur);
     grid.addEventListener("click", e => { const b = e.target.closest("button"); if (b) pick(all.find(p => p.id === b.dataset.id)); });
